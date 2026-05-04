@@ -1,0 +1,42 @@
+from functools import lru_cache
+from typing import Any
+
+from supabase import Client, create_client
+
+from app.config import settings
+
+
+class SupabaseRepository:
+    def __init__(self) -> None:
+        if not settings.supabase_url or not settings.supabase_service_role_key:
+            raise RuntimeError(
+                "Supabase backend configuration is missing. Set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in backend/.env."
+            )
+        self.client: Client = create_client(settings.supabase_url, settings.supabase_service_role_key)
+
+    def select_all(self, table_name: str):
+        return self.client.table(table_name).select("*").execute().data or []
+
+    def select_one(self, table_name: str, column: str, value: Any):
+        rows = self.client.table(table_name).select("*").eq(column, value).limit(1).execute().data or []
+        return rows[0] if rows else None
+
+    def insert(self, table_name: str, payload: dict[str, Any]):
+        result = self.client.table(table_name).insert(payload).execute().data or []
+        return result[0] if isinstance(result, list) and len(result) == 1 else result
+
+    def upsert(self, table_name: str, payload: dict[str, Any], on_conflict: str = "id"):
+        result = self.client.table(table_name).upsert(payload, on_conflict=on_conflict).execute().data or []
+        return result[0] if isinstance(result, list) and len(result) == 1 else result
+
+    def update(self, table_name: str, payload: dict[str, Any], filters: dict[str, Any]):
+        query = self.client.table(table_name).update(payload)
+        for column, value in filters.items():
+            query = query.eq(column, value)
+        result = query.execute().data or []
+        return result[0] if isinstance(result, list) and len(result) == 1 else result
+
+
+@lru_cache(maxsize=1)
+def get_supabase_repository() -> SupabaseRepository:
+    return SupabaseRepository()
