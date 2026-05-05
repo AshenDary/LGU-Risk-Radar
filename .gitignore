@@ -74,3 +74,17 @@ htmlcov/
 # Supabase (local development)
 supabase/.branches/
 supabase/.temp/
+# Supabase CLI local state and credentials
+supabase/.cache/
+supabase/.config/
+supabase/.credentials
+
+# Database credentials and local DB files
+*.pgpass
+.pgpass
+pgpass.conf
+.pg_service.conf
+*.psqlrc
+*.pgservice
+*.db
+*.sqlite
