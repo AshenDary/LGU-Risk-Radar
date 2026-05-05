@@ -28,3 +28,17 @@ export async function fetchAudits(){
   const res = await fetch(`${API_BASE}/audit/list`)
   return res.json()
 }
+
+export async function generateExplanation(lguName, riskScore, riskLevel, factors = {}){
+  const res = await fetch(`${API_BASE}/explain/reason`, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      lgu_name: lguName,
+      risk_score: riskScore,
+      risk_level: riskLevel,
+      factors: factors
+    })
+  })
+  return res.json()
+}
