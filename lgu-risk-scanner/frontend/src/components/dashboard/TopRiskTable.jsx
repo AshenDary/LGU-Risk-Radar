@@ -23,7 +23,6 @@ function TopRiskTable() {
             <tr className="border-b border-cyan-200/10 text-xs uppercase text-cyan-50/45">
               <th className="px-4 py-3 font-medium">Rank</th>
               <th className="px-4 py-3 font-medium">LGU</th>
-              <th className="px-4 py-3 font-medium">Province</th>
               <th className="px-4 py-3 font-medium">Risk Score</th>
               <th className="px-4 py-3 font-medium">Risk Level</th>
             </tr>
@@ -33,7 +32,6 @@ function TopRiskTable() {
               <tr key={item.rank} className="text-sm text-cyan-50/75">
                 <td className="px-4 py-4 font-medium text-cyan-50/50">{item.rank}</td>
                 <td className="px-4 py-4 font-medium text-white">{item.name}</td>
-                <td className="px-4 py-4">{item.province}</td>
                 <td className="px-4 py-4">{item.riskScore}</td>
                 <td className="px-4 py-4">
                   <Badge className={riskLevelClasses[item.riskLevel]}>{item.riskLevel}</Badge>

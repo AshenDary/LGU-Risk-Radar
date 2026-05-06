@@ -1,30 +1,32 @@
-import { summaryData } from '../../data/mockData'
+import { calculateSummaryStats } from '../../data/mockData'
 import Card from '../ui/Card'
 
-const summaryItems = [
-  {
-    label: 'Total LGUs',
-    value: summaryData.totalLGUs.toLocaleString(),
-    accent: 'bg-cyan-300',
-  },
-  {
-    label: 'High Risk',
-    value: summaryData.highRisk.toLocaleString(),
-    accent: 'bg-orange-400',
-  },
-  {
-    label: 'Average Risk Score',
-    value: summaryData.avgRisk,
-    accent: 'bg-emerald-400',
-  },
-  {
-    label: 'Critical LGUs',
-    value: summaryData.critical.toLocaleString(),
-    accent: 'bg-red-400',
-  },
-]
-
 function LGUSummaryCards() {
+  const summaryData = calculateSummaryStats()
+  
+  const summaryItems = [
+    {
+      label: 'Total LGUs',
+      value: summaryData.totalLGUs.toLocaleString(),
+      accent: 'bg-cyan-300',
+    },
+    {
+      label: 'High Risk',
+      value: summaryData.highRisk.toLocaleString(),
+      accent: 'bg-orange-400',
+    },
+    {
+      label: 'Average Risk Score',
+      value: summaryData.avgRisk,
+      accent: 'bg-emerald-400',
+    },
+    {
+      label: 'Critical LGUs',
+      value: summaryData.critical.toLocaleString(),
+      accent: 'bg-red-400',
+    },
+  ]
+
   return (
     <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {summaryItems.map((item) => (
