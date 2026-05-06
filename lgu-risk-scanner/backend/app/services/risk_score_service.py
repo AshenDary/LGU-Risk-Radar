@@ -19,8 +19,8 @@ def get_risk_score(score_id: str):
 
 
 def upsert_risk_score(score: RiskScore):
-    return get_supabase_repository().upsert("risk_scores", score.model_dump())
+    return get_supabase_repository().upsert("risk_scores", score.model_dump(exclude_none=True))
 
 
 def update_risk_score(score_id: str, score: RiskScore):
-    return get_supabase_repository().update("risk_scores", score.model_dump(), {"id": score_id})
+    return get_supabase_repository().update("risk_scores", score.model_dump(exclude_none=True), {"id": score_id})

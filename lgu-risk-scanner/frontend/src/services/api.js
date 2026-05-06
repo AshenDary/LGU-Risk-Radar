@@ -14,6 +14,11 @@ export async function computeScore(lgu){
   return res.json()
 }
 
+export async function fetchRiskByLGU(lguId){
+  const res = await fetch(`${API_BASE}/scoring/by-lgu/${lguId}`)
+  return res.json()
+}
+
 export async function fetchProcurements(){
   const res = await fetch(`${API_BASE}/procurements/list`)
   return res.json()
