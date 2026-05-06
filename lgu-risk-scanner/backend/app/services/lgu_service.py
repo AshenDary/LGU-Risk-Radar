@@ -11,8 +11,8 @@ def get_lgu(lgu_id: str):
 
 
 def upsert_lgu(lgu: LGU):
-    return get_supabase_repository().upsert("lgus", lgu.model_dump())
+    return get_supabase_repository().upsert("lgus", lgu.model_dump(exclude_none=True))
 
 
 def update_lgu(lgu_id: str, lgu: LGU):
-    return get_supabase_repository().update("lgus", lgu.model_dump(), {"id": lgu_id})
+    return get_supabase_repository().update("lgus", lgu.model_dump(exclude_none=True), {"id": lgu_id})
