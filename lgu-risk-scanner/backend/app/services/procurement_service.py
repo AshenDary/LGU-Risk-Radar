@@ -19,8 +19,8 @@ def get_procurement(procurement_id: str):
 
 
 def upsert_procurement(procurement: Procurement):
-    return get_supabase_repository().upsert("procurements", procurement.model_dump())
+    return get_supabase_repository().upsert("procurements", procurement.model_dump(exclude_none=True))
 
 
 def update_procurement(procurement_id: str, procurement: Procurement):
-    return get_supabase_repository().update("procurements", procurement.model_dump(), {"id": procurement_id})
+    return get_supabase_repository().update("procurements", procurement.model_dump(exclude_none=True), {"id": procurement_id})

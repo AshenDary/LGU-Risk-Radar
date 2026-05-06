@@ -46,7 +46,8 @@ def replace_risk_score(score_id: str, score: RiskScore):
 @router.post("/compute")
 def compute(lgu: LGU):
     """Compute and store risk score for an LGU."""
-    score_data = compute_score(lgu.model_dump(), procurements=[])
+    procurements = list_procurements_by_lgu(lgu.id)
+    score_data = compute_score(lgu.model_dump(), procurements=procurements)
     risk_score = RiskScore(
         id=f"risk-{lgu.id}",
         lgu_id=lgu.id,
@@ -67,7 +68,8 @@ def compute(lgu: LGU):
                 "lgu_id": lgu.id,
                 "score": score_data['score'],
                 "risk_level": risk_score.risk_level,
-                "factors": score_data['factors']
+                "factors": score_data['factors'],
+                "procurement_count": len(procurements),
             },
         )
     )
@@ -97,22 +99,16 @@ def get_risk_by_lgu(lgu_id: str):
     # Compute risk score with procurements
     score_data = compute_score(lgu if isinstance(lgu, dict) else lgu.model_dump(), procurements=procurements)
     
-    # Get or create risk score
     risk_score_id = f"risk-{lgu_id}"
-    existing_risk_score = get_risk_score(risk_score_id)
-    
-    if existing_risk_score:
-        risk_score = existing_risk_score
-    else:
-        risk_score = RiskScore(
-            id=risk_score_id,
-            lgu_id=lgu_id,
-            score=score_data['score'],
-            risk_level=risk_level_from_score(score_data['score']),
-            explanation=f"Risk assessment for {lgu.get('name', lgu_id) if isinstance(lgu, dict) else lgu.name}",
-            factors=score_data['factors'],
-        )
-        upsert_risk_score(risk_score)
+    risk_score = RiskScore(
+        id=risk_score_id,
+        lgu_id=lgu_id,
+        score=score_data['score'],
+        risk_level=risk_level_from_score(score_data['score']),
+        explanation=f"Risk assessment for {lgu.get('name', lgu_id) if isinstance(lgu, dict) else lgu.name}",
+        factors=score_data['factors'],
+    )
+    upsert_risk_score(risk_score)
     
     # Build response
     return {
@@ -120,7 +116,7 @@ def get_risk_by_lgu(lgu_id: str):
         "procurements": procurements,
         "procurement_count": len(procurements),
         "risk_score": {
-            "id": risk_score.get('id') if isinstance(risk_score, dict) else risk_score.id,
+            "id": risk_score.id,
             "score": score_data['score'],
             "risk_level": risk_level_from_score(score_data['score']),
             "factors": score_data['factors'],
