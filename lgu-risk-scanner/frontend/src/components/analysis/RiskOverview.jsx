@@ -36,51 +36,38 @@ function RiskOverview({ rows, procurements }) {
   }, [rows, selectedLgu])
 
   const getRiskColor = (score) => {
-    if (score >= 75) return '#dc2626'
-    if (score >= 40) return '#eab308'
-    return '#16a34a'
+    if (score >= 75) return '#DC2626'
+    if (score >= 40) return '#EAB308'
+    return '#16A34A'
   }
+
+  const statCards = [
+    ['Average Risk Score', avgScore, 'Across live LGU records', '#2563EB'],
+    ['Highest Risk LGU', riskExtremes.highest.name, riskExtremes.highest.score.toFixed(2), getRiskColor(riskExtremes.highest.score)],
+    ['Lowest Risk LGU', riskExtremes.lowest.name, riskExtremes.lowest.score.toFixed(2), getRiskColor(riskExtremes.lowest.score)],
+    ['Total Procurement Value', `PHP ${(totalProcurement / 1000000).toFixed(1)}M`, selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU', '#2563EB'],
+  ]
 
   return (
     <div className="grid gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Average Risk Score</div>
-          <div className="text-3xl font-bold text-white">{avgScore}</div>
-          <div className="text-xs text-gray-500 mt-2">Across live LGU records</div>
-        </div>
-
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Highest Risk LGU</div>
-          <div className="text-lg font-bold text-white">{riskExtremes.highest.name}</div>
-          <div className="text-2xl font-bold mt-2" style={{ color: getRiskColor(riskExtremes.highest.score) }}>
-            {riskExtremes.highest.score.toFixed(2)}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {statCards.map(([label, value, helper, color]) => (
+          <div key={label} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/80">
+            <div className="mb-2 text-sm text-[#1E293B]/65">{label}</div>
+            <div className="text-2xl font-bold text-[#0F172A]">{value}</div>
+            <div className="mt-2 text-sm font-semibold" style={{ color }}>{helper}</div>
           </div>
-        </div>
-
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Lowest Risk LGU</div>
-          <div className="text-lg font-bold text-white">{riskExtremes.lowest.name}</div>
-          <div className="text-2xl font-bold mt-2" style={{ color: getRiskColor(riskExtremes.lowest.score) }}>
-            {riskExtremes.lowest.score.toFixed(2)}
-          </div>
-        </div>
-
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Total Procurement Value</div>
-          <div className="text-2xl font-bold text-white">PHP {(totalProcurement / 1000000).toFixed(1)}M</div>
-          <div className="text-xs text-gray-500 mt-2">{selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU'}</div>
-        </div>
+        ))}
       </div>
 
-      <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/80">
         <div className="mb-6">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <h3 className="text-lg font-semibold text-white">Procurement Exposure</h3>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h3 className="text-lg font-semibold text-[#0F172A]">Procurement Exposure</h3>
             <select
               value={selectedLgu}
               onChange={(event) => setSelectedLgu(event.target.value)}
-              className="bg-[#0a2240] text-white px-4 py-2 rounded border border-[#1a3a52] text-sm"
+              className="rounded border border-slate-200 bg-white px-4 py-2 text-sm text-[#1E293B] outline-none focus:border-[#2563EB]"
             >
               <option value="all">All LGUs</option>
               {rows.map((item) => (
@@ -93,22 +80,22 @@ function RiskOverview({ rows, procurements }) {
 
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a3a52" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
+              <XAxis dataKey="name" stroke="#64748B" />
+              <YAxis stroke="#64748B" label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
               <Tooltip
-                contentStyle={{ backgroundColor: '#0a2240', border: '1px solid #1a3a52', borderRadius: '8px' }}
-                labelStyle={{ color: '#fff' }}
+                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #E2E8F0', borderRadius: '8px' }}
+                labelStyle={{ color: '#0F172A' }}
                 formatter={(value) => [`PHP ${value}M`, 'Value']}
               />
               <Legend />
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="#06b6d4"
+                stroke="#2563EB"
                 strokeWidth={2}
                 name="Procurement Value"
-                dot={{ fill: '#06b6d4', r: 4 }}
+                dot={{ fill: '#38BDF8', r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -120,4 +107,3 @@ function RiskOverview({ rows, procurements }) {
 }
 
 export default RiskOverview
-

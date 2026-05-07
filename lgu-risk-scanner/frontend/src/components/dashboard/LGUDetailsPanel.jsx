@@ -29,13 +29,13 @@ function LGUDetailsPanel({ lgu }) {
   return (
     <Card>
       <div className="mb-6">
-        <p className="text-sm font-medium text-cyan-50/60">Selected LGU</p>
-        <h2 className="mt-2 text-xl font-semibold text-white">{selectedLgu.name}</h2>
+        <p className="text-sm font-medium text-[#1E293B]/65">Selected LGU</p>
+        <h2 className="mt-2 text-xl font-semibold text-[#0F172A]">{selectedLgu.name}</h2>
       </div>
 
       <div className="mb-8">
-        <p className="text-sm font-medium text-cyan-50/60">Risk Score</p>
-        <p className="mt-2 text-5xl font-semibold text-white">{selectedLgu.score.toFixed(2)}</p>
+        <p className="text-sm font-medium text-[#1E293B]/65">Risk Score</p>
+        <p className="mt-2 text-5xl font-semibold text-[#0F172A]">{selectedLgu.score.toFixed(2)}</p>
       </div>
 
       <div className="space-y-5">
@@ -45,8 +45,8 @@ function LGUDetailsPanel({ lgu }) {
           return (
             <div key={indicator.label}>
               <div className="mb-2 flex items-center justify-between gap-4">
-                <p className="text-sm font-medium text-cyan-50/75">{indicator.label}</p>
-                <p className="text-sm text-cyan-50/60">{percentage}%</p>
+                <p className="text-sm font-medium text-[#1E293B]/80">{indicator.label}</p>
+                <p className="text-sm text-[#1E293B]/65">{percentage}%</p>
               </div>
               <ProgressBar value={percentage} variant={indicator.variant} />
             </div>

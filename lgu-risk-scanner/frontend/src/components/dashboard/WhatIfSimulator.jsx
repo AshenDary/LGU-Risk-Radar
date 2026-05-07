@@ -39,26 +39,26 @@ function WhatIfSimulator() {
   return (
     <Card>
       <div className="mb-6">
-        <h2 className="text-base font-semibold text-white">What-If Simulator</h2>
-        <p className="mt-1 text-sm text-cyan-50/60">Adjust indicators to estimate a new risk score</p>
+        <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
+        <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
       </div>
 
-      <div className="mb-8 rounded-xl border border-cyan-200/10 bg-[#01111f]/70 p-5">
-        <p className="text-sm font-medium text-cyan-50/60">New Risk Score</p>
-        <p className="mt-2 text-5xl font-bold tracking-tight text-white">{newRiskScore}</p>
+      <div className="mb-8 rounded-xl border border-[#38BDF8]/30 bg-[#F8FAFC] p-5">
+        <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
+        <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
       </div>
 
       <div className="space-y-6">
         {sliderConfig.map((item) => (
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
-              <span className="text-sm font-medium text-cyan-50/75">{item.label}</span>
-              <span className="text-sm text-cyan-50/60">
+              <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
+              <span className="text-sm text-[#1E293B]/65">
                 {Math.round(values[item.key] * 100)}%
               </span>
             </div>
             <input
-              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-cyan-950 accent-cyan-300"
+              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-[#2563EB]"
               type="range"
               min="0"
               max="1"

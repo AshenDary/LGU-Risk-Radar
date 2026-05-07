@@ -22,34 +22,34 @@ function RiskFactors({ rows }) {
     .sort((a, b) => b.impactPercentage - a.impactPercentage)
 
   const getRiskColor = (percentage) => {
-    if (percentage >= 30) return '#dc2626'
-    if (percentage >= 15) return '#eab308'
-    return '#16a34a'
+    if (percentage >= 30) return '#DC2626'
+    if (percentage >= 15) return '#EAB308'
+    return '#16A34A'
   }
 
   return (
     <div className="grid gap-6">
-      <div className="bg-[#0f2e47] rounded-lg overflow-hidden border border-[#1a3a52]">
-        <div className="px-6 py-4 bg-[#0a2240] border-b border-[#1a3a52]">
-          <h3 className="text-lg font-semibold text-white">Risk Factor Analysis</h3>
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm shadow-slate-200/80">
+        <div className="border-b border-slate-200 bg-white px-6 py-4">
+          <h3 className="text-lg font-semibold text-[#0F172A]">Risk Factor Analysis</h3>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#1a3a52] bg-[#0a2240]">
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-400">Risk Category</th>
-                <th className="px-6 py-3 text-center text-sm font-semibold text-gray-400">Avg Contribution</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-400">Insight</th>
+              <tr className="border-b border-slate-200 bg-[#F8FAFC]">
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/70">Risk Category</th>
+                <th className="px-6 py-3 text-center text-sm font-semibold text-[#1E293B]/70">Avg Contribution</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/70">Insight</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1a3a52]">
+            <tbody className="divide-y divide-slate-100">
               {riskFactors.map((factor) => (
-                <tr key={factor.category} className="hover:bg-[#0a2240]/30 transition">
-                  <td className="px-6 py-4 text-sm text-white font-medium">{factor.category}</td>
+                <tr key={factor.category} className="transition hover:bg-[#F8FAFC]">
+                  <td className="px-6 py-4 text-sm font-medium text-[#0F172A]">{factor.category}</td>
                   <td className="px-6 py-4 text-center">
                     <div className="flex items-center justify-center gap-2">
-                      <div className="w-20 h-2 bg-gray-700 rounded-full overflow-hidden">
+                      <div className="h-2 w-20 overflow-hidden rounded-full bg-slate-200">
                         <div
                           className="h-full rounded-full transition"
                           style={{
@@ -58,12 +58,12 @@ function RiskFactors({ rows }) {
                           }}
                         />
                       </div>
-                      <span className="text-sm font-bold text-white w-12 text-right">
+                      <span className="w-12 text-right text-sm font-bold text-[#0F172A]">
                         {factor.impactPercentage}
                       </span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-300 leading-relaxed">{factor.insight}</td>
+                  <td className="px-6 py-4 text-sm leading-relaxed text-[#1E293B]/70">{factor.insight}</td>
                 </tr>
               ))}
             </tbody>
@@ -71,28 +71,21 @@ function RiskFactors({ rows }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Top Risk Factor</div>
-          <div className="text-lg font-bold text-white">{riskFactors[0]?.category || 'None'}</div>
-          <div className="text-2xl font-bold text-red-500 mt-2">{riskFactors[0]?.impactPercentage || 0}</div>
-        </div>
-
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Total Risk Factors</div>
-          <div className="text-3xl font-bold text-white">{riskFactors.length}</div>
-          <div className="text-xs text-gray-500 mt-2">Tracked from backend scoring factors</div>
-        </div>
-
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Coverage</div>
-          <div className="text-3xl font-bold text-white">{rows.length}</div>
-          <div className="text-xs text-gray-500 mt-2">Live LGUs analyzed</div>
-        </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {[
+          ['Top Risk Factor', riskFactors[0]?.category || 'None', riskFactors[0]?.impactPercentage || 0],
+          ['Total Risk Factors', riskFactors.length, 'Tracked from backend scoring factors'],
+          ['Coverage', rows.length, 'Live LGUs analyzed'],
+        ].map(([label, value, helper]) => (
+          <div key={label} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/80">
+            <div className="mb-2 text-sm text-[#1E293B]/65">{label}</div>
+            <div className="text-2xl font-bold text-[#0F172A]">{value}</div>
+            <div className="mt-2 text-xs text-[#1E293B]/55">{helper}</div>
+          </div>
+        ))}
       </div>
     </div>
   )
 }
 
 export default RiskFactors
-
