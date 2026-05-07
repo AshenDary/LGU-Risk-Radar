@@ -37,6 +37,17 @@ export async function fetchAudits(){
   return requestJson('/audit/list')
 }
 
+export async function simulateRisk(lguId, procurements){
+  return requestJson('/scoring/simulate', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      lgu_id: lguId,
+      procurements: procurements
+    })
+  })
+}
+
 export async function generateExplanation(lguName, riskScore, riskLevel, factors = {}){
   return requestJson('/explain/reason', {
     method: 'POST',

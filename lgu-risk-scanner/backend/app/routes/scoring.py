@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException
-from typing import List
+from typing import List, Optional
 from uuid import uuid4
+from pydantic import BaseModel
 
 from app.models.lgu import LGU
 from app.models.audit import AuditEntry
@@ -15,8 +16,20 @@ from app.services.risk_score_service import (
     update_risk_score,
     upsert_risk_score,
     compute_and_save_score,
+    simulate_risk_score,
 )
 from app.services.scoring_engine import compute_score
+
+# Simulation models
+class SimulationProcurement(BaseModel):
+    amount: Optional[float] = 0.0
+    supplier: Optional[str] = None
+    status: Optional[str] = "completed"
+    title: Optional[str] = "Simulated procurement"
+
+class SimulationRequest(BaseModel):
+    lgu_id: str
+    procurements: List[SimulationProcurement] = []
 
 router = APIRouter()
 
@@ -49,6 +62,32 @@ async def compute(lgu: LGU):
     """Compute and store risk score for an LGU."""
     result = await compute_and_save_score(lgu.id)
     return result
+
+
+@router.post("/simulate")
+async def simulate_risk(request: SimulationRequest):
+    """
+    Simulate risk score calculation with hypothetical procurement data.
+    Returns simulated score, factors, and AI-generated explanation.
+    """
+    try:
+        # Convert simulation procurements to dict format expected by scoring engine
+        hypothetical_procurements = [
+            {
+                "amount": p.amount,
+                "supplier": p.supplier,
+                "status": p.status,
+                "title": p.title
+            }
+            for p in request.procurements
+        ]
+        
+        result = await simulate_risk_score(request.lgu_id, hypothetical_procurements)
+        return result
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Simulation failed: {str(e)}")
 
 
 @router.get("/by-lgu/{lgu_id}")

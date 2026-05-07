@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../assets/bantay-bayan-logo.svg'
 
-const links = [
+export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
@@ -70,7 +70,7 @@ export default function Sidebar({ isOpen, onToggle }) {
         </div>
 
         <nav className="space-y-1.5">
-          {links.map((link) => (
+          {appLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}
