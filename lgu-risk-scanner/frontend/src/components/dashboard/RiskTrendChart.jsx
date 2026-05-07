@@ -7,10 +7,11 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
-import { riskTrendData } from '../../data/mockData'
 import Card from '../ui/Card'
 
-function RiskTrendChart() {
+function RiskTrendChart({ data }) {
+  const riskTrendData = data || []
+
   return (
     <Card>
       <div className="mb-5">

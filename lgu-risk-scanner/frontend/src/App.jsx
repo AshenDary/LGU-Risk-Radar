@@ -1,26 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import AboutPage from './pages/AboutPage'
-import AuditExplorerPage from './pages/AuditExplorerPage'
-import CompareLGUsPage from './pages/CompareLGUsPage'
-import DashboardPage from './pages/DashboardPage'
-import LGURankingPage from './pages/LGURankingPage'
-import MapViewPage from './pages/MapViewPage'
-import ReportsPage from './pages/ReportsPage'
-import SimulatorPage from './pages/SimulatorPage'
+
+const AnalysisPage = lazy(() => import('./pages/AnalysisPage'))
+const AuditExplorerPage = lazy(() => import('./pages/AuditExplorerPage'))
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const LGURankingPage = lazy(() => import('./pages/LGURankingPage'))
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/lgu-ranking" element={<LGURankingPage />} />
-      <Route path="/map-view" element={<MapViewPage />} />
-      <Route path="/compare-lgus" element={<CompareLGUsPage />} />
-      <Route path="/simulator" element={<SimulatorPage />} />
-      <Route path="/audit-explorer" element={<AuditExplorerPage />} />
-      <Route path="/reports" element={<ReportsPage />} />
-      <Route path="/about" element={<AboutPage />} />
-    </Routes>
+    <Suspense fallback={<div className="min-h-screen bg-[#01111f] p-6 text-sm text-cyan-50/70">Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/lgu-ranking" element={<LGURankingPage />} />
+        <Route path="/analysis" element={<AnalysisPage />} />
+        <Route path="/audit-explorer" element={<AuditExplorerPage />} />
+      </Routes>
+    </Suspense>
   )
 }
 
