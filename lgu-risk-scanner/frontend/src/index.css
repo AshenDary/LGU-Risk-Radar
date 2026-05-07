@@ -22,53 +22,6 @@
 
   * {
     box-sizing: border-box;
-    scrollbar-color: rgba(37, 99, 235, 0.42) transparent;
-    scrollbar-width: thin;
-    scrollbar-gutter: stable;
-  }
-
-  *::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: transparent;
-    margin-block: 8px;
-    margin-inline: 8px;
-  }
-
-  *::-webkit-scrollbar-button,
-  *::-webkit-scrollbar-button:single-button,
-  *::-webkit-scrollbar-button:start:decrement,
-  *::-webkit-scrollbar-button:end:increment,
-  *::-webkit-scrollbar-button:vertical:start:decrement,
-  *::-webkit-scrollbar-button:vertical:end:increment,
-  *::-webkit-scrollbar-button:horizontal:start:decrement,
-  *::-webkit-scrollbar-button:horizontal:end:increment {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: rgba(37, 99, 235, 0.42);
-    background-clip: content-box;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    min-height: 32px;
-    min-width: 32px;
-  }
-
-  *::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(37, 99, 235, 0.62);
-  }
-
-  *::-webkit-scrollbar-corner {
-    background: transparent;
   }
 }
 
@@ -133,42 +86,12 @@
   }
 }
 
-@keyframes modalOverlayIn {
-  from {
-    background-color: rgba(0, 0, 0, 0);
-  }
-
-  to {
-    background-color: rgba(0, 0, 0, 0.45);
-  }
-}
-
-@keyframes modalPopIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 18px, 0) scale(0.97);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-}
-
 @layer utilities {
-  .modal-overlay-in {
-    animation: modalOverlayIn 220ms ease-out both;
-  }
-
-  .modal-pop-in {
-    animation: modalPopIn 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
   .reveal-on-scroll {
     --reveal-y: 26px;
     --hover-y: 0px;
-    opacity: 1;
-    transform: translate3d(0, var(--hover-y), 0);
+    opacity: 0;
+    transform: translate3d(0, calc(var(--reveal-y) + var(--hover-y)), 0);
     transition:
       opacity 700ms ease,
       transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -181,6 +104,7 @@
 
   .reveal-on-scroll.is-visible {
     --reveal-y: 0px;
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -193,30 +117,24 @@
 
   .premium-card {
     position: relative;
-    min-width: 0;
+    overflow: hidden;
     border: 1px solid rgba(37, 99, 235, 0.22);
     background:
-      linear-gradient(90deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.75), rgba(56, 189, 248, 0.72)) top / 100% 3px no-repeat,
       linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.82)),
       rgba(255, 255, 255, 0.9);
     box-shadow:
       0 22px 55px rgba(15, 23, 42, 0.08),
       0 8px 18px rgba(37, 99, 235, 0.06);
     backdrop-filter: blur(14px);
-    overflow-wrap: break-word;
-    word-break: normal;
-  }
-
-  .premium-card:not(.overflow-visible) {
-    overflow: hidden;
-  }
-
-  .premium-card > * {
-    min-width: 0;
   }
 
   .premium-card::before {
-    content: none;
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.75), rgba(56, 189, 248, 0.72));
+    pointer-events: none;
   }
 
   .premium-card.premium-hover {
@@ -234,7 +152,6 @@
     --hover-y: -4px;
     border-color: rgba(56, 189, 248, 0.68);
     background:
-      linear-gradient(90deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.75), rgba(56, 189, 248, 0.72)) top / 100% 3px no-repeat,
       linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(248, 250, 252, 0.94)),
       rgba(255, 255, 255, 0.96);
     box-shadow:
@@ -269,51 +186,6 @@
 
   .button-hover:hover {
     transform: translateY(-2px);
-  }
-
-  .dashboard-scrollbar {
-    scrollbar-color: rgba(37, 99, 235, 0.42) transparent;
-    scrollbar-width: thin;
-  }
-
-  .dashboard-scrollbar::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-  }
-
-  .dashboard-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-    margin-block: 8px;
-    margin-inline: 8px;
-  }
-
-  .dashboard-scrollbar::-webkit-scrollbar-button,
-  .dashboard-scrollbar::-webkit-scrollbar-button:single-button,
-  .dashboard-scrollbar::-webkit-scrollbar-button:start:decrement,
-  .dashboard-scrollbar::-webkit-scrollbar-button:end:increment,
-  .dashboard-scrollbar::-webkit-scrollbar-button:vertical:start:decrement,
-  .dashboard-scrollbar::-webkit-scrollbar-button:vertical:end:increment,
-  .dashboard-scrollbar::-webkit-scrollbar-button:horizontal:start:decrement,
-  .dashboard-scrollbar::-webkit-scrollbar-button:horizontal:end:increment {
-    display: none !important;
-    width: 0 !important;
-    height: 0 !important;
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-  }
-
-  .dashboard-scrollbar::-webkit-scrollbar-thumb {
-    background-color: rgba(37, 99, 235, 0.42);
-    background-clip: content-box;
-    border: 1px solid transparent;
-    border-radius: 999px;
-    min-height: 32px;
-    min-width: 32px;
-  }
-
-  .dashboard-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(37, 99, 235, 0.62);
   }
 
   .animated-chart-bar {

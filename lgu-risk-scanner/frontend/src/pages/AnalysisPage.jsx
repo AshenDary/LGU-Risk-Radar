@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PageHeader from '../components/common/PageHeader'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import RiskOverview from '../components/analysis/RiskOverview'
 import RiskFactors from '../components/analysis/RiskFactors'
@@ -14,21 +15,23 @@ function AnalysisPage() {
   ]
 
   return (
-    <DashboardLayout
-      title="Analysis"
-      description="Deep dive into LGU risk metrics and contributing factors."
-    >
-      <div className="grid gap-8">
+    <DashboardLayout>
+      <div className="grid gap-6">
+        <PageHeader
+          title="Analysis"
+          description="Deep dive into LGU risk metrics and contributing factors."
+        />
+
         {/* Tab Navigation */}
-        <div className="-mt-4 flex justify-center gap-2 border-b border-[#38BDF8]/20">
+        <div className="flex gap-2 border-b border-slate-200">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-5 py-3 text-sm font-bold transition ${
+              className={`px-4 py-3 text-sm font-medium transition ${
                 activeTab === tab.id
-                  ? 'border-b-2 border-[#2563EB] bg-[#EFF6FF] text-[#2563EB]'
-                  : 'text-[#1E293B]/60 hover:bg-[#F8FAFC] hover:text-[#2563EB]'
+                  ? 'border-b-2 border-[#2563EB] text-[#2563EB]'
+                  : 'text-[#1E293B]/60 hover:text-[#0F172A]'
               }`}
             >
               {tab.label}
@@ -43,7 +46,7 @@ function AnalysisPage() {
         )}
 
         {loading ? (
-          <div className="premium-card reveal-on-scroll rounded-lg p-8 text-sm text-[#1E293B]/70">
+          <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-[#1E293B]/70 shadow-sm">
             Loading live backend data...
           </div>
         ) : (

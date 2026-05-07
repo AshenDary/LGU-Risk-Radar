@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { askExplanationQuestion, generateExplanation } from '../../services/api'
+import { askExplanationQuestion, generateAuditChecklist, generateExplanation } from '../../services/api'
 
 const SCORE_BY_LEVEL = {
   Critical: 90,
@@ -33,6 +33,12 @@ function buildExplanationInput(item) {
   return { name, riskLevel, riskScore, factors }
 }
 
+function compactFactors(factors) {
+  return Object.entries(factors || {})
+    .filter(([, value]) => value !== undefined && value !== null && value !== '')
+    .slice(0, 5)
+}
+
 function AiRiskExplainer({ item }) {
   const [explanationState, setExplanationState] = useState({
     loading: false,
@@ -46,59 +52,60 @@ function AiRiskExplainer({ item }) {
   const [question, setQuestion] = useState('')
   const [asking, setAsking] = useState(false)
   const [askError, setAskError] = useState('')
-  const [isAskOpen, setIsAskOpen] = useState(false)
+  const [checklistState, setChecklistState] = useState({ loading: false, text: '', error: '', fallbackReason: '' })
+  const [drilldown, setDrilldown] = useState(null)
+  const [refreshCount, setRefreshCount] = useState(0)
 
   const input = useMemo(() => (item ? buildExplanationInput(item) : null), [item])
   const inputKey = useMemo(() => (input ? JSON.stringify(input) : ''), [input])
+  const factorEntries = useMemo(() => compactFactors(input?.factors), [input])
 
   useEffect(() => {
     setAnswers([])
     setQuestion('')
     setAskError('')
-    setIsAskOpen(false)
-    setExplanationState({
-      loading: false,
-      error: '',
-      text: '',
-      usedAi: false,
-      fallbackReason: '',
-      model: '',
-    })
+    setChecklistState({ loading: false, text: '', error: '', fallbackReason: '' })
+    setDrilldown(null)
   }, [inputKey])
 
-  async function handleGenerateExplanation() {
-    if (!input || explanationState.loading) return
+  useEffect(() => {
+    if (!input) return
 
-    setExplanationState({
+    let cancelled = false
+    setExplanationState((current) => ({
+      ...current,
       loading: true,
       error: '',
-      text: '',
-      usedAi: false,
-      fallbackReason: '',
-      model: '',
-    })
+    }))
 
-    try {
-      const result = await generateExplanation(input.name, input.riskScore, input.riskLevel, input.factors)
-      setExplanationState({
-        loading: false,
-        error: '',
-        text: result.explanation || 'No explanation was returned for this risk profile.',
-        usedAi: Boolean(result.used_ai),
-        fallbackReason: result.fallback_reason || '',
-        model: result.model || '',
+    generateExplanation(input.name, input.riskScore, input.riskLevel, input.factors)
+      .then((result) => {
+        if (cancelled) return
+        setExplanationState({
+          loading: false,
+          error: '',
+          text: result.explanation || 'No explanation was returned for this risk profile.',
+          usedAi: Boolean(result.used_ai),
+          fallbackReason: result.fallback_reason || '',
+          model: result.model || '',
+        })
       })
-    } catch (error) {
-      setExplanationState({
-        loading: false,
-        error: error.message || 'Unable to generate the AI explanation.',
-        text: '',
-        usedAi: false,
-        fallbackReason: '',
-        model: '',
+      .catch((error) => {
+        if (cancelled) return
+        setExplanationState({
+          loading: false,
+          error: error.message || 'Unable to generate the AI explanation.',
+          text: '',
+          usedAi: false,
+          fallbackReason: '',
+          model: '',
+        })
       })
+
+    return () => {
+      cancelled = true
     }
-  }
+  }, [inputKey, refreshCount])
 
   async function submitQuestion(nextQuestion) {
     const trimmedQuestion = nextQuestion.trim()
@@ -134,9 +141,36 @@ function AiRiskExplainer({ item }) {
     }
   }
 
+  async function buildChecklist() {
+    if (!input || checklistState.loading) return
+
+    setChecklistState({ loading: true, text: '', error: '', fallbackReason: '' })
+    try {
+      const result = await generateAuditChecklist({
+        name: input.name,
+        riskScore: input.riskScore,
+        riskLevel: input.riskLevel,
+        factors: input.factors,
+      })
+      setChecklistState({
+        loading: false,
+        text: result.checklist || 'No checklist was returned.',
+        error: '',
+        fallbackReason: result.fallback_reason || '',
+      })
+    } catch (error) {
+      setChecklistState({
+        loading: false,
+        text: '',
+        error: error.message || 'Unable to generate checklist.',
+        fallbackReason: '',
+      })
+    }
+  }
+
   if (!item || !input) {
     return (
-      <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7 text-[#0F172A]">
+      <div className="rounded-lg border border-cyan-200/10 bg-[#0a2240] p-5 text-sm text-cyan-50/60">
         Select an LGU or audit finding to generate a plain-language risk explanation.
       </div>
     )
@@ -145,164 +179,151 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   return (
-    <div className="premium-card premium-hover reveal-on-scroll min-w-0 overflow-hidden rounded-3xl p-6 sm:p-7">
-      <div className="mb-6 flex items-start justify-between gap-3">
+    <div className="min-w-0 overflow-hidden rounded-lg border border-cyan-300/20 bg-[#071f33] p-4 sm:p-5">
+      <div className="mb-4 flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
+          <p className="text-xs uppercase tracking-[0.18em] text-cyan-200/60">
             {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
           </p>
-          <h3 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{input.name}</h3>
+          <h3 className="mt-1 break-words text-base font-semibold text-white">{input.name}</h3>
           {explanationState.model && (
-            <p className="mt-1 break-all text-xs text-slate-500">{explanationState.model}</p>
+            <p className="mt-1 break-all text-xs text-cyan-50/45">{explanationState.model}</p>
           )}
         </div>
-        <span className="shrink-0 rounded-full border border-[#38BDF8]/45 bg-[#EFF6FF] px-3 py-1 text-xs font-black text-[#2563EB]">
+        <span className="shrink-0 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-3 py-1 text-xs font-semibold text-cyan-100">
           {score}/100
         </span>
       </div>
 
-      <div className="min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
+      <div className="min-w-0 rounded-md border border-cyan-200/10 bg-[#041726] p-3">
         {explanationState.loading ? (
-          <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
+          <p className="text-sm leading-6 text-cyan-50/60">Generating explanation...</p>
         ) : explanationState.error ? (
-          <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
-        ) : explanationState.text ? (
+          <p className="break-words text-sm leading-6 text-red-100">{explanationState.error}</p>
+        ) : (
           <>
-            <p className="break-words text-sm font-medium leading-6 text-[#0F172A]">{explanationState.text}</p>
+            <p className="break-words text-sm leading-6 text-cyan-50/75">{explanationState.text}</p>
             {explanationState.fallbackReason && (
-              <p className="mt-3 break-words text-xs leading-5 text-amber-700">
+              <p className="mt-3 break-words text-xs leading-5 text-amber-100/70">
                 Using fallback: {explanationState.fallbackReason}
               </p>
             )}
           </>
-        ) : (
-          <p className="text-sm font-medium leading-6 text-[#2563EB]">
-            Generate an explanation when you are ready to review this risk profile.
-          </p>
         )}
       </div>
 
-      <div className="mt-5 grid gap-2">
+      {factorEntries.length > 0 && (
+        <div className="mt-4 grid gap-2">
+          {factorEntries.map(([key, value]) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setDrilldown({ key, value })}
+              className="grid min-h-10 min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded border border-cyan-200/10 bg-cyan-100/5 px-3 py-2 text-left text-xs text-cyan-50/70 transition hover:bg-cyan-100/10"
+            >
+              <span className="min-w-0 truncate font-semibold text-cyan-100">{key.replaceAll('_', ' ')}</span>
+              <span className="max-w-24 truncate text-cyan-50/55">{String(value)}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
         <button
           type="button"
-          onClick={handleGenerateExplanation}
-          disabled={explanationState.loading}
-          className="min-h-10 rounded-xl border border-[#2563EB]/35 bg-[#2563EB] px-3 py-2 text-xs font-bold leading-4 text-white transition hover:bg-[#0F172A] disabled:cursor-not-allowed disabled:opacity-60"
+          onClick={buildChecklist}
+          disabled={checklistState.loading}
+          className="min-h-10 rounded border border-emerald-300/20 bg-emerald-300/10 px-3 py-2 text-xs font-semibold leading-4 text-emerald-50 transition hover:bg-emerald-300/15 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {explanationState.loading ? 'Generating...' : explanationState.text ? 'Regenerate explanation' : 'Generate explanation'}
+          {checklistState.loading ? 'Building checklist...' : 'Create audit checklist'}
         </button>
         <button
           type="button"
-          onClick={() => setIsAskOpen(true)}
-          className="min-h-10 rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-3 py-2 text-xs font-bold leading-4 text-[#2563EB] transition hover:border-[#2563EB]/50 hover:bg-[#DBEAFE]"
+          onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
+          disabled={asking}
+          className="min-h-10 rounded border border-cyan-300/20 bg-cyan-300/10 px-3 py-2 text-xs font-semibold leading-4 text-cyan-50 transition hover:bg-cyan-300/15 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Ask assistant
+          Show supporting records
         </button>
       </div>
 
-      {isAskOpen ? (
-        <div className="modal-overlay-in fixed inset-0 z-50 grid place-items-center p-4" onClick={() => setIsAskOpen(false)}>
-          <div
-            className="modal-pop-in w-full max-w-xl rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
-            onClick={(event) => event.stopPropagation()}
+      <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+        {QUICK_QUESTIONS.map((prompt) => (
+          <button
+            key={prompt}
+            type="button"
+            onClick={() => submitQuestion(prompt)}
+            disabled={asking}
+            className="min-h-10 whitespace-normal rounded border border-cyan-300/20 bg-cyan-300/10 px-3 py-2 text-xs font-semibold leading-4 text-cyan-50 transition hover:bg-cyan-300/15 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <div className="mb-6 flex items-start justify-between gap-5">
-              <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
-                <h4 className="mt-2 break-words text-xl font-black text-[#0F172A]">Ask about {input.name}</h4>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsAskOpen(false)}
-                aria-label="Close assistant"
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#38BDF8]/30 text-xl font-bold leading-none text-[#2563EB] hover:bg-[#EFF6FF]"
-              >
-                x
-              </button>
-            </div>
+            {prompt}
+          </button>
+        ))}
+      </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
-              <button
-                type="button"
-                onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
-                disabled={asking}
-                className="rounded-full border border-[#38BDF8]/30 bg-white px-4 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Show supporting records
-              </button>
-              {QUICK_QUESTIONS.slice(0, 3).map((prompt) => (
-              <button
-                key={prompt}
-                type="button"
-                onClick={() => submitQuestion(prompt)}
-                disabled={asking}
-                className="rounded-full border border-[#38BDF8]/30 bg-white px-4 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {prompt}
-              </button>
-              ))}
-            </div>
-
-          <form
-            className="mt-5 grid gap-3"
-            onSubmit={(event) => {
-              event.preventDefault()
-              submitQuestion(question)
-            }}
+      <form
+        className="mt-4 grid gap-2"
+        onSubmit={(event) => {
+          event.preventDefault()
+          submitQuestion(question)
+        }}
+      >
+        <textarea
+          value={question}
+          onChange={(event) => setQuestion(event.target.value)}
+          placeholder="Ask a reviewer-style question"
+          rows={3}
+          className="resize-none rounded border border-cyan-200/10 bg-[#061a2b] px-3 py-2 text-sm leading-5 text-white outline-none placeholder:text-cyan-50/35 focus:border-cyan-300/40"
+        />
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => setRefreshCount((count) => count + 1)}
+            disabled={explanationState.loading}
+            className="rounded border border-cyan-300/20 bg-transparent px-3 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/10 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            <textarea
-              value={question}
-              onChange={(event) => setQuestion(event.target.value)}
-              placeholder="Ask a reviewer-style question"
-              rows={2}
-              className="resize-none rounded-xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
-            />
-            <div className="grid gap-3">
-              <button
-                type="submit"
-                disabled={asking || !question.trim()}
-                className="rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-4 py-3 text-sm font-bold text-[#2563EB] transition hover:bg-[#DBEAFE] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {asking ? 'Answering...' : 'Ask'}
-              </button>
-            </div>
-          </form>
-
-            {answers.length > 0 && (
-              <div className="dashboard-scrollbar mt-5 max-h-72 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
-                <div className="grid gap-3">
-                  {answers.map((entry) => (
-                    <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
-                      <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-                      <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
-                      {entry.fallbackReason && (
-                        <p className="mt-2 break-words text-xs leading-5 text-amber-700">
-                          Using fallback: {entry.fallbackReason}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+            Regenerate
+          </button>
+          <button
+            type="submit"
+            disabled={asking || !question.trim()}
+            className="rounded border border-cyan-300/20 bg-cyan-300/15 px-3 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/20 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {asking ? 'Answering...' : 'Ask'}
+          </button>
         </div>
-      ) : null}
+      </form>
 
       {askError && (
-          <p className="mt-3 break-words rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
+          <p className="mt-3 break-words rounded border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs leading-5 text-red-100">
           {askError}
         </p>
       )}
 
-      {answers.length > 0 && !isAskOpen && (
+      {(checklistState.text || checklistState.error) && (
+        <div className="mt-4 min-w-0 rounded-md border border-emerald-300/15 bg-emerald-300/5 p-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-emerald-200/70">Audit checklist</p>
+          {checklistState.error ? (
+            <p className="mt-2 break-words text-sm leading-6 text-red-100">{checklistState.error}</p>
+          ) : (
+            <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-cyan-50/75">{checklistState.text}</p>
+          )}
+          {checklistState.fallbackReason && (
+            <p className="mt-2 break-words text-xs leading-5 text-amber-100/70">
+              Using fallback: {checklistState.fallbackReason}
+            </p>
+          )}
+        </div>
+      )}
+
+      {answers.length > 0 && (
         <div className="mt-4 grid gap-3">
           {answers.map((entry) => (
-            <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
-              <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-              <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
+            <div key={entry.id} className="min-w-0 rounded-md border border-cyan-200/10 bg-[#041726] p-3">
+              <p className="break-words text-xs font-semibold text-cyan-100">{entry.question}</p>
+              <p className="mt-2 break-words text-sm leading-6 text-cyan-50/75">{entry.answer}</p>
               {entry.fallbackReason && (
-                <p className="mt-2 break-words text-xs leading-5 text-amber-700">
+                <p className="mt-2 break-words text-xs leading-5 text-amber-100/70">
                   Using fallback: {entry.fallbackReason}
                 </p>
               )}
@@ -311,6 +332,47 @@ function AiRiskExplainer({ item }) {
         </div>
       )}
 
+      {drilldown && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4" onClick={() => setDrilldown(null)}>
+          <div
+            className="w-full max-w-lg rounded-lg border border-cyan-200/15 bg-[#071f33] p-5 shadow-xl shadow-black/40"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-xs uppercase tracking-[0.18em] text-cyan-200/60">Risk factor drill-down</p>
+                <h4 className="mt-1 break-words text-lg font-semibold text-white">
+                  {drilldown.key.replaceAll('_', ' ')}
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDrilldown(null)}
+                className="rounded border border-cyan-200/10 px-3 py-1 text-sm text-cyan-50/70 hover:bg-cyan-100/10"
+              >
+                Close
+              </button>
+            </div>
+            <div className="mt-4 rounded-md border border-cyan-200/10 bg-[#041726] p-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-cyan-200/60">Current value</p>
+              <p className="mt-2 break-words text-sm leading-6 text-cyan-50/80">{String(drilldown.value)}</p>
+            </div>
+            <p className="mt-4 text-sm leading-6 text-cyan-50/70">
+              Use this factor as a review entry point. Inspect the source records connected to the selected LGU, confirm whether the value reflects a real pattern, and compare it with other factors before escalating.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                submitQuestion(`Explain the ${drilldown.key.replaceAll('_', ' ')} factor.`)
+                setDrilldown(null)
+              }}
+              className="mt-4 w-full rounded border border-cyan-300/20 bg-cyan-300/15 px-3 py-2 text-sm font-semibold text-cyan-50 transition hover:bg-cyan-300/20"
+            >
+              Ask assistant about this factor
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

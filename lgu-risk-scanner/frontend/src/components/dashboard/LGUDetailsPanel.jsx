@@ -28,9 +28,9 @@ function LGUDetailsPanel({ lgu }) {
 
   return (
     <Card>
-      <div className="mb-8">
+      <div className="mb-6">
         <p className="text-sm font-medium text-[#1E293B]/65">Selected LGU</p>
-        <h2 className="mt-3 text-3xl font-extrabold text-[#0F172A]">{selectedLgu.name}</h2>
+        <h2 className="mt-2 text-xl font-semibold text-[#0F172A]">{selectedLgu.name}</h2>
       </div>
 
       <div className="mb-8">

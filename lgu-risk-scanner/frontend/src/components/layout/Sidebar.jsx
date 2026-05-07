@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../../assets/sidebar-risk-radar-logo.svg'
+=======
+import { NavLink } from 'react-router-dom'
+>>>>>>> parent of 9ba0142 (FINAL UI CHANGES)
 
 export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
@@ -11,44 +15,14 @@ export const appLinks = [
   { name: 'Reports', path: '/reports' },
 ]
 
-function MenuIcon() {
+export default function Sidebar() {
   return (
-    <span className="flex h-6 w-6 flex-col items-center justify-center gap-1.5" aria-hidden="true">
-      <span className="block h-0.5 w-5 shrink-0 rounded-full bg-current" />
-      <span className="block h-0.5 w-5 shrink-0 rounded-full bg-current" />
-      <span className="block h-0.5 w-5 shrink-0 rounded-full bg-current" />
-    </span>
-  )
-}
-
-export default function Sidebar({ isOpen, onToggle }) {
-  return (
-    <aside
-      role="button"
-      tabIndex={0}
-      aria-expanded={isOpen}
-      aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
-      onClick={onToggle}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
-          onToggle()
-        }
-      }}
-      className={`fixed left-4 top-4 z-50 shrink-0 cursor-pointer overflow-hidden rounded-[2rem] border border-[#38BDF8]/25 bg-gradient-to-br from-[#102033] via-[#1D4ED8] to-[#0EA5E9] text-white shadow-2xl shadow-[#0F172A]/15 outline-none transition-[width,height,padding,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-4 focus-visible:ring-[#38BDF8]/30 ${
-        isOpen
-          ? 'h-[calc(100vh-2rem)] w-60 max-w-[calc(100vw-2rem)] px-4 py-6'
-          : 'flex h-16 w-16 items-center justify-center p-0 hover:scale-[1.03]'
-      }`}
-    >
-      <div
-        className={`pointer-events-none absolute left-1/2 top-1/2 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center text-white transition-all duration-300 ${
-          isOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
-        }`}
-      >
-        <MenuIcon />
+    <aside className="h-screen w-64 shrink-0 border-r border-[#1E293B] bg-[#0F172A] p-4">
+      <div className="mb-8 px-2">
+        <h1 className="text-xl font-extrabold tracking-tight text-white">Bantay Bayan</h1>
       </div>
 
+<<<<<<< HEAD
       <div
         className={`flex h-full flex-col transition-all duration-300 ${
           isOpen
@@ -97,6 +71,25 @@ export default function Sidebar({ isOpen, onToggle }) {
           Return to landing page
         </Link>
       </div>
+=======
+      <nav className="space-y-1">
+        {links.map((link) => (
+          <NavLink
+            key={link.name}
+            to={link.path}
+            className={({ isActive }) =>
+              `block rounded-lg px-3 py-2.5 text-sm font-medium transition ${
+                isActive
+                  ? 'bg-[#38BDF8] text-[#0F172A] shadow-sm shadow-[#38BDF8]/25'
+                  : 'text-white/70 hover:bg-white/10 hover:text-white'
+              }`
+            }
+          >
+            {link.name}
+          </NavLink>
+        ))}
+      </nav>
+>>>>>>> parent of 9ba0142 (FINAL UI CHANGES)
     </aside>
   )
 }

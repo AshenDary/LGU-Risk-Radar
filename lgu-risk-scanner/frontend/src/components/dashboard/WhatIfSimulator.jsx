@@ -137,6 +137,7 @@ function WhatIfSimulator() {
   const selectedLgu = lgus.find((lgu) => lgu.id === selectedLguId)
 
   return (
+<<<<<<< HEAD
     <Card className={isSelectorOpen ? 'overflow-visible' : ''}>
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
@@ -186,6 +187,17 @@ function WhatIfSimulator() {
             </div>
           ) : null}
         </div>
+=======
+    <Card>
+      <div className="mb-6">
+        <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
+        <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
+      </div>
+
+      <div className="mb-8 rounded-xl border border-[#38BDF8]/30 bg-[#F8FAFC] p-5">
+        <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
+        <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
+>>>>>>> parent of 9ba0142 (FINAL UI CHANGES)
       </div>
 
       {error ? (
@@ -235,8 +247,15 @@ function WhatIfSimulator() {
         {sliderConfig.map((item) => (
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
+<<<<<<< HEAD
               <span className="text-sm font-semibold text-[#0F172A]">{item.label}</span>
               <span className="text-sm font-bold text-[#2563EB]">{formatSliderValue(item.key)}</span>
+=======
+              <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
+              <span className="text-sm text-[#1E293B]/65">
+                {Math.round(values[item.key] * 100)}%
+              </span>
+>>>>>>> parent of 9ba0142 (FINAL UI CHANGES)
             </div>
             <input
               className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-[#2563EB]"

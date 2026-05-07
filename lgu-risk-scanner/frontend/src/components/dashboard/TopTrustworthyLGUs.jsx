@@ -10,39 +10,30 @@ function TopTrustworthyLGUs({ data }) {
   }
 
   return (
-    <div className="premium-card premium-hover reveal-on-scroll overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
-      <div className="flex items-center justify-between border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-6">
-        <div>
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Ranking</p>
-          <h3 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Top 5 Most Trustworthy LGUs</h3>
-        </div>
+    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm shadow-slate-200/80">
+      <div className="flex items-center justify-between border-b border-slate-200 bg-white px-6 py-4">
+        <h3 className="text-lg font-semibold text-[#0F172A]">Top 5 Most Trustworthy LGUs</h3>
       </div>
 
-      <div>
-        <table className="w-full table-fixed">
-          <colgroup>
-            <col className="w-[14%]" />
-            <col className="w-[40%]" />
-            <col className="w-[22%]" />
-            <col className="w-[24%]" />
-          </colgroup>
-          <thead className="border-b border-[#38BDF8]/18 bg-[#F8FAFC]">
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead className="border-b border-slate-200 bg-[#F8FAFC]">
             <tr>
-              <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Rank</th>
-              <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">LGU</th>
-              <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Score</th>
-              <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Level</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/75">Rank</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/75">LGU Name</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/75">Average Risk Score</th>
+              <th className="px-6 py-3 text-left text-sm font-semibold text-[#1E293B]/75">Risk Level</th>
             </tr>
           </thead>
           <tbody>
             {data.map((lgu, index) => (
-              <tr key={lgu.id} className="border-b border-[#38BDF8]/12 transition-colors duration-200 hover:bg-[#F8FAFC]">
-                <td className="px-3 py-5 text-sm font-bold text-slate-700 sm:px-6">#{index + 1}</td>
-                <td className="break-words px-3 py-5 text-sm font-semibold leading-5 text-[#0F172A] sm:px-6">{lgu.name}</td>
-                <td className="break-words px-3 py-5 text-sm text-[#1E293B]/75 sm:px-6">{lgu.score.toFixed(2)}</td>
-                <td className="px-3 py-5 text-sm sm:px-6">
+              <tr key={lgu.id} className="border-b border-slate-100 hover:bg-[#F8FAFC]">
+                <td className="px-6 py-4 text-sm font-medium text-[#1E293B]/70">{index + 1}</td>
+                <td className="px-6 py-4 text-sm font-semibold text-[#0F172A]">{lgu.name}</td>
+                <td className="px-6 py-4 text-sm text-[#1E293B]/75">{lgu.score.toFixed(2)}</td>
+                <td className="px-6 py-4 text-sm">
                   <span
-                    className="rounded-full px-3 py-1 text-xs font-bold text-white shadow-sm"
+                    className="px-3 py-1 rounded-full text-white text-xs font-medium"
                     style={{ backgroundColor: getRiskLevelColor(lgu.riskLevel) }}
                   >
                     {lgu.riskLevel}
@@ -54,15 +45,8 @@ function TopTrustworthyLGUs({ data }) {
         </table>
       </div>
       
-      <div className="border-t border-[#38BDF8]/18 bg-[#F8FAFC] px-8 py-5">
-        <div className="flex items-center justify-center gap-2 rounded-2xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-4 py-3 text-[#2563EB]">
-          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#38BDF8]/60 text-xs font-black">
-            i
-          </span>
-          <p className="text-sm font-semibold">
-            Lower risk scores indicate more trustworthy governance and procurement practices.
-          </p>
-        </div>
+      <div className="border-t border-slate-200 bg-[#F8FAFC] px-6 py-4">
+        <p className="text-sm text-[#1E293B]/70">Lower risk scores indicate more trustworthy governance and procurement practices</p>
       </div>
     </div>
   )
