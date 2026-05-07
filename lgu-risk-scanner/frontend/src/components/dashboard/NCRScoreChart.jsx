@@ -23,22 +23,22 @@ function NCRScoreChart({ data }) {
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       {/* Main Chart */}
-      <div className="lg:col-span-2 bg-[#0f2e47] rounded-lg shadow overflow-hidden border border-[#1a3a52]">
-        <div className="px-6 py-4 bg-[#0a2240] border-b border-[#1a3a52]">
-          <h3 className="text-lg font-semibold text-white">NCR Cities Risk Score Distribution</h3>
+      <div className="lg:col-span-2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm shadow-slate-200/80">
+        <div className="border-b border-slate-200 bg-white px-6 py-4">
+          <h3 className="text-lg font-semibold text-[#0F172A]">NCR Cities Risk Score Distribution</h3>
         </div>
 
         <div className="p-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-4 pb-4" style={{ minWidth: 'max(100%, 800px)' }}>
+            <div className="flex gap-3 pb-4 sm:gap-4" style={{ minWidth: 'max(100%, min(800px, 240vw))' }}>
               {data.map((item, idx) => {
                 const barHeight = (item.score / maxScore) * chartHeight
                 return (
-                  <div key={idx} className="flex flex-col items-center gap-2 flex-1 min-w-max">
+                  <div key={idx} className="flex min-w-12 flex-1 flex-col items-center gap-2">
                     {/* Bar */}
                     <div className="w-full flex flex-col items-center justify-end" style={{ height: chartHeight }}>
                       <div
-                        className="w-12 rounded-t flex items-end justify-center text-white text-xs font-bold transition-all hover:opacity-80"
+                        className="flex w-9 items-end justify-center rounded-t text-xs font-bold text-white transition-all hover:opacity-80 sm:w-12"
                         style={{
                           height: `${barHeight}px`,
                           backgroundColor: getRiskLevelColor(item.riskLevel),
@@ -50,7 +50,7 @@ function NCRScoreChart({ data }) {
                       </div>
                     </div>
                     {/* Label */}
-                    <p className="text-xs text-gray-300 text-center max-w-12 whitespace-normal break-words">
+                    <p className="max-w-14 whitespace-normal break-words text-center text-[11px] leading-4 text-[#1E293B]/70 sm:text-xs">
                       {item.name}
                     </p>
                   </div>
@@ -60,19 +60,19 @@ function NCRScoreChart({ data }) {
           </div>
 
           {/* Y-axis labels */}
-          <div className="flex justify-between text-xs text-gray-400 mt-4 px-4">
+          <div className="mt-4 flex justify-between px-4 text-xs text-[#1E293B]/60">
             <span>0</span>
             <span>{Math.round(maxScore / 2)}</span>
             <span>{maxScore}</span>
           </div>
-          <p className="text-xs text-gray-400 mt-2 text-center">Risk Score (Higher = Riskier)</p>
+          <p className="mt-2 text-center text-xs text-[#1E293B]/60">Risk Score (Higher = Riskier)</p>
         </div>
       </div>
 
       {/* Risk Level Summary */}
-      <div className="bg-[#0f2e47] rounded-lg shadow overflow-hidden border border-[#1a3a52]">
-        <div className="px-6 py-4 bg-[#0a2240] border-b border-[#1a3a52]">
-          <h3 className="text-lg font-semibold text-white">Risk Summary</h3>
+      <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm shadow-slate-200/80">
+        <div className="border-b border-slate-200 bg-white px-6 py-4">
+          <h3 className="text-lg font-semibold text-[#0F172A]">Risk Summary</h3>
         </div>
 
         <div className="p-6 space-y-4">
@@ -88,15 +88,15 @@ function NCRScoreChart({ data }) {
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: item.color }}
                 />
-                <span className="text-sm text-gray-300">{item.label}</span>
+                <span className="text-sm text-[#1E293B]/75">{item.label}</span>
               </div>
-              <span className="text-lg font-bold text-white">{item.count}</span>
+              <span className="text-lg font-bold text-[#0F172A]">{item.count}</span>
             </div>
           ))}
 
-          <div className="pt-4 border-t border-[#1a3a52]">
-            <p className="text-xs text-gray-400">
-              Total LGUs: <span className="text-white font-semibold">{data.length}</span>
+          <div className="border-t border-slate-200 pt-4">
+            <p className="text-xs text-[#1E293B]/60">
+              Total LGUs: <span className="font-semibold text-[#0F172A]">{data.length}</span>
             </p>
           </div>
         </div>

@@ -20,13 +20,13 @@ function DashboardPage() {
         <InfoBanner text="This dashboard provides an overall view of LGU risk levels based on computed indicators such as procurement anomalies, audit findings, and supplier behavior. The charts summarize current risk distribution and trustworthiness trends across the NCR." />
 
         {error && (
-          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="rounded-lg border border-cyan-200/10 bg-[#0f2e47] p-6 text-sm text-cyan-50/70">
+          <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-[#1E293B]/70 shadow-sm">
             Loading live backend data...
           </div>
         ) : (

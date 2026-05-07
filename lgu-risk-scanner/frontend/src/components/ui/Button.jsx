@@ -1,7 +1,7 @@
 const buttonVariants = {
-  primary: 'bg-cyan-400 text-slate-950 shadow-sm shadow-cyan-400/20 hover:bg-cyan-300',
-  secondary: 'border border-cyan-200/10 bg-[#08263a] text-white hover:bg-[#0b3048]',
-  ghost: 'text-cyan-50/70 hover:bg-cyan-100/10 hover:text-white',
+  primary: 'bg-[#2563EB] text-white shadow-sm shadow-[#2563EB]/20 hover:bg-[#0F172A]',
+  secondary: 'border border-slate-200 bg-white text-[#0F172A] hover:bg-[#F8FAFC]',
+  ghost: 'text-[#1E293B]/70 hover:bg-[#F8FAFC] hover:text-[#0F172A]',
 }
 
 function Button({
