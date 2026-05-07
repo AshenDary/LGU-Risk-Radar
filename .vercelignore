@@ -1,0 +1,12 @@
+.git/
+.github/
+.venv/
+**/.venv/
+**/node_modules/
+**/dist/
+**/*.log
+**/*.err.log
+lgu-risk-scanner/data/
+lgu-risk-scanner/scripts/
+supabase/.branches/
+supabase/.temp/

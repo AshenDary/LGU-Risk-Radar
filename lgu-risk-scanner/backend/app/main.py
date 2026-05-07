@@ -33,6 +33,8 @@ app.add_middleware(
     allowed_hosts=[
         "localhost",
         "127.0.0.1",
+        "*.vercel.app",
+        "lgu-risk-radar.vercel.app",
         "*.example.com",  # Update with your domain
     ]
 )
