@@ -136,6 +136,9 @@ function WhatIfSimulator() {
     <Card>
       <div className="mb-6">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
         <h2 className="text-base font-semibold text-white">What-If Simulator</h2>
         <p className="mt-1 text-sm text-cyan-50/60">Adjust procurement parameters to see how they affect risk scores</p>
       </div>
@@ -157,6 +160,7 @@ function WhatIfSimulator() {
             </option>
           ))}
         </select>
+<<<<<<< HEAD
 =======
         <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
         <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
@@ -166,6 +170,8 @@ function WhatIfSimulator() {
         <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
         <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
 >>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
+=======
+>>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
       </div>
 
       {error && (
@@ -222,6 +228,9 @@ function WhatIfSimulator() {
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
               <span className="text-sm font-medium text-cyan-50/75">{item.label}</span>
               <span className="text-sm text-cyan-50/60">
                 {item.key === 'avgAmount' 
@@ -230,15 +239,18 @@ function WhatIfSimulator() {
                   ? `${values[item.key]}%`
                   : values[item.key]
                 }
+<<<<<<< HEAD
 =======
               <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
               <span className="text-sm text-[#1E293B]/65">
                 {Math.round(values[item.key] * 100)}%
 >>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
+=======
+>>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
               </span>
             </div>
             <input
-              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-[#2563EB]"
+              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-cyan-950 accent-cyan-300"
               type="range"
               min={item.min}
               max={item.max}
