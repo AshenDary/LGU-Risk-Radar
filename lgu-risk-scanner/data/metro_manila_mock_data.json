@@ -18,7 +18,9 @@
         "district_group": "CAMANAVA",
         "data_status": "cleaned",
         "mock_profile": "high_volume_social_services"
-      }
+      },
+      "latitude": 14.7568,
+      "longitude": 120.9822
     },
     {
       "id": "Las Pinas",
@@ -30,7 +32,9 @@
         "district_group": "Southern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "balanced_procurement"
-      }
+      },
+      "latitude": 14.4542,
+      "longitude": 120.9934
     },
     {
       "id": "Makati",
@@ -42,7 +46,9 @@
         "district_group": "Central Business District",
         "data_status": "cleaned",
         "mock_profile": "large_capital_projects"
-      }
+      },
+      "latitude": 14.5547,
+      "longitude": 121.0244
     },
     {
       "id": "Malabon",
@@ -54,7 +60,9 @@
         "district_group": "CAMANAVA",
         "data_status": "cleaned",
         "mock_profile": "flood_control_and_health"
-      }
+      },
+      "latitude": 14.649,
+      "longitude": 120.96
     },
     {
       "id": "Mandaluyong",
@@ -66,7 +74,9 @@
         "district_group": "Central Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "facility_maintenance"
-      }
+      },
+      "latitude": 14.5794,
+      "longitude": 121.0359
     },
     {
       "id": "Manila",
@@ -78,7 +88,9 @@
         "district_group": "Capital District",
         "data_status": "cleaned",
         "mock_profile": "large_multi_sector_program"
-      }
+      },
+      "latitude": 14.5995,
+      "longitude": 120.9842
     },
     {
       "id": "Marikina",
@@ -90,7 +102,9 @@
         "district_group": "Eastern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "disaster_preparedness"
-      }
+      },
+      "latitude": 14.6507,
+      "longitude": 121.1029
     },
     {
       "id": "Muntinlupa",
@@ -102,7 +116,9 @@
         "district_group": "Southern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "public_facilities"
-      }
+      },
+      "latitude": 14.4149,
+      "longitude": 121.0414
     },
     {
       "id": "Navotas",
@@ -114,7 +130,9 @@
         "district_group": "CAMANAVA",
         "data_status": "cleaned",
         "mock_profile": "coastal_services"
-      }
+      },
+      "latitude": 14.465,
+      "longitude": 120.9484
     },
     {
       "id": "Paranaque",
@@ -126,7 +144,9 @@
         "district_group": "Southern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "transport_and_drainage"
-      }
+      },
+      "latitude": 14.4794,
+      "longitude": 121.0282
     },
     {
       "id": "Pasay",
@@ -138,7 +158,9 @@
         "district_group": "Bay Area",
         "data_status": "cleaned",
         "mock_profile": "tourism_and_public_order"
-      }
+      },
+      "latitude": 14.535,
+      "longitude": 120.982
     },
     {
       "id": "ncr-pasig",
@@ -150,7 +172,9 @@
         "district_group": "Eastern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "digital_services"
-      }
+      },
+      "latitude": 14.5764,
+      "longitude": 121.0851
     },
     {
       "id": "Quezon City",
@@ -162,7 +186,9 @@
         "district_group": "Northern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "largest_population_high_volume"
-      }
+      },
+      "latitude": 14.676,
+      "longitude": 121.0437
     },
     {
       "id": "San Juan",
@@ -174,7 +200,9 @@
         "district_group": "Central Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "compact_city_services"
-      }
+      },
+      "latitude": 14.6007,
+      "longitude": 121.0354
     },
     {
       "id": "Taguig",
@@ -186,7 +214,9 @@
         "district_group": "Southern Metro Manila",
         "data_status": "cleaned",
         "mock_profile": "rapid_growth_infrastructure"
-      }
+      },
+      "latitude": 14.5176,
+      "longitude": 121.0509
     },
     {
       "id": "ncr-valenzuela",
@@ -198,108 +228,1261 @@
         "district_group": "CAMANAVA",
         "data_status": "cleaned",
         "mock_profile": "industrial_and_social_services"
-      }
+      },
+      "latitude": 14.7007,
+      "longitude": 120.9739
     }
   ],
   "procurements": [
-    {"id": "proc-ncr-caloocan-001", "lgu_id": "ncr-caloocan", "reference_number": "NCR-CAL-2026-001", "title": "Barangay Health Center Medical Supplies", "supplier": "MetroMed Supplies Corp.", "amount": 2850000, "status": "completed", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-caloocan-002", "lgu_id": "ncr-caloocan", "reference_number": "NCR-CAL-2026-002", "title": "Road Resurfacing Materials Package", "supplier": "Northline Builders Depot", "amount": 6400000, "status": "submitted", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-caloocan-003", "lgu_id": "ncr-caloocan", "reference_number": "NCR-CAL-2026-003", "title": "Emergency Response Vehicle Maintenance", "supplier": "MetroMed Supplies Corp.", "amount": 950000, "status": "completed", "metadata": {"category": "public_safety", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-caloocan-004", "lgu_id": "ncr-caloocan", "reference_number": "NCR-CAL-2026-004", "title": "Public School Learning Kits", "supplier": "EduCore Trading", "amount": 2200000, "status": "draft", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-las-pinas-001", "lgu_id": "ncr-las-pinas", "reference_number": "NCR-LP-2026-001", "title": "Drainage Canal Desilting Services", "supplier": "Southflow Engineering", "amount": 3150000, "status": "completed", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-las-pinas-002", "lgu_id": "ncr-las-pinas", "reference_number": "NCR-LP-2026-002", "title": "City Clinic Diagnostic Equipment", "supplier": "HealthAxis Distribution", "amount": 1780000, "status": "submitted", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-las-pinas-003", "lgu_id": "ncr-las-pinas", "reference_number": "NCR-LP-2026-003", "title": "Waste Collection Truck Parts", "supplier": "Southflow Engineering", "amount": 890000, "status": "completed", "metadata": {"category": "environment", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-las-pinas-004", "lgu_id": "ncr-las-pinas", "reference_number": "NCR-LP-2026-004", "title": "Senior Citizen Food Pack Program", "supplier": "Bayanihan Food Logistics", "amount": 1350000, "status": "submitted", "metadata": {"category": "social_services", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-makati-001", "lgu_id": "ncr-makati", "reference_number": "NCR-MKT-2026-001", "title": "Traffic Signal Modernization Phase 1", "supplier": "CivicGrid Systems", "amount": 9800000, "status": "submitted", "metadata": {"category": "transport", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-makati-002", "lgu_id": "ncr-makati", "reference_number": "NCR-MKT-2026-002", "title": "City Hall Network Security Upgrade", "supplier": "CivicGrid Systems", "amount": 4200000, "status": "completed", "metadata": {"category": "information_technology", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-makati-003", "lgu_id": "ncr-makati", "reference_number": "NCR-MKT-2026-003", "title": "Public Market Fire Safety Equipment", "supplier": "SafeWorks Industrial", "amount": 1450000, "status": "completed", "metadata": {"category": "public_safety", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-makati-004", "lgu_id": "ncr-makati", "reference_number": "NCR-MKT-2026-004", "title": "CBD Sidewalk Rehabilitation", "supplier": "CivicGrid Systems", "amount": 6800000, "status": "draft", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-malabon-001", "lgu_id": "ncr-malabon", "reference_number": "NCR-MAL-2026-001", "title": "Flood Pump Preventive Maintenance", "supplier": "Rivergate Engineering Services", "amount": 2650000, "status": "completed", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-malabon-002", "lgu_id": "ncr-malabon", "reference_number": "NCR-MAL-2026-002", "title": "Evacuation Center Supplies", "supplier": "Northbay Relief Trading", "amount": 780000, "status": "submitted", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-malabon-003", "lgu_id": "ncr-malabon", "reference_number": "NCR-MAL-2026-003", "title": "Community Clinic Medicines", "supplier": "Rivergate Engineering Services", "amount": 1180000, "status": "completed", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-malabon-004", "lgu_id": "ncr-malabon", "reference_number": "NCR-MAL-2026-004", "title": "School Building Roof Repairs", "supplier": "Bayside Construction Supply", "amount": 2350000, "status": "draft", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-mandaluyong-001", "lgu_id": "ncr-mandaluyong", "reference_number": "NCR-MND-2026-001", "title": "Public Facility Electrical Repairs", "supplier": "Centerline Facilities Corp.", "amount": 1850000, "status": "completed", "metadata": {"category": "facilities", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-mandaluyong-002", "lgu_id": "ncr-mandaluyong", "reference_number": "NCR-MND-2026-002", "title": "City Clinic Vaccine Cold Storage", "supplier": "MedTemp Logistics", "amount": 1250000, "status": "submitted", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-mandaluyong-003", "lgu_id": "ncr-mandaluyong", "reference_number": "NCR-MND-2026-003", "title": "Streetlight Replacement Package", "supplier": "Centerline Facilities Corp.", "amount": 2100000, "status": "completed", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-mandaluyong-004", "lgu_id": "ncr-mandaluyong", "reference_number": "NCR-MND-2026-004", "title": "Emergency Operations Radios", "supplier": "SignalOne Communications", "amount": 940000, "status": "submitted", "metadata": {"category": "public_safety", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-manila-001", "lgu_id": "ncr-manila", "reference_number": "NCR-MNL-2026-001", "title": "District Hospital Equipment Upgrade", "supplier": "CapitalCare Medical Corp.", "amount": 8750000, "status": "submitted", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-manila-002", "lgu_id": "ncr-manila", "reference_number": "NCR-MNL-2026-002", "title": "Public School Classroom Repair Program", "supplier": "Intramuros Builders Supply", "amount": 7200000, "status": "completed", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-manila-003", "lgu_id": "ncr-manila", "reference_number": "NCR-MNL-2026-003", "title": "Drainage Rehabilitation Materials", "supplier": "CapitalCare Medical Corp.", "amount": 3900000, "status": "draft", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-manila-004", "lgu_id": "ncr-manila", "reference_number": "NCR-MNL-2026-004", "title": "Social Amelioration Distribution System", "supplier": "CivicGrid Systems", "amount": 2450000, "status": "completed", "metadata": {"category": "social_services", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-marikina-001", "lgu_id": "ncr-marikina", "reference_number": "NCR-MRK-2026-001", "title": "Rescue Boat and Flood Gear Package", "supplier": "Marikina SafetyWorks", "amount": 1750000, "status": "completed", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-marikina-002", "lgu_id": "ncr-marikina", "reference_number": "NCR-MRK-2026-002", "title": "Riverbank Monitoring Sensors", "supplier": "RiverTech Instruments", "amount": 980000, "status": "submitted", "metadata": {"category": "information_technology", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-marikina-003", "lgu_id": "ncr-marikina", "reference_number": "NCR-MRK-2026-003", "title": "School Disaster Readiness Kits", "supplier": "Marikina SafetyWorks", "amount": 840000, "status": "completed", "metadata": {"category": "education", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-marikina-004", "lgu_id": "ncr-marikina", "reference_number": "NCR-MRK-2026-004", "title": "Barangay Road Marking Supplies", "supplier": "Eastway Materials", "amount": 620000, "status": "submitted", "metadata": {"category": "transport", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-muntinlupa-001", "lgu_id": "ncr-muntinlupa", "reference_number": "NCR-MUN-2026-001", "title": "Public Park Lighting Upgrade", "supplier": "Lakeview Electrical Supply", "amount": 2320000, "status": "completed", "metadata": {"category": "facilities", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-muntinlupa-002", "lgu_id": "ncr-muntinlupa", "reference_number": "NCR-MUN-2026-002", "title": "City Hall Records Digitization", "supplier": "CivicGrid Systems", "amount": 1850000, "status": "submitted", "metadata": {"category": "information_technology", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-muntinlupa-003", "lgu_id": "ncr-muntinlupa", "reference_number": "NCR-MUN-2026-003", "title": "Public School Furniture", "supplier": "Lakeview Electrical Supply", "amount": 1430000, "status": "completed", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-muntinlupa-004", "lgu_id": "ncr-muntinlupa", "reference_number": "NCR-MUN-2026-004", "title": "Community Health Outreach Van Repairs", "supplier": "South Fleet Services", "amount": 760000, "status": "draft", "metadata": {"category": "health", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-navotas-001", "lgu_id": "ncr-navotas", "reference_number": "NCR-NAV-2026-001", "title": "Coastal Flood Barrier Maintenance", "supplier": "Harborline Engineering", "amount": 2480000, "status": "completed", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-navotas-002", "lgu_id": "ncr-navotas", "reference_number": "NCR-NAV-2026-002", "title": "Fish Port Sanitation Supplies", "supplier": "Harborline Engineering", "amount": 690000, "status": "submitted", "metadata": {"category": "environment", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-navotas-003", "lgu_id": "ncr-navotas", "reference_number": "NCR-NAV-2026-003", "title": "Barangay Health Medicines", "supplier": "MetroMed Supplies Corp.", "amount": 820000, "status": "completed", "metadata": {"category": "health", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-navotas-004", "lgu_id": "ncr-navotas", "reference_number": "NCR-NAV-2026-004", "title": "School Nutrition Food Packs", "supplier": "Northbay Relief Trading", "amount": 910000, "status": "submitted", "metadata": {"category": "social_services", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-paranaque-001", "lgu_id": "ncr-paranaque", "reference_number": "NCR-PAR-2026-001", "title": "Major Drainage Improvement Package", "supplier": "Southflow Engineering", "amount": 6150000, "status": "submitted", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-paranaque-002", "lgu_id": "ncr-paranaque", "reference_number": "NCR-PAR-2026-002", "title": "Traffic Enforcement Camera Maintenance", "supplier": "SignalOne Communications", "amount": 1720000, "status": "completed", "metadata": {"category": "transport", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-paranaque-003", "lgu_id": "ncr-paranaque", "reference_number": "NCR-PAR-2026-003", "title": "Barangay Clinic Supplies", "supplier": "Southflow Engineering", "amount": 1050000, "status": "completed", "metadata": {"category": "health", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-paranaque-004", "lgu_id": "ncr-paranaque", "reference_number": "NCR-PAR-2026-004", "title": "Disaster Response Warehouse Equipment", "supplier": "SafeWorks Industrial", "amount": 1890000, "status": "draft", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-pasay-001", "lgu_id": "ncr-pasay", "reference_number": "NCR-PSY-2026-001", "title": "Public Order CCTV Maintenance", "supplier": "Bayfront Security Systems", "amount": 2680000, "status": "completed", "metadata": {"category": "public_safety", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasay-002", "lgu_id": "ncr-pasay", "reference_number": "NCR-PSY-2026-002", "title": "Tourism Information Kiosks", "supplier": "Bayfront Security Systems", "amount": 1350000, "status": "submitted", "metadata": {"category": "tourism", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasay-003", "lgu_id": "ncr-pasay", "reference_number": "NCR-PSY-2026-003", "title": "Street Sweeping Equipment", "supplier": "CleanCity Trading", "amount": 970000, "status": "completed", "metadata": {"category": "environment", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasay-004", "lgu_id": "ncr-pasay", "reference_number": "NCR-PSY-2026-004", "title": "Emergency Shelter Modular Beds", "supplier": "Northbay Relief Trading", "amount": 1180000, "status": "draft", "metadata": {"category": "social_services", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-pasig-001", "lgu_id": "ncr-pasig", "reference_number": "NCR-PAS-2026-001", "title": "Citizen Services Portal Maintenance", "supplier": "CivicGrid Systems", "amount": 3600000, "status": "completed", "metadata": {"category": "information_technology", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasig-002", "lgu_id": "ncr-pasig", "reference_number": "NCR-PAS-2026-002", "title": "River Easement Clearing Services", "supplier": "Rivergate Engineering Services", "amount": 2900000, "status": "submitted", "metadata": {"category": "environment", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasig-003", "lgu_id": "ncr-pasig", "reference_number": "NCR-PAS-2026-003", "title": "Public School Connectivity Devices", "supplier": "CivicGrid Systems", "amount": 2250000, "status": "completed", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-pasig-004", "lgu_id": "ncr-pasig", "reference_number": "NCR-PAS-2026-004", "title": "Health Center Queueing Systems", "supplier": "CivicGrid Systems", "amount": 1780000, "status": "draft", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-quezon-city-001", "lgu_id": "ncr-quezon-city", "reference_number": "NCR-QC-2026-001", "title": "District Road Network Rehabilitation", "supplier": "Northline Builders Depot", "amount": 11200000, "status": "submitted", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-quezon-city-002", "lgu_id": "ncr-quezon-city", "reference_number": "NCR-QC-2026-002", "title": "City Hospital Diagnostic Systems", "supplier": "CapitalCare Medical Corp.", "amount": 9350000, "status": "completed", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-quezon-city-003", "lgu_id": "ncr-quezon-city", "reference_number": "NCR-QC-2026-003", "title": "Learning Device Distribution", "supplier": "Northline Builders Depot", "amount": 5800000, "status": "draft", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-quezon-city-004", "lgu_id": "ncr-quezon-city", "reference_number": "NCR-QC-2026-004", "title": "Waste Transfer Station Equipment", "supplier": "CleanCity Trading", "amount": 4100000, "status": "submitted", "metadata": {"category": "environment", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-san-juan-001", "lgu_id": "ncr-san-juan", "reference_number": "NCR-SJ-2026-001", "title": "Public Market Roofing Repairs", "supplier": "Centerline Facilities Corp.", "amount": 970000, "status": "completed", "metadata": {"category": "facilities", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-san-juan-002", "lgu_id": "ncr-san-juan", "reference_number": "NCR-SJ-2026-002", "title": "Clinic Laboratory Consumables", "supplier": "HealthAxis Distribution", "amount": 580000, "status": "submitted", "metadata": {"category": "health", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-san-juan-003", "lgu_id": "ncr-san-juan", "reference_number": "NCR-SJ-2026-003", "title": "Traffic Cone and Barrier Package", "supplier": "Centerline Facilities Corp.", "amount": 420000, "status": "completed", "metadata": {"category": "transport", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-san-juan-004", "lgu_id": "ncr-san-juan", "reference_number": "NCR-SJ-2026-004", "title": "City Library Computer Units", "supplier": "EduCore Trading", "amount": 690000, "status": "submitted", "metadata": {"category": "education", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-taguig-001", "lgu_id": "ncr-taguig", "reference_number": "NCR-TAG-2026-001", "title": "Growth Corridor Road Improvements", "supplier": "Southline Infrastructure Corp.", "amount": 7850000, "status": "submitted", "metadata": {"category": "infrastructure", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-taguig-002", "lgu_id": "ncr-taguig", "reference_number": "NCR-TAG-2026-002", "title": "Health Center Digital Records System", "supplier": "CivicGrid Systems", "amount": 2680000, "status": "completed", "metadata": {"category": "information_technology", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-taguig-003", "lgu_id": "ncr-taguig", "reference_number": "NCR-TAG-2026-003", "title": "Public School Laboratory Equipment", "supplier": "EduCore Trading", "amount": 3100000, "status": "completed", "metadata": {"category": "education", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-taguig-004", "lgu_id": "ncr-taguig", "reference_number": "NCR-TAG-2026-004", "title": "Disaster Response Truck Package", "supplier": "Southline Infrastructure Corp.", "amount": 3550000, "status": "draft", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-
-    {"id": "proc-ncr-valenzuela-001", "lgu_id": "ncr-valenzuela", "reference_number": "NCR-VAL-2026-001", "title": "Industrial Road Safety Improvement", "supplier": "Northline Builders Depot", "amount": 4850000, "status": "submitted", "metadata": {"category": "transport", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-valenzuela-002", "lgu_id": "ncr-valenzuela", "reference_number": "NCR-VAL-2026-002", "title": "Public Employment Training Equipment", "supplier": "EduCore Trading", "amount": 1650000, "status": "completed", "metadata": {"category": "livelihood", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-valenzuela-003", "lgu_id": "ncr-valenzuela", "reference_number": "NCR-VAL-2026-003", "title": "Clinic Medicine and Supplies", "supplier": "MetroMed Supplies Corp.", "amount": 1320000, "status": "completed", "metadata": {"category": "health", "procurement_method": "public_bidding", "fiscal_year": 2026, "data_status": "cleaned"}},
-    {"id": "proc-ncr-valenzuela-004", "lgu_id": "ncr-valenzuela", "reference_number": "NCR-VAL-2026-004", "title": "Flood Monitoring Station Maintenance", "supplier": "Northline Builders Depot", "amount": 1180000, "status": "draft", "metadata": {"category": "disaster_risk_reduction", "procurement_method": "small_value_procurement", "fiscal_year": 2026, "data_status": "cleaned"}}
+    {
+      "id": "proc-ncr-caloocan-001",
+      "lgu_id": "ncr-caloocan",
+      "reference_number": "NCR-CAL-2026-001",
+      "title": "Barangay Health Center Medical Supplies",
+      "supplier": "MetroMed Supplies Corp.",
+      "amount": 2850000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-caloocan-002",
+      "lgu_id": "ncr-caloocan",
+      "reference_number": "NCR-CAL-2026-002",
+      "title": "Road Resurfacing Materials Package",
+      "supplier": "Northline Builders Depot",
+      "amount": 6400000,
+      "status": "submitted",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-caloocan-003",
+      "lgu_id": "ncr-caloocan",
+      "reference_number": "NCR-CAL-2026-003",
+      "title": "Emergency Response Vehicle Maintenance",
+      "supplier": "MetroMed Supplies Corp.",
+      "amount": 950000,
+      "status": "completed",
+      "metadata": {
+        "category": "public_safety",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-caloocan-004",
+      "lgu_id": "ncr-caloocan",
+      "reference_number": "NCR-CAL-2026-004",
+      "title": "Public School Learning Kits",
+      "supplier": "EduCore Trading",
+      "amount": 2200000,
+      "status": "draft",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-las-pinas-001",
+      "lgu_id": "ncr-las-pinas",
+      "reference_number": "NCR-LP-2026-001",
+      "title": "Drainage Canal Desilting Services",
+      "supplier": "Southflow Engineering",
+      "amount": 3150000,
+      "status": "completed",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-las-pinas-002",
+      "lgu_id": "ncr-las-pinas",
+      "reference_number": "NCR-LP-2026-002",
+      "title": "City Clinic Diagnostic Equipment",
+      "supplier": "HealthAxis Distribution",
+      "amount": 1780000,
+      "status": "submitted",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-las-pinas-003",
+      "lgu_id": "ncr-las-pinas",
+      "reference_number": "NCR-LP-2026-003",
+      "title": "Waste Collection Truck Parts",
+      "supplier": "Southflow Engineering",
+      "amount": 890000,
+      "status": "completed",
+      "metadata": {
+        "category": "environment",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-las-pinas-004",
+      "lgu_id": "ncr-las-pinas",
+      "reference_number": "NCR-LP-2026-004",
+      "title": "Senior Citizen Food Pack Program",
+      "supplier": "Bayanihan Food Logistics",
+      "amount": 1350000,
+      "status": "submitted",
+      "metadata": {
+        "category": "social_services",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-makati-001",
+      "lgu_id": "ncr-makati",
+      "reference_number": "NCR-MKT-2026-001",
+      "title": "Traffic Signal Modernization Phase 1",
+      "supplier": "CivicGrid Systems",
+      "amount": 9800000,
+      "status": "submitted",
+      "metadata": {
+        "category": "transport",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-makati-002",
+      "lgu_id": "ncr-makati",
+      "reference_number": "NCR-MKT-2026-002",
+      "title": "City Hall Network Security Upgrade",
+      "supplier": "CivicGrid Systems",
+      "amount": 4200000,
+      "status": "completed",
+      "metadata": {
+        "category": "information_technology",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-makati-003",
+      "lgu_id": "ncr-makati",
+      "reference_number": "NCR-MKT-2026-003",
+      "title": "Public Market Fire Safety Equipment",
+      "supplier": "SafeWorks Industrial",
+      "amount": 1450000,
+      "status": "completed",
+      "metadata": {
+        "category": "public_safety",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-makati-004",
+      "lgu_id": "ncr-makati",
+      "reference_number": "NCR-MKT-2026-004",
+      "title": "CBD Sidewalk Rehabilitation",
+      "supplier": "CivicGrid Systems",
+      "amount": 6800000,
+      "status": "draft",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-malabon-001",
+      "lgu_id": "ncr-malabon",
+      "reference_number": "NCR-MAL-2026-001",
+      "title": "Flood Pump Preventive Maintenance",
+      "supplier": "Rivergate Engineering Services",
+      "amount": 2650000,
+      "status": "completed",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-malabon-002",
+      "lgu_id": "ncr-malabon",
+      "reference_number": "NCR-MAL-2026-002",
+      "title": "Evacuation Center Supplies",
+      "supplier": "Northbay Relief Trading",
+      "amount": 780000,
+      "status": "submitted",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-malabon-003",
+      "lgu_id": "ncr-malabon",
+      "reference_number": "NCR-MAL-2026-003",
+      "title": "Community Clinic Medicines",
+      "supplier": "Rivergate Engineering Services",
+      "amount": 1180000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-malabon-004",
+      "lgu_id": "ncr-malabon",
+      "reference_number": "NCR-MAL-2026-004",
+      "title": "School Building Roof Repairs",
+      "supplier": "Bayside Construction Supply",
+      "amount": 2350000,
+      "status": "draft",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-mandaluyong-001",
+      "lgu_id": "ncr-mandaluyong",
+      "reference_number": "NCR-MND-2026-001",
+      "title": "Public Facility Electrical Repairs",
+      "supplier": "Centerline Facilities Corp.",
+      "amount": 1850000,
+      "status": "completed",
+      "metadata": {
+        "category": "facilities",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-mandaluyong-002",
+      "lgu_id": "ncr-mandaluyong",
+      "reference_number": "NCR-MND-2026-002",
+      "title": "City Clinic Vaccine Cold Storage",
+      "supplier": "MedTemp Logistics",
+      "amount": 1250000,
+      "status": "submitted",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-mandaluyong-003",
+      "lgu_id": "ncr-mandaluyong",
+      "reference_number": "NCR-MND-2026-003",
+      "title": "Streetlight Replacement Package",
+      "supplier": "Centerline Facilities Corp.",
+      "amount": 2100000,
+      "status": "completed",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-mandaluyong-004",
+      "lgu_id": "ncr-mandaluyong",
+      "reference_number": "NCR-MND-2026-004",
+      "title": "Emergency Operations Radios",
+      "supplier": "SignalOne Communications",
+      "amount": 940000,
+      "status": "submitted",
+      "metadata": {
+        "category": "public_safety",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-manila-001",
+      "lgu_id": "ncr-manila",
+      "reference_number": "NCR-MNL-2026-001",
+      "title": "District Hospital Equipment Upgrade",
+      "supplier": "CapitalCare Medical Corp.",
+      "amount": 8750000,
+      "status": "submitted",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-manila-002",
+      "lgu_id": "ncr-manila",
+      "reference_number": "NCR-MNL-2026-002",
+      "title": "Public School Classroom Repair Program",
+      "supplier": "Intramuros Builders Supply",
+      "amount": 7200000,
+      "status": "completed",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-manila-003",
+      "lgu_id": "ncr-manila",
+      "reference_number": "NCR-MNL-2026-003",
+      "title": "Drainage Rehabilitation Materials",
+      "supplier": "CapitalCare Medical Corp.",
+      "amount": 3900000,
+      "status": "draft",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-manila-004",
+      "lgu_id": "ncr-manila",
+      "reference_number": "NCR-MNL-2026-004",
+      "title": "Social Amelioration Distribution System",
+      "supplier": "CivicGrid Systems",
+      "amount": 2450000,
+      "status": "completed",
+      "metadata": {
+        "category": "social_services",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-marikina-001",
+      "lgu_id": "ncr-marikina",
+      "reference_number": "NCR-MRK-2026-001",
+      "title": "Rescue Boat and Flood Gear Package",
+      "supplier": "Marikina SafetyWorks",
+      "amount": 1750000,
+      "status": "completed",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-marikina-002",
+      "lgu_id": "ncr-marikina",
+      "reference_number": "NCR-MRK-2026-002",
+      "title": "Riverbank Monitoring Sensors",
+      "supplier": "RiverTech Instruments",
+      "amount": 980000,
+      "status": "submitted",
+      "metadata": {
+        "category": "information_technology",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-marikina-003",
+      "lgu_id": "ncr-marikina",
+      "reference_number": "NCR-MRK-2026-003",
+      "title": "School Disaster Readiness Kits",
+      "supplier": "Marikina SafetyWorks",
+      "amount": 840000,
+      "status": "completed",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-marikina-004",
+      "lgu_id": "ncr-marikina",
+      "reference_number": "NCR-MRK-2026-004",
+      "title": "Barangay Road Marking Supplies",
+      "supplier": "Eastway Materials",
+      "amount": 620000,
+      "status": "submitted",
+      "metadata": {
+        "category": "transport",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-muntinlupa-001",
+      "lgu_id": "ncr-muntinlupa",
+      "reference_number": "NCR-MUN-2026-001",
+      "title": "Public Park Lighting Upgrade",
+      "supplier": "Lakeview Electrical Supply",
+      "amount": 2320000,
+      "status": "completed",
+      "metadata": {
+        "category": "facilities",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-muntinlupa-002",
+      "lgu_id": "ncr-muntinlupa",
+      "reference_number": "NCR-MUN-2026-002",
+      "title": "City Hall Records Digitization",
+      "supplier": "CivicGrid Systems",
+      "amount": 1850000,
+      "status": "submitted",
+      "metadata": {
+        "category": "information_technology",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-muntinlupa-003",
+      "lgu_id": "ncr-muntinlupa",
+      "reference_number": "NCR-MUN-2026-003",
+      "title": "Public School Furniture",
+      "supplier": "Lakeview Electrical Supply",
+      "amount": 1430000,
+      "status": "completed",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-muntinlupa-004",
+      "lgu_id": "ncr-muntinlupa",
+      "reference_number": "NCR-MUN-2026-004",
+      "title": "Community Health Outreach Van Repairs",
+      "supplier": "South Fleet Services",
+      "amount": 760000,
+      "status": "draft",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-navotas-001",
+      "lgu_id": "ncr-navotas",
+      "reference_number": "NCR-NAV-2026-001",
+      "title": "Coastal Flood Barrier Maintenance",
+      "supplier": "Harborline Engineering",
+      "amount": 2480000,
+      "status": "completed",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-navotas-002",
+      "lgu_id": "ncr-navotas",
+      "reference_number": "NCR-NAV-2026-002",
+      "title": "Fish Port Sanitation Supplies",
+      "supplier": "Harborline Engineering",
+      "amount": 690000,
+      "status": "submitted",
+      "metadata": {
+        "category": "environment",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-navotas-003",
+      "lgu_id": "ncr-navotas",
+      "reference_number": "NCR-NAV-2026-003",
+      "title": "Barangay Health Medicines",
+      "supplier": "MetroMed Supplies Corp.",
+      "amount": 820000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-navotas-004",
+      "lgu_id": "ncr-navotas",
+      "reference_number": "NCR-NAV-2026-004",
+      "title": "School Nutrition Food Packs",
+      "supplier": "Northbay Relief Trading",
+      "amount": 910000,
+      "status": "submitted",
+      "metadata": {
+        "category": "social_services",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-paranaque-001",
+      "lgu_id": "ncr-paranaque",
+      "reference_number": "NCR-PAR-2026-001",
+      "title": "Major Drainage Improvement Package",
+      "supplier": "Southflow Engineering",
+      "amount": 6150000,
+      "status": "submitted",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-paranaque-002",
+      "lgu_id": "ncr-paranaque",
+      "reference_number": "NCR-PAR-2026-002",
+      "title": "Traffic Enforcement Camera Maintenance",
+      "supplier": "SignalOne Communications",
+      "amount": 1720000,
+      "status": "completed",
+      "metadata": {
+        "category": "transport",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-paranaque-003",
+      "lgu_id": "ncr-paranaque",
+      "reference_number": "NCR-PAR-2026-003",
+      "title": "Barangay Clinic Supplies",
+      "supplier": "Southflow Engineering",
+      "amount": 1050000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-paranaque-004",
+      "lgu_id": "ncr-paranaque",
+      "reference_number": "NCR-PAR-2026-004",
+      "title": "Disaster Response Warehouse Equipment",
+      "supplier": "SafeWorks Industrial",
+      "amount": 1890000,
+      "status": "draft",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasay-001",
+      "lgu_id": "ncr-pasay",
+      "reference_number": "NCR-PSY-2026-001",
+      "title": "Public Order CCTV Maintenance",
+      "supplier": "Bayfront Security Systems",
+      "amount": 2680000,
+      "status": "completed",
+      "metadata": {
+        "category": "public_safety",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasay-002",
+      "lgu_id": "ncr-pasay",
+      "reference_number": "NCR-PSY-2026-002",
+      "title": "Tourism Information Kiosks",
+      "supplier": "Bayfront Security Systems",
+      "amount": 1350000,
+      "status": "submitted",
+      "metadata": {
+        "category": "tourism",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasay-003",
+      "lgu_id": "ncr-pasay",
+      "reference_number": "NCR-PSY-2026-003",
+      "title": "Street Sweeping Equipment",
+      "supplier": "CleanCity Trading",
+      "amount": 970000,
+      "status": "completed",
+      "metadata": {
+        "category": "environment",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasay-004",
+      "lgu_id": "ncr-pasay",
+      "reference_number": "NCR-PSY-2026-004",
+      "title": "Emergency Shelter Modular Beds",
+      "supplier": "Northbay Relief Trading",
+      "amount": 1180000,
+      "status": "draft",
+      "metadata": {
+        "category": "social_services",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasig-001",
+      "lgu_id": "ncr-pasig",
+      "reference_number": "NCR-PAS-2026-001",
+      "title": "Citizen Services Portal Maintenance",
+      "supplier": "CivicGrid Systems",
+      "amount": 3600000,
+      "status": "completed",
+      "metadata": {
+        "category": "information_technology",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasig-002",
+      "lgu_id": "ncr-pasig",
+      "reference_number": "NCR-PAS-2026-002",
+      "title": "River Easement Clearing Services",
+      "supplier": "Rivergate Engineering Services",
+      "amount": 2900000,
+      "status": "submitted",
+      "metadata": {
+        "category": "environment",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasig-003",
+      "lgu_id": "ncr-pasig",
+      "reference_number": "NCR-PAS-2026-003",
+      "title": "Public School Connectivity Devices",
+      "supplier": "CivicGrid Systems",
+      "amount": 2250000,
+      "status": "completed",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-pasig-004",
+      "lgu_id": "ncr-pasig",
+      "reference_number": "NCR-PAS-2026-004",
+      "title": "Health Center Queueing Systems",
+      "supplier": "CivicGrid Systems",
+      "amount": 1780000,
+      "status": "draft",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-quezon-city-001",
+      "lgu_id": "ncr-quezon-city",
+      "reference_number": "NCR-QC-2026-001",
+      "title": "District Road Network Rehabilitation",
+      "supplier": "Northline Builders Depot",
+      "amount": 11200000,
+      "status": "submitted",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-quezon-city-002",
+      "lgu_id": "ncr-quezon-city",
+      "reference_number": "NCR-QC-2026-002",
+      "title": "City Hospital Diagnostic Systems",
+      "supplier": "CapitalCare Medical Corp.",
+      "amount": 9350000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-quezon-city-003",
+      "lgu_id": "ncr-quezon-city",
+      "reference_number": "NCR-QC-2026-003",
+      "title": "Learning Device Distribution",
+      "supplier": "Northline Builders Depot",
+      "amount": 5800000,
+      "status": "draft",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-quezon-city-004",
+      "lgu_id": "ncr-quezon-city",
+      "reference_number": "NCR-QC-2026-004",
+      "title": "Waste Transfer Station Equipment",
+      "supplier": "CleanCity Trading",
+      "amount": 4100000,
+      "status": "submitted",
+      "metadata": {
+        "category": "environment",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-san-juan-001",
+      "lgu_id": "ncr-san-juan",
+      "reference_number": "NCR-SJ-2026-001",
+      "title": "Public Market Roofing Repairs",
+      "supplier": "Centerline Facilities Corp.",
+      "amount": 970000,
+      "status": "completed",
+      "metadata": {
+        "category": "facilities",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-san-juan-002",
+      "lgu_id": "ncr-san-juan",
+      "reference_number": "NCR-SJ-2026-002",
+      "title": "Clinic Laboratory Consumables",
+      "supplier": "HealthAxis Distribution",
+      "amount": 580000,
+      "status": "submitted",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-san-juan-003",
+      "lgu_id": "ncr-san-juan",
+      "reference_number": "NCR-SJ-2026-003",
+      "title": "Traffic Cone and Barrier Package",
+      "supplier": "Centerline Facilities Corp.",
+      "amount": 420000,
+      "status": "completed",
+      "metadata": {
+        "category": "transport",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-san-juan-004",
+      "lgu_id": "ncr-san-juan",
+      "reference_number": "NCR-SJ-2026-004",
+      "title": "City Library Computer Units",
+      "supplier": "EduCore Trading",
+      "amount": 690000,
+      "status": "submitted",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-taguig-001",
+      "lgu_id": "ncr-taguig",
+      "reference_number": "NCR-TAG-2026-001",
+      "title": "Growth Corridor Road Improvements",
+      "supplier": "Southline Infrastructure Corp.",
+      "amount": 7850000,
+      "status": "submitted",
+      "metadata": {
+        "category": "infrastructure",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-taguig-002",
+      "lgu_id": "ncr-taguig",
+      "reference_number": "NCR-TAG-2026-002",
+      "title": "Health Center Digital Records System",
+      "supplier": "CivicGrid Systems",
+      "amount": 2680000,
+      "status": "completed",
+      "metadata": {
+        "category": "information_technology",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-taguig-003",
+      "lgu_id": "ncr-taguig",
+      "reference_number": "NCR-TAG-2026-003",
+      "title": "Public School Laboratory Equipment",
+      "supplier": "EduCore Trading",
+      "amount": 3100000,
+      "status": "completed",
+      "metadata": {
+        "category": "education",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-taguig-004",
+      "lgu_id": "ncr-taguig",
+      "reference_number": "NCR-TAG-2026-004",
+      "title": "Disaster Response Truck Package",
+      "supplier": "Southline Infrastructure Corp.",
+      "amount": 3550000,
+      "status": "draft",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-valenzuela-001",
+      "lgu_id": "ncr-valenzuela",
+      "reference_number": "NCR-VAL-2026-001",
+      "title": "Industrial Road Safety Improvement",
+      "supplier": "Northline Builders Depot",
+      "amount": 4850000,
+      "status": "submitted",
+      "metadata": {
+        "category": "transport",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-valenzuela-002",
+      "lgu_id": "ncr-valenzuela",
+      "reference_number": "NCR-VAL-2026-002",
+      "title": "Public Employment Training Equipment",
+      "supplier": "EduCore Trading",
+      "amount": 1650000,
+      "status": "completed",
+      "metadata": {
+        "category": "livelihood",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-valenzuela-003",
+      "lgu_id": "ncr-valenzuela",
+      "reference_number": "NCR-VAL-2026-003",
+      "title": "Clinic Medicine and Supplies",
+      "supplier": "MetroMed Supplies Corp.",
+      "amount": 1320000,
+      "status": "completed",
+      "metadata": {
+        "category": "health",
+        "procurement_method": "public_bidding",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    },
+    {
+      "id": "proc-ncr-valenzuela-004",
+      "lgu_id": "ncr-valenzuela",
+      "reference_number": "NCR-VAL-2026-004",
+      "title": "Flood Monitoring Station Maintenance",
+      "supplier": "Northline Builders Depot",
+      "amount": 1180000,
+      "status": "draft",
+      "metadata": {
+        "category": "disaster_risk_reduction",
+        "procurement_method": "small_value_procurement",
+        "fiscal_year": 2026,
+        "data_status": "cleaned"
+      }
+    }
   ],
   "audit_findings": [
-    {"id": "audit-ncr-manila-001", "entity_type": "lgu", "entity_id": "ncr-manila", "action": "unsupported_disbursement", "actor": "synthetic-coa-pattern", "details": {"severity": "High", "category": "Documentation", "amount": 7200000, "finding": "Several education repair disbursements are marked as completed but lack complete inspection and acceptance attachments in the mock file.", "coa_pattern": "unsupported or incomplete disbursement vouchers", "related_reference": "NCR-MNL-2026-002", "recommendation": "Require complete DV attachments, inspection reports, and acceptance documents before payment tagging."}},
-    {"id": "audit-ncr-manila-002", "entity_type": "lgu", "entity_id": "ncr-manila", "action": "delayed_implementation", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Project Delay", "amount": 3900000, "finding": "Drainage rehabilitation remains in draft status despite high public-safety relevance.", "coa_pattern": "delayed or unimplemented infrastructure projects", "related_reference": "NCR-MNL-2026-003", "recommendation": "Escalate procurement readiness review and publish target award/completion dates."}},
-    {"id": "audit-ncr-quezon-city-001", "entity_type": "lgu", "entity_id": "ncr-quezon-city", "action": "high_value_delay", "actor": "synthetic-coa-pattern", "details": {"severity": "High", "category": "Infrastructure", "amount": 11200000, "finding": "Large road rehabilitation package is submitted but not yet awarded, creating exposure to delayed public benefit.", "coa_pattern": "delayed completion or non-implementation due to planning and monitoring gaps", "related_reference": "NCR-QC-2026-001", "recommendation": "Review bid calendar, engineering readiness, and monitoring milestones."}},
-    {"id": "audit-ncr-quezon-city-002", "entity_type": "lgu", "entity_id": "ncr-quezon-city", "action": "supplier_concentration", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Supplier Risk", "amount": 17000000, "finding": "Northline Builders Depot appears in multiple high-value packages, including one draft procurement.", "coa_pattern": "limited competition or repeated supplier dominance", "related_reference": "NCR-QC-2026-001; NCR-QC-2026-003", "recommendation": "Check bidder participation, post-qualification records, and conflict-of-interest declarations."}},
-    {"id": "audit-ncr-makati-001", "entity_type": "lgu", "entity_id": "ncr-makati", "action": "supplier_concentration", "actor": "synthetic-coa-pattern", "details": {"severity": "High", "category": "Supplier Risk", "amount": 20800000, "finding": "CivicGrid Systems appears in three of four Makati procurements, including IT, transport, and sidewalk works.", "coa_pattern": "supplier concentration across unrelated categories", "related_reference": "NCR-MKT-2026-001; NCR-MKT-2026-002; NCR-MKT-2026-004", "recommendation": "Test market sounding, bidder diversity, and technical qualification independence."}},
-    {"id": "audit-ncr-pasig-001", "entity_type": "lgu", "entity_id": "ncr-pasig", "action": "supplier_concentration", "actor": "synthetic-coa-pattern", "details": {"severity": "High", "category": "Supplier Risk", "amount": 7630000, "finding": "CivicGrid Systems appears in three Pasig technology-related procurements, with one still in draft status.", "coa_pattern": "repeated supplier dominance and possible weak competition", "related_reference": "NCR-PAS-2026-001; NCR-PAS-2026-003; NCR-PAS-2026-004", "recommendation": "Compare bid abstracts and require stronger documentation of supplier selection."}},
-    {"id": "audit-ncr-caloocan-001", "entity_type": "lgu", "entity_id": "ncr-caloocan", "action": "stalled_procurement", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Education", "amount": 2200000, "finding": "Learning kit procurement remains in draft while related social-service and health procurements are already moving.", "coa_pattern": "procurement delay affecting service delivery", "related_reference": "NCR-CAL-2026-004", "recommendation": "Confirm funding availability, specifications, and procurement mode before quarter close."}},
-    {"id": "audit-ncr-malabon-001", "entity_type": "lgu", "entity_id": "ncr-malabon", "action": "flood_project_monitoring", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Disaster Risk", "amount": 2650000, "finding": "Flood pump maintenance is complete, but paired education roof repair remains in draft, suggesting uneven readiness across resilience-related works.", "coa_pattern": "delayed or uneven implementation of infrastructure and DRRM activities", "related_reference": "NCR-MAL-2026-001; NCR-MAL-2026-004", "recommendation": "Use a consolidated DRRM implementation tracker with physical and financial progress."}},
-    {"id": "audit-ncr-navotas-001", "entity_type": "lgu", "entity_id": "ncr-navotas", "action": "supplier_concentration", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Coastal Services", "amount": 3170000, "finding": "Harborline Engineering appears in coastal barrier maintenance and fish port sanitation procurements.", "coa_pattern": "supplier concentration in related service area", "related_reference": "NCR-NAV-2026-001; NCR-NAV-2026-002", "recommendation": "Check whether specifications unintentionally narrowed supplier participation."}},
-    {"id": "audit-ncr-paranaque-001", "entity_type": "lgu", "entity_id": "ncr-paranaque", "action": "delayed_implementation", "actor": "synthetic-coa-pattern", "details": {"severity": "High", "category": "Disaster Risk", "amount": 1890000, "finding": "Disaster response warehouse equipment remains in draft while major drainage work is only submitted.", "coa_pattern": "delayed DRRM procurement and implementation readiness risk", "related_reference": "NCR-PAR-2026-001; NCR-PAR-2026-004", "recommendation": "Separate urgent response equipment from lower-priority packages and track readiness blockers."}},
-    {"id": "audit-ncr-pasay-001", "entity_type": "lgu", "entity_id": "ncr-pasay", "action": "unliquidated_advance_risk", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Social Services", "amount": 1180000, "finding": "Emergency shelter beds remain in draft; mock scenario assumes liquidation risk if cash advances are released before delivery documentation.", "coa_pattern": "unliquidated cash advances or delayed liquidation of assistance funds", "related_reference": "NCR-PSY-2026-004", "recommendation": "Do not release additional advances until prior liquidation and delivery records are complete."}},
-    {"id": "audit-ncr-taguig-001", "entity_type": "lgu", "entity_id": "ncr-taguig", "action": "high_value_delay", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Infrastructure", "amount": 7850000, "finding": "Growth corridor road improvements are submitted while a disaster response truck package is still draft.", "coa_pattern": "large public works and equipment procurement monitoring risk", "related_reference": "NCR-TAG-2026-001; NCR-TAG-2026-004", "recommendation": "Tie procurement milestones to public works and DRRM delivery dashboards."}},
-    {"id": "audit-ncr-valenzuela-001", "entity_type": "lgu", "entity_id": "ncr-valenzuela", "action": "supplier_concentration", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Infrastructure", "amount": 6030000, "finding": "Northline Builders Depot appears in road safety and flood monitoring procurements.", "coa_pattern": "repeated supplier across infrastructure and DRRM activities", "related_reference": "NCR-VAL-2026-001; NCR-VAL-2026-004", "recommendation": "Review technical specifications, BAC minutes, and bidder participation."}},
-    {"id": "audit-ncr-mandaluyong-001", "entity_type": "lgu", "entity_id": "ncr-mandaluyong", "action": "repeat_supplier", "actor": "synthetic-coa-pattern", "details": {"severity": "Low", "category": "Facilities", "amount": 3950000, "finding": "Centerline Facilities Corp. appears in electrical repairs and streetlight replacement, a plausible but review-worthy clustering.", "coa_pattern": "repeat supplier pattern requiring competition check", "related_reference": "NCR-MND-2026-001; NCR-MND-2026-003", "recommendation": "Document market canvass and supplier performance history."}},
-    {"id": "audit-ncr-marikina-001", "entity_type": "lgu", "entity_id": "ncr-marikina", "action": "repeat_supplier", "actor": "synthetic-coa-pattern", "details": {"severity": "Low", "category": "Disaster Risk", "amount": 2590000, "finding": "Marikina SafetyWorks appears in flood gear and school disaster readiness packages; risk is low but should be monitored.", "coa_pattern": "repeat supplier in related DRRM categories", "related_reference": "NCR-MRK-2026-001; NCR-MRK-2026-003", "recommendation": "Keep supplier performance and delivery timeliness evidence attached."}},
-    {"id": "audit-ncr-las-pinas-001", "entity_type": "lgu", "entity_id": "ncr-las-pinas", "action": "balanced_procurement", "actor": "synthetic-coa-pattern", "details": {"severity": "Low", "category": "Procurement Mix", "amount": 7170000, "finding": "Procurements are distributed across several categories and suppliers with no single high-severity red flag in the mock data.", "coa_pattern": "baseline monitoring observation", "related_reference": "NCR-LP-2026-001; NCR-LP-2026-004", "recommendation": "Maintain periodic review of supplier diversity and delivery documents."}},
-    {"id": "audit-ncr-muntinlupa-001", "entity_type": "lgu", "entity_id": "ncr-muntinlupa", "action": "stalled_procurement", "actor": "synthetic-coa-pattern", "details": {"severity": "Medium", "category": "Health", "amount": 760000, "finding": "Community health outreach van repairs remain in draft, creating service-continuity risk if unresolved.", "coa_pattern": "delayed procurement for service delivery assets", "related_reference": "NCR-MUN-2026-004", "recommendation": "Resolve specifications and funding confirmation before service disruption occurs."}},
-    {"id": "audit-ncr-san-juan-001", "entity_type": "lgu", "entity_id": "ncr-san-juan", "action": "low_risk_monitoring", "actor": "synthetic-coa-pattern", "details": {"severity": "Low", "category": "Small Value Procurement", "amount": 2660000, "finding": "Small-value procurements are spread across suppliers; continue monitoring completeness of canvass and delivery records.", "coa_pattern": "routine documentation and small-value procurement monitoring", "related_reference": "NCR-SJ-2026-001; NCR-SJ-2026-004", "recommendation": "Retain canvass, inspection, and acceptance documents in the procurement file."}}
+    {
+      "id": "audit-ncr-manila-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-manila",
+      "action": "unsupported_disbursement",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "High",
+        "category": "Documentation",
+        "amount": 7200000,
+        "finding": "Several education repair disbursements are marked as completed but lack complete inspection and acceptance attachments in the mock file.",
+        "coa_pattern": "unsupported or incomplete disbursement vouchers",
+        "related_reference": "NCR-MNL-2026-002",
+        "recommendation": "Require complete DV attachments, inspection reports, and acceptance documents before payment tagging."
+      }
+    },
+    {
+      "id": "audit-ncr-manila-002",
+      "entity_type": "lgu",
+      "entity_id": "ncr-manila",
+      "action": "delayed_implementation",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Project Delay",
+        "amount": 3900000,
+        "finding": "Drainage rehabilitation remains in draft status despite high public-safety relevance.",
+        "coa_pattern": "delayed or unimplemented infrastructure projects",
+        "related_reference": "NCR-MNL-2026-003",
+        "recommendation": "Escalate procurement readiness review and publish target award/completion dates."
+      }
+    },
+    {
+      "id": "audit-ncr-quezon-city-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-quezon-city",
+      "action": "high_value_delay",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "High",
+        "category": "Infrastructure",
+        "amount": 11200000,
+        "finding": "Large road rehabilitation package is submitted but not yet awarded, creating exposure to delayed public benefit.",
+        "coa_pattern": "delayed completion or non-implementation due to planning and monitoring gaps",
+        "related_reference": "NCR-QC-2026-001",
+        "recommendation": "Review bid calendar, engineering readiness, and monitoring milestones."
+      }
+    },
+    {
+      "id": "audit-ncr-quezon-city-002",
+      "entity_type": "lgu",
+      "entity_id": "ncr-quezon-city",
+      "action": "supplier_concentration",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Supplier Risk",
+        "amount": 17000000,
+        "finding": "Northline Builders Depot appears in multiple high-value packages, including one draft procurement.",
+        "coa_pattern": "limited competition or repeated supplier dominance",
+        "related_reference": "NCR-QC-2026-001; NCR-QC-2026-003",
+        "recommendation": "Check bidder participation, post-qualification records, and conflict-of-interest declarations."
+      }
+    },
+    {
+      "id": "audit-ncr-makati-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-makati",
+      "action": "supplier_concentration",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "High",
+        "category": "Supplier Risk",
+        "amount": 20800000,
+        "finding": "CivicGrid Systems appears in three of four Makati procurements, including IT, transport, and sidewalk works.",
+        "coa_pattern": "supplier concentration across unrelated categories",
+        "related_reference": "NCR-MKT-2026-001; NCR-MKT-2026-002; NCR-MKT-2026-004",
+        "recommendation": "Test market sounding, bidder diversity, and technical qualification independence."
+      }
+    },
+    {
+      "id": "audit-ncr-pasig-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-pasig",
+      "action": "supplier_concentration",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "High",
+        "category": "Supplier Risk",
+        "amount": 7630000,
+        "finding": "CivicGrid Systems appears in three Pasig technology-related procurements, with one still in draft status.",
+        "coa_pattern": "repeated supplier dominance and possible weak competition",
+        "related_reference": "NCR-PAS-2026-001; NCR-PAS-2026-003; NCR-PAS-2026-004",
+        "recommendation": "Compare bid abstracts and require stronger documentation of supplier selection."
+      }
+    },
+    {
+      "id": "audit-ncr-caloocan-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-caloocan",
+      "action": "stalled_procurement",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Education",
+        "amount": 2200000,
+        "finding": "Learning kit procurement remains in draft while related social-service and health procurements are already moving.",
+        "coa_pattern": "procurement delay affecting service delivery",
+        "related_reference": "NCR-CAL-2026-004",
+        "recommendation": "Confirm funding availability, specifications, and procurement mode before quarter close."
+      }
+    },
+    {
+      "id": "audit-ncr-malabon-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-malabon",
+      "action": "flood_project_monitoring",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Disaster Risk",
+        "amount": 2650000,
+        "finding": "Flood pump maintenance is complete, but paired education roof repair remains in draft, suggesting uneven readiness across resilience-related works.",
+        "coa_pattern": "delayed or uneven implementation of infrastructure and DRRM activities",
+        "related_reference": "NCR-MAL-2026-001; NCR-MAL-2026-004",
+        "recommendation": "Use a consolidated DRRM implementation tracker with physical and financial progress."
+      }
+    },
+    {
+      "id": "audit-ncr-navotas-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-navotas",
+      "action": "supplier_concentration",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Coastal Services",
+        "amount": 3170000,
+        "finding": "Harborline Engineering appears in coastal barrier maintenance and fish port sanitation procurements.",
+        "coa_pattern": "supplier concentration in related service area",
+        "related_reference": "NCR-NAV-2026-001; NCR-NAV-2026-002",
+        "recommendation": "Check whether specifications unintentionally narrowed supplier participation."
+      }
+    },
+    {
+      "id": "audit-ncr-paranaque-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-paranaque",
+      "action": "delayed_implementation",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "High",
+        "category": "Disaster Risk",
+        "amount": 1890000,
+        "finding": "Disaster response warehouse equipment remains in draft while major drainage work is only submitted.",
+        "coa_pattern": "delayed DRRM procurement and implementation readiness risk",
+        "related_reference": "NCR-PAR-2026-001; NCR-PAR-2026-004",
+        "recommendation": "Separate urgent response equipment from lower-priority packages and track readiness blockers."
+      }
+    },
+    {
+      "id": "audit-ncr-pasay-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-pasay",
+      "action": "unliquidated_advance_risk",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Social Services",
+        "amount": 1180000,
+        "finding": "Emergency shelter beds remain in draft; mock scenario assumes liquidation risk if cash advances are released before delivery documentation.",
+        "coa_pattern": "unliquidated cash advances or delayed liquidation of assistance funds",
+        "related_reference": "NCR-PSY-2026-004",
+        "recommendation": "Do not release additional advances until prior liquidation and delivery records are complete."
+      }
+    },
+    {
+      "id": "audit-ncr-taguig-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-taguig",
+      "action": "high_value_delay",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Infrastructure",
+        "amount": 7850000,
+        "finding": "Growth corridor road improvements are submitted while a disaster response truck package is still draft.",
+        "coa_pattern": "large public works and equipment procurement monitoring risk",
+        "related_reference": "NCR-TAG-2026-001; NCR-TAG-2026-004",
+        "recommendation": "Tie procurement milestones to public works and DRRM delivery dashboards."
+      }
+    },
+    {
+      "id": "audit-ncr-valenzuela-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-valenzuela",
+      "action": "supplier_concentration",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Infrastructure",
+        "amount": 6030000,
+        "finding": "Northline Builders Depot appears in road safety and flood monitoring procurements.",
+        "coa_pattern": "repeated supplier across infrastructure and DRRM activities",
+        "related_reference": "NCR-VAL-2026-001; NCR-VAL-2026-004",
+        "recommendation": "Review technical specifications, BAC minutes, and bidder participation."
+      }
+    },
+    {
+      "id": "audit-ncr-mandaluyong-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-mandaluyong",
+      "action": "repeat_supplier",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Low",
+        "category": "Facilities",
+        "amount": 3950000,
+        "finding": "Centerline Facilities Corp. appears in electrical repairs and streetlight replacement, a plausible but review-worthy clustering.",
+        "coa_pattern": "repeat supplier pattern requiring competition check",
+        "related_reference": "NCR-MND-2026-001; NCR-MND-2026-003",
+        "recommendation": "Document market canvass and supplier performance history."
+      }
+    },
+    {
+      "id": "audit-ncr-marikina-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-marikina",
+      "action": "repeat_supplier",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Low",
+        "category": "Disaster Risk",
+        "amount": 2590000,
+        "finding": "Marikina SafetyWorks appears in flood gear and school disaster readiness packages; risk is low but should be monitored.",
+        "coa_pattern": "repeat supplier in related DRRM categories",
+        "related_reference": "NCR-MRK-2026-001; NCR-MRK-2026-003",
+        "recommendation": "Keep supplier performance and delivery timeliness evidence attached."
+      }
+    },
+    {
+      "id": "audit-ncr-las-pinas-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-las-pinas",
+      "action": "balanced_procurement",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Low",
+        "category": "Procurement Mix",
+        "amount": 7170000,
+        "finding": "Procurements are distributed across several categories and suppliers with no single high-severity red flag in the mock data.",
+        "coa_pattern": "baseline monitoring observation",
+        "related_reference": "NCR-LP-2026-001; NCR-LP-2026-004",
+        "recommendation": "Maintain periodic review of supplier diversity and delivery documents."
+      }
+    },
+    {
+      "id": "audit-ncr-muntinlupa-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-muntinlupa",
+      "action": "stalled_procurement",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Medium",
+        "category": "Health",
+        "amount": 760000,
+        "finding": "Community health outreach van repairs remain in draft, creating service-continuity risk if unresolved.",
+        "coa_pattern": "delayed procurement for service delivery assets",
+        "related_reference": "NCR-MUN-2026-004",
+        "recommendation": "Resolve specifications and funding confirmation before service disruption occurs."
+      }
+    },
+    {
+      "id": "audit-ncr-san-juan-001",
+      "entity_type": "lgu",
+      "entity_id": "ncr-san-juan",
+      "action": "low_risk_monitoring",
+      "actor": "synthetic-coa-pattern",
+      "details": {
+        "severity": "Low",
+        "category": "Small Value Procurement",
+        "amount": 2660000,
+        "finding": "Small-value procurements are spread across suppliers; continue monitoring completeness of canvass and delivery records.",
+        "coa_pattern": "routine documentation and small-value procurement monitoring",
+        "related_reference": "NCR-SJ-2026-001; NCR-SJ-2026-004",
+        "recommendation": "Retain canvass, inspection, and acceptance documents in the procurement file."
+      }
+    }
   ]
 }

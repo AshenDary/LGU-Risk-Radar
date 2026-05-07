@@ -33,20 +33,37 @@ def update_risk_score(score_id: str, score: RiskScore):
     return get_supabase_repository().update("risk_scores", score.model_dump(exclude_none=True), {"id": score_id})
 
 
+def list_risk_map_points():
+    """Return LGUs with coordinates and the latest risk score for map visualization."""
+    lgus = get_supabase_repository().select_all("lgus")
+    risk_scores = get_supabase_repository().select_all("risk_scores")
+    score_by_lgu = {rs["lgu_id"]: rs for rs in risk_scores}
+
+    results = []
+    for lgu in lgus:
+        if lgu.get("latitude") is None or lgu.get("longitude") is None:
+            continue
+
+        risk = score_by_lgu.get(lgu["id"], {})
+        results.append({
+            "id": lgu["id"],
+            "name": lgu.get("name"),
+            "location": lgu.get("location"),
+            "latitude": lgu["latitude"],
+            "longitude": lgu["longitude"],
+            "risk_score": risk.get("score"),
+            "risk_level": risk.get("risk_level"),
+            "metadata": lgu.get("metadata", {}),
+        })
+
+    return results
+
+
 async def compute_and_save_score(lgu_id: str) -> dict:
     """
     Fetch procurements for an LGU, compute its risk score,
     and upsert the result into the risk_scores table.
     """
-<<<<<<< HEAD
-<<<<<<< HEAD
-    # 1. Fetch LGU data
-=======
-    # 1. Fetch LGU and all procurements for this LGU
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
-    # 1. Fetch LGU and all procurements for this LGU
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
     lgu_response = (
         supabase
         .table("lgus")
@@ -55,21 +72,11 @@ async def compute_and_save_score(lgu_id: str) -> dict:
         .single()
         .execute()
     )
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     lgu = lgu_response.data
     if not lgu:
         raise ValueError(f"LGU with id {lgu_id} not found")
 
-    # 2. Fetch all procurements for this LGU
-=======
-    lgu = lgu_response.data or {"id": lgu_id}
-
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
-    lgu = lgu_response.data or {"id": lgu_id}
-
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
     response = (
         supabase
         .table("procurements")
@@ -79,29 +86,16 @@ async def compute_and_save_score(lgu_id: str) -> dict:
     )
     procurements = response.data or []
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    # 3. Run the scoring engine
-    result = compute_score(lgu, procurements)
-=======
-    # 2. Run the scoring engine
     result = compute_score(lgu, procurements)
     risk_level = risk_level_from_score(result["score"])
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
-    # 2. Run the scoring engine
-    result = compute_score(lgu, procurements)
-    risk_level = risk_level_from_score(result["score"])
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
 
-    # 3. Upsert into risk_scores (update if exists, insert if not)
     payload = {
         "id":          f"risk-{lgu_id}",
         "lgu_id":      lgu_id,
         "score":       result["score"],
         "risk_level":  risk_level,
-        "factors":     result["factors"],   # stored as JSONB
-        "explanation": None,                # filled later by LLM service
+        "factors":     result["factors"],
+        "explanation": None,
     }
 
     upsert_response = (

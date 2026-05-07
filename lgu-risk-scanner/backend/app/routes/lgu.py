@@ -2,7 +2,9 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 
 from app.models.lgu import LGU
+from app.models.risk_map_point import RiskMapPoint
 from app.services.lgu_service import get_lgu as service_get_lgu, list_lgus as service_list_lgus, update_lgu, upsert_lgu
+from app.services.risk_score_service import list_risk_map_points
 
 router = APIRouter()
 
@@ -10,6 +12,11 @@ router = APIRouter()
 @router.get("/list", response_model=List[LGU])
 def list_lgus():
     return service_list_lgus()
+
+
+@router.get("/risk-map", response_model=List[RiskMapPoint])
+def get_risk_map():
+    return list_risk_map_points()
 
 
 @router.get("/{lgu_id}", response_model=LGU)

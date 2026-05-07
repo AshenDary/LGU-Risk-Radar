@@ -8,6 +8,7 @@ const LandingPage = lazy(() => import('./pages/LandingPage'))
 const LGURankingPage = lazy(() => import('./pages/LGURankingPage'))
 const CompareLGUsPage = lazy(() => import('./pages/CompareLGUsPage'))
 const ReportsPage = lazy(() => import('./pages/ReportsPage'))
+const MapViewPage = lazy(() => import('./pages/MapViewPage'))
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/audit-explorer" element={<AuditExplorerPage />} />
         <Route path="/compare" element={<CompareLGUsPage />} />
         <Route path="/reports" element={<ReportsPage />} />
+        <Route path="/map-view" element={<MapViewPage />} />
       </Routes>
     </Suspense>
   )

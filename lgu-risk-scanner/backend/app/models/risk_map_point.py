@@ -4,13 +4,14 @@ from typing import Any, Optional
 from pydantic import BaseModel, Field
 
 
-class LGU(BaseModel):
+class RiskMapPoint(BaseModel):
     id: str = Field(..., description="Unique LGU identifier")
     name: Optional[str]
-    population: Optional[int]
     location: Optional[str]
-    latitude: Optional[float]
-    longitude: Optional[float]
+    latitude: float
+    longitude: float
+    risk_score: Optional[float]
+    risk_level: Optional[str]
     metadata: dict[str, Any] = Field(default_factory=dict)
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None

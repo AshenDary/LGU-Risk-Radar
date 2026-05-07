@@ -7,6 +7,8 @@ create table if not exists lgus (
   name text,
   population integer,
   location text,
+  latitude double precision,
+  longitude double precision,
   metadata jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

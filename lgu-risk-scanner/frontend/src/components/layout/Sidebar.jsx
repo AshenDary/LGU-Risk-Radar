@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 
 export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Map View', path: '/map-view' },
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
