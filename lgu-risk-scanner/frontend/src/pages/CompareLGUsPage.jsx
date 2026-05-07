@@ -1,6 +1,4 @@
 import { useMemo, useState } from 'react'
-import InfoBanner from '../components/common/InfoBanner'
-import PageHeader from '../components/common/PageHeader'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
@@ -24,28 +22,29 @@ function ProfileCard({ lgu }) {
     <Card className="min-w-0">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <h2 className="break-words text-lg font-semibold text-white">{lgu.name}</h2>
-          <p className="mt-1 text-sm text-cyan-50/55">{lgu.location || 'NCR city'}</p>
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">LGU profile</p>
+          <h2 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{lgu.name}</h2>
+          <p className="mt-1 text-sm font-medium text-[#2563EB]">{lgu.location || 'NCR city'}</p>
         </div>
         <Badge variant={riskVariant[lgu.riskLevel] || 'default'}>{lgu.riskLevel}</Badge>
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        <div className="rounded border border-cyan-200/10 bg-[#071f33] p-3">
-          <p className="text-xs text-cyan-50/45">Risk score</p>
-          <p className="mt-1 text-2xl font-semibold text-white">{lgu.score.toFixed(2)}</p>
+      <div className="mt-6 grid grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-4">
+          <p className="text-xs font-bold text-[#2563EB]">Risk score</p>
+          <p className="mt-2 text-3xl font-extrabold text-[#0F172A]">{lgu.score.toFixed(2)}</p>
         </div>
-        <div className="rounded border border-cyan-200/10 bg-[#071f33] p-3">
-          <p className="text-xs text-cyan-50/45">Procurements</p>
-          <p className="mt-1 text-2xl font-semibold text-white">{lgu.procurementCount}</p>
+        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-4">
+          <p className="text-xs font-bold text-[#2563EB]">Procurements</p>
+          <p className="mt-2 text-3xl font-extrabold text-[#0F172A]">{lgu.procurementCount}</p>
         </div>
       </div>
 
-      <div className="mt-5 grid gap-2">
+      <div className="mt-6 grid gap-3">
         {factorRows.map(([key, value]) => (
-          <div key={key} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 text-sm">
-            <span className="truncate text-cyan-50/55">{key.replaceAll('_', ' ')}</span>
-            <span className="font-semibold text-cyan-50/85">{String(value)}</span>
+          <div key={key} className="grid grid-cols-[minmax(0,1fr)_auto] gap-3 rounded-xl border border-[#38BDF8]/20 bg-white px-3 py-2 text-sm shadow-sm">
+            <span className="truncate font-medium text-slate-600">{key.replaceAll('_', ' ')}</span>
+            <span className="font-semibold text-[#0F172A]">{String(value)}</span>
           </div>
         ))}
       </div>
@@ -59,6 +58,7 @@ function CompareLGUsPage() {
   const [leftId, setLeftId] = useState('')
   const [rightId, setRightId] = useState('')
   const [result, setResult] = useState({ loading: false, text: '', error: '', fallbackReason: '', usedAi: false })
+  const [openSelector, setOpenSelector] = useState('')
 
   const left = sortedRows.find((row) => row.id === leftId) || sortedRows[0]
   const right = sortedRows.find((row) => row.id === rightId) || sortedRows.find((row) => row.id !== left?.id)
@@ -87,48 +87,69 @@ function CompareLGUsPage() {
     }
   }
 
+  const renderLguSelector = (id, selected, onChange) => (
+    <div className={`relative ${openSelector === id ? 'z-[130]' : 'z-10'}`}>
+      <button
+        type="button"
+        onClick={() => setOpenSelector((current) => (current === id ? '' : id))}
+        className="flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/35 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-sm outline-none transition hover:border-[#2563EB]/55 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
+        aria-expanded={openSelector === id}
+      >
+        <span className="min-w-0 truncate">{selected?.name || 'Select LGU'}</span>
+        <span className={`shrink-0 text-[#2563EB] transition-transform ${openSelector === id ? 'rotate-180' : ''}`}>v</span>
+      </button>
+
+      {openSelector === id ? (
+        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+          {sortedRows.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => {
+                onChange(item.id)
+                setOpenSelector('')
+              }}
+              className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
+                selected?.id === item.id
+                  ? 'bg-[#EFF6FF] text-[#2563EB]'
+                  : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
+              }`}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  )
+
   return (
-    <DashboardLayout>
-      <div className="grid gap-6">
-        <PageHeader
-          title="Compare LGUs"
-          description="Compare cities across risk score, procurement exposure, and scoring factors."
-        />
-
-        <InfoBanner text="Select two LGUs and generate an evidence-aware AI comparison. The output is a review aid, not a finding of wrongdoing." />
-
+    <DashboardLayout
+      title="Compare LGUs"
+      description="Compare cities across risk score, procurement exposure, and scoring factors."
+    >
+      <div className="grid gap-8">
         {error && (
-          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+          <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
           </div>
         )}
 
         {loading ? (
-          <div className="rounded-lg border border-cyan-200/10 bg-[#0f2e47] p-6 text-sm text-cyan-50/70">
+          <div className="premium-card reveal-on-scroll rounded-lg p-8 text-sm text-[#1E293B]/70">
             Loading live backend data...
           </div>
         ) : (
           <>
-            <Card>
-              <div className="grid gap-3 lg:grid-cols-[1fr_1fr_auto]">
-                <select
-                  value={left?.id || ''}
-                  onChange={(event) => setLeftId(event.target.value)}
-                  className="rounded border border-cyan-200/10 bg-[#061a2b] px-3 py-2 text-sm text-white outline-none"
-                >
-                  {sortedRows.map((item) => (
-                    <option key={item.id} value={item.id}>{item.name}</option>
-                  ))}
-                </select>
-                <select
-                  value={right?.id || ''}
-                  onChange={(event) => setRightId(event.target.value)}
-                  className="rounded border border-cyan-200/10 bg-[#061a2b] px-3 py-2 text-sm text-white outline-none"
-                >
-                  {sortedRows.map((item) => (
-                    <option key={item.id} value={item.id}>{item.name}</option>
-                  ))}
-                </select>
+            <Card className={`overflow-visible ${openSelector ? 'z-[120]' : 'z-0'}`}>
+              <div className="mb-5 max-w-2xl">
+                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Comparison setup</p>
+                <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Select LGUs to Compare</h2>
+                <p className="mt-2 text-sm font-medium leading-6 text-[#2563EB]">Choose two cities to compare risk score, exposure, and scoring factors.</p>
+              </div>
+              <div className="grid gap-4 lg:grid-cols-[1fr_1fr_auto]">
+                {renderLguSelector('left', left, setLeftId)}
+                {renderLguSelector('right', right, setRightId)}
                 <Button onClick={runComparison} disabled={result.loading || !left || !right || left.id === right.id}>
                   {result.loading ? 'Comparing...' : 'Compare with AI'}
                 </Button>
@@ -143,18 +164,21 @@ function CompareLGUsPage() {
             {(result.text || result.error || result.loading) && (
               <Card>
                 <div className="flex items-center justify-between gap-3">
-                  <h2 className="text-base font-semibold text-white">AI Comparison</h2>
+                  <div>
+                    <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Comparison</p>
+                    <h2 className="mt-2 text-2xl font-black text-[#0F172A]">AI Comparison</h2>
+                  </div>
                   {result.usedAi && <Badge variant="success">AI generated</Badge>}
                 </div>
                 {result.loading ? (
-                  <p className="mt-4 text-sm text-cyan-50/60">Generating comparison...</p>
+                  <p className="mt-5 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium text-[#2563EB]">Generating comparison...</p>
                 ) : result.error ? (
-                  <p className="mt-4 break-words text-sm text-red-100">{result.error}</p>
+                  <p className="mt-5 break-words rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{result.error}</p>
                 ) : (
-                  <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-6 text-cyan-50/75">{result.text}</p>
+                  <p className="mt-5 whitespace-pre-wrap break-words rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium leading-6 text-[#0F172A]">{result.text}</p>
                 )}
                 {result.fallbackReason && (
-                  <p className="mt-3 text-xs text-amber-100/70">Using fallback: {result.fallbackReason}</p>
+                  <p className="mt-3 text-xs text-amber-700">Using fallback: {result.fallbackReason}</p>
                 )}
               </Card>
             )}

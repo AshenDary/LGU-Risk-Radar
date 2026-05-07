@@ -44,7 +44,6 @@ function WhatIfSimulator() {
   const [simulationResult, setSimulationResult] = useState(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-
   const [values, setValues] = useState({
     procurementCount: 20,
     avgAmount: 500000,
@@ -52,14 +51,13 @@ function WhatIfSimulator() {
     completionRate: 80,
   })
 
-  // Load LGUs on mount
   useEffect(() => {
+    setError('')
     fetchLGUs()
       .then(setLgus)
-      .catch(err => setError('Failed to load LGUs: ' + err.message))
+      .catch((err) => setError(`Failed to load LGUs: ${err.message}`))
   }, [])
 
-  // Load current risk data when LGU is selected
   useEffect(() => {
     if (!selectedLguId) {
       setCurrentRiskData(null)
@@ -67,53 +65,46 @@ function WhatIfSimulator() {
       return
     }
 
+    setError('')
     setLoading(true)
     fetchRiskByLGU(selectedLguId)
-      .then(data => {
+      .then((data) => {
         setCurrentRiskData(data)
-        setSimulationResult(null) // Reset simulation when LGU changes
+        setSimulationResult(null)
       })
-      .catch(err => setError('Failed to load risk data: ' + err.message))
+      .catch((err) => setError(`Failed to load risk data: ${err.message}`))
       .finally(() => setLoading(false))
   }, [selectedLguId])
 
-  // Generate hypothetical procurements based on slider values
   const hypotheticalProcurements = useMemo(() => {
     const procurements = []
     const { procurementCount, avgAmount, supplierDiversity, completionRate } = values
 
-    for (let i = 0; i < procurementCount; i++) {
-      // Vary amounts around the average
-      const amountVariation = (Math.random() - 0.5) * 0.5 // ±25% variation
+    for (let index = 0; index < procurementCount; index += 1) {
+      const amountVariation = (Math.random() - 0.5) * 0.5
       const amount = Math.max(1000, avgAmount * (1 + amountVariation))
-
-      // Generate suppliers based on diversity
       const isDiverse = Math.random() * 100 < supplierDiversity
-      const supplier = isDiverse ? `Supplier ${i + 1}` : 'Primary Supplier'
-
-      // Set status based on completion rate
       const isCompleted = Math.random() * 100 < completionRate
-      const status = isCompleted ? 'completed' : 'draft'
 
       procurements.push({
         amount: Math.round(amount),
-        supplier,
-        status,
-        title: `Procurement ${i + 1}`
+        supplier: isDiverse ? `Supplier ${index + 1}` : 'Primary Supplier',
+        status: isCompleted ? 'completed' : 'draft',
+        title: `Procurement ${index + 1}`,
       })
     }
 
     return procurements
   }, [values])
 
-  // Run simulation when values change
   useEffect(() => {
     if (!selectedLguId || !currentRiskData) return
 
+    setError('')
     setLoading(true)
     simulateRisk(selectedLguId, hypotheticalProcurements)
       .then(setSimulationResult)
-      .catch(err => setError('Simulation failed: ' + err.message))
+      .catch((err) => setError(`Simulation failed: ${err.message}`))
       .finally(() => setLoading(false))
   }, [selectedLguId, hypotheticalProcurements, currentRiskData])
 
@@ -132,26 +123,36 @@ function WhatIfSimulator() {
     }).format(amount)
   }
 
+  function formatSliderValue(key) {
+    if (key === 'avgAmount') return formatCurrency(values[key])
+    if (key.includes('Rate') || key === 'supplierDiversity') return `${values[key]}%`
+    return values[key]
+  }
+
+  const currentScore = currentRiskData?.risk_score?.score ?? '—'
+  const currentLevel = currentRiskData?.risk_score?.risk_level
+  const simulatedScore = simulationResult?.score ?? '—'
+  const simulatedLevel = simulationResult?.risk_level
+
   return (
     <Card>
-      <div className="mb-6">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
-        <h2 className="text-base font-semibold text-white">What-If Simulator</h2>
-        <p className="mt-1 text-sm text-cyan-50/60">Adjust procurement parameters to see how they affect risk scores</p>
+      <div className="mb-7">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
+        <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">What-If Simulator</h2>
+        <p className="mt-2 text-sm font-medium leading-6 text-[#475569]">
+          Adjust procurement parameters to estimate a new risk score.
+        </p>
       </div>
 
-      {/* LGU Selector */}
       <div className="mb-6">
-        <label className="block text-sm font-medium text-cyan-50/75 mb-2">
-          Select LGU to Simulate
+        <label htmlFor="simulator-lgu" className="mb-2 block text-sm font-semibold text-[#0F172A]">
+          Select LGU to simulate
         </label>
         <select
+          id="simulator-lgu"
           value={selectedLguId}
-          onChange={(e) => setSelectedLguId(e.target.value)}
-          className="w-full px-3 py-2 bg-cyan-950/50 border border-cyan-700/50 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
+          onChange={(event) => setSelectedLguId(event.target.value)}
+          className="w-full rounded-xl border border-[#CBD5E1] bg-white px-4 py-3 text-sm text-[#0F172A] shadow-sm outline-none transition focus:border-[#2563EB] focus:ring-4 focus:ring-[#DBEAFE]"
         >
           <option value="">Choose an LGU...</option>
           {lgus.map((lgu) => (
@@ -160,97 +161,60 @@ function WhatIfSimulator() {
             </option>
           ))}
         </select>
-<<<<<<< HEAD
-=======
-        <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
-        <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
       </div>
 
-      <div className="mb-8 rounded-xl border border-[#38BDF8]/30 bg-[#F8FAFC] p-5">
-        <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
-        <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
-      </div>
-
-      {error && (
-        <div className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      {error ? (
+        <div className="mb-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
           {error}
         </div>
-      )}
+      ) : null}
 
-      {loading && (
-        <div className="mb-6 rounded-lg border border-cyan-200/10 bg-[#0f2e47] p-6 text-sm text-cyan-50/70">
+      {!selectedLguId && !error ? (
+        <div className="mb-6 rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] px-4 py-3 text-sm text-[#1D4ED8]">
+          Choose an LGU to load its current score and run a simulation.
+        </div>
+      ) : null}
+
+      {loading ? (
+        <div className="mb-6 rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] px-4 py-3 text-sm text-[#475569]">
           Running simulation...
         </div>
-      )}
+      ) : null}
 
-      {currentRiskData && simulationResult && (
-        <div className="mb-8 grid grid-cols-2 gap-4">
-          {/* Current Risk */}
-          <div className="rounded-xl border border-cyan-200/10 bg-[#01111f]/70 p-5">
-            <p className="text-sm font-medium text-cyan-50/60 mb-2">Current Risk Score</p>
-            <p className="text-3xl font-bold tracking-tight text-white mb-1">
-              {currentRiskData.risk_score.score}
-            </p>
-            <p className="text-sm text-cyan-300">
-              {currentRiskData.risk_score.risk_level} Risk
-            </p>
-          </div>
-
-          {/* Simulated Risk */}
-          <div className="rounded-xl border border-cyan-200/10 bg-[#01111f]/70 p-5">
-            <p className="text-sm font-medium text-cyan-50/60 mb-2">Simulated Risk Score</p>
-            <p className="text-3xl font-bold tracking-tight text-white mb-1">
-              {simulationResult.score}
-            </p>
-            <p className="text-sm text-cyan-300">
-              {simulationResult.risk_level} Risk
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* AI Explanation */}
-      {simulationResult && (
-        <div className="mb-8 rounded-xl border border-cyan-200/10 bg-[#01111f]/70 p-5">
-          <p className="text-sm font-medium text-cyan-50/60 mb-3">AI Analysis</p>
-          <p className="text-sm text-cyan-50/80 leading-relaxed">
-            {simulationResult.explanation}
+      <div className="mb-8 grid gap-4 md:grid-cols-2">
+        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-5">
+          <p className="text-sm font-semibold text-[#475569]">Current Risk Score</p>
+          <p className="mt-2 text-4xl font-black tracking-tight text-[#0F172A]">{currentScore}</p>
+          <p className="mt-2 text-sm font-medium text-[#2563EB]">
+            {currentLevel ? `${currentLevel} Risk` : 'Waiting for baseline data'}
           </p>
         </div>
-      )}
 
-      {/* Sliders */}
+        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-5">
+          <p className="text-sm font-semibold text-[#475569]">Simulated Risk Score</p>
+          <p className="mt-2 text-4xl font-black tracking-tight text-[#0F172A]">{simulatedScore}</p>
+          <p className="mt-2 text-sm font-medium text-[#2563EB]">
+            {simulatedLevel ? `${simulatedLevel} Risk` : 'Adjust the sliders to generate a projection'}
+          </p>
+        </div>
+      </div>
+
+      {simulationResult?.explanation ? (
+        <div className="mb-8 rounded-2xl border border-[#38BDF8]/20 bg-white p-5 shadow-sm shadow-slate-200/70">
+          <p className="text-sm font-semibold text-[#0F172A]">AI Analysis</p>
+          <p className="mt-3 text-sm leading-6 text-[#475569]">{simulationResult.explanation}</p>
+        </div>
+      ) : null}
+
       <div className="space-y-6">
         {sliderConfig.map((item) => (
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
-              <span className="text-sm font-medium text-cyan-50/75">{item.label}</span>
-              <span className="text-sm text-cyan-50/60">
-                {item.key === 'avgAmount' 
-                  ? formatCurrency(values[item.key])
-                  : item.key.includes('Rate') || item.key === 'supplierDiversity' || item.key === 'completionRate'
-                  ? `${values[item.key]}%`
-                  : values[item.key]
-                }
-<<<<<<< HEAD
-=======
-              <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
-              <span className="text-sm text-[#1E293B]/65">
-                {Math.round(values[item.key] * 100)}%
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
-              </span>
+              <span className="text-sm font-semibold text-[#0F172A]">{item.label}</span>
+              <span className="text-sm font-bold text-[#2563EB]">{formatSliderValue(item.key)}</span>
             </div>
             <input
-              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-cyan-950 accent-cyan-300"
+              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-[#2563EB]"
               type="range"
               min={item.min}
               max={item.max}
@@ -262,15 +226,12 @@ function WhatIfSimulator() {
         ))}
       </div>
 
-      {/* Summary */}
-      {simulationResult && (
-        <div className="mt-6 pt-6 border-t border-cyan-700/30">
-          <p className="text-xs text-cyan-50/50">
-            Simulation based on {values.procurementCount} procurements with average {formatCurrency(values.avgAmount)} each, 
-            {values.supplierDiversity}% supplier diversity, and {values.completionRate}% completion rate.
-          </p>
+      {simulationResult ? (
+        <div className="mt-6 border-t border-slate-200 pt-6 text-xs leading-5 text-[#64748B]">
+          Simulation based on {values.procurementCount} procurements averaging {formatCurrency(values.avgAmount)},
+          with {values.supplierDiversity}% supplier diversity and a {values.completionRate}% completion rate.
         </div>
-      )}
+      ) : null}
     </Card>
   )
 }

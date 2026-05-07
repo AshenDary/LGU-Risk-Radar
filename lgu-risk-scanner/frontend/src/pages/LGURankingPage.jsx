@@ -1,8 +1,6 @@
 import { useMemo, useState } from 'react'
 import AiRiskExplainer from '../components/analysis/AiRiskExplainer'
 import TopRiskTable from '../components/dashboard/TopRiskTable'
-import InfoBanner from '../components/common/InfoBanner'
-import PageHeader from '../components/common/PageHeader'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import { useRiskData } from '../hooks/useRiskData'
 
@@ -15,15 +13,11 @@ function LGURankingPage() {
   )
 
   return (
-    <DashboardLayout>
-      <div className="grid gap-6">
-        <PageHeader
-          title="LGU Ranking"
-          description="Ranked LGUs based on current risk scores."
-        />
-
-        <InfoBanner text="This section ranks local government units based on their computed risk scores. Higher scores indicate greater likelihood of irregularities or inefficiencies, helping prioritize areas for audit and investigation." />
-
+    <DashboardLayout
+      title="LGU Ranking"
+      description="Ranked LGUs based on current risk scores."
+    >
+      <div className="grid gap-8">
         {error && (
           <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
             {error}
@@ -31,11 +25,11 @@ function LGURankingPage() {
         )}
 
         {loading ? (
-          <div className="rounded-lg border border-slate-200 bg-white p-6 text-sm text-[#1E293B]/70 shadow-sm">
+          <div className="premium-card reveal-on-scroll rounded-lg p-8 text-sm text-[#1E293B]/70">
             Loading live backend data...
           </div>
         ) : (
-          <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
+          <div className="grid min-w-0 items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(340px,400px)]">
             <TopRiskTable rows={topRiskRows} selectedId={selectedLgu?.id} onSelect={(row) => setSelectedId(row.id)} />
             <AiRiskExplainer item={selectedLgu} />
           </div>
