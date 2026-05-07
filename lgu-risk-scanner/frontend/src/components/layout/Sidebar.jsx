@@ -2,13 +2,9 @@ import { NavLink } from 'react-router-dom'
 
 const links = [
   { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
-  { name: 'Map View', path: '/map-view' },
-  { name: 'Compare LGUs', path: '/compare-lgus' },
-  { name: 'What-If Simulator', path: '/simulator' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
-  { name: 'Reports', path: '/reports' },
-  { name: 'About', path: '/about' },
 ]
 
 export default function Sidebar() {

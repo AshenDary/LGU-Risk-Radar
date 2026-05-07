@@ -4,6 +4,8 @@ const MONTHS = [
   "June", "July", "August", "September", "October",
   "November", "December",
 ];
+
+export { MONTHS };
  
 /** Derive risk level from a numeric score (0–100). */
 export function getRiskLevel(score) {
@@ -557,3 +559,41 @@ export const auditLogs = [
     riskLevel: "Low"
   }
 ];
+
+// ── Get Monthly Scores for a Specific City ────────────────────
+export function getMonthlyScoresForCity(cityId) {
+  const cityData = RAW_MONTHLY[cityId];
+  const result = [];
+  
+  for (let year = 2022; year <= 2026; year++) {
+    const yearData = cityData[year];
+    yearData.forEach((score, monthIdx) => {
+      result.push({
+        month: MONTHS[monthIdx],
+        year,
+        score,
+      });
+    });
+  }
+  
+  return result;
+}
+
+// ── Get Monthly Procurement for a Specific City ────────────────
+export function getMonthlyProcurementForCity(cityId) {
+  const cityData = RAW_PROCUREMENT[cityId];
+  const result = [];
+  
+  for (let year = 2022; year <= 2026; year++) {
+    const yearData = cityData[year];
+    yearData.forEach((value, monthIdx) => {
+      result.push({
+        month: MONTHS[monthIdx],
+        year,
+        value,
+      });
+    });
+  }
+  
+  return result;
+}
