@@ -38,22 +38,23 @@ function WhatIfSimulator() {
 
   return (
     <Card>
-      <div className="mb-6">
-        <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
-        <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
+      <div className="mb-7">
+        <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
+        <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">What-If Simulator</h2>
+        <p className="mt-2 text-sm font-medium leading-6 text-[#2563EB]">Adjust indicators to estimate a new risk score</p>
       </div>
 
-      <div className="mb-8 rounded-xl border border-[#38BDF8]/30 bg-[#F8FAFC] p-5">
-        <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
-        <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
+      <div className="mb-8 rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-5">
+        <p className="text-sm font-bold text-[#2563EB]">New Risk Score</p>
+        <p className="mt-2 text-5xl font-extrabold tracking-tight text-[#0F172A]">{newRiskScore}</p>
       </div>
 
       <div className="space-y-6">
         {sliderConfig.map((item) => (
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
-              <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
-              <span className="text-sm text-[#1E293B]/65">
+              <span className="text-sm font-semibold text-[#0F172A]">{item.label}</span>
+              <span className="text-sm font-bold text-[#2563EB]">
                 {Math.round(values[item.key] * 100)}%
               </span>
             </div>

@@ -1,5 +1,5 @@
 const progressVariants = {
-  default: 'bg-[#38BDF8]',
+  default: 'bg-slate-400',
   success: 'bg-emerald-400',
   warning: 'bg-amber-400',
   danger: 'bg-red-400',

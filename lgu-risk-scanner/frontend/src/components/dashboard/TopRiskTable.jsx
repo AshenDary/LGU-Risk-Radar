@@ -9,36 +9,59 @@ const riskLevelClasses = {
 }
 
 function TopRiskTable({ rows, selectedId, onSelect }) {
+  const visibleRows = rows.slice(0, 5)
+
   return (
-    <Card>
-      <div className="mb-5">
-        <h2 className="text-base font-semibold text-[#0F172A]">Top Risk LGUs</h2>
-        <p className="mt-1 text-sm text-[#1E293B]/65">Highest ranked LGUs by current risk score</p>
+    <Card className="overflow-hidden p-0">
+      <div className="px-6 py-5 sm:px-8 sm:py-6">
+        <div className="max-w-2xl">
+          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Ranking</p>
+          <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Top Risk LGUs</h2>
+          <p className="mt-2 text-sm font-medium leading-6 text-[#2563EB]">Highest ranked LGUs by current risk score</p>
+        </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-left">
+      <div className="px-3 pb-5 sm:px-5">
+        <table className="w-full table-fixed text-left">
+          <colgroup>
+            <col className="w-[15%]" />
+            <col className="w-[41%]" />
+            <col className="w-[20%]" />
+            <col className="w-[24%]" />
+          </colgroup>
           <thead>
-            <tr className="border-b border-slate-200 bg-[#F8FAFC] text-xs uppercase text-[#1E293B]/60">
-              <th className="px-4 py-3 font-medium">Rank</th>
-              <th className="px-4 py-3 font-medium">LGU</th>
-              <th className="px-4 py-3 font-medium">Risk Score</th>
-              <th className="px-4 py-3 font-medium">Risk Level</th>
+            <tr className="border-b border-[#38BDF8]/18 bg-transparent text-xs uppercase tracking-[0.14em] text-slate-600">
+              <th className="px-2 py-4 font-black sm:px-4">Rank</th>
+              <th className="px-2 py-4 font-black sm:px-4">LGU</th>
+              <th className="px-2 py-4 font-black sm:px-4">Score</th>
+              <th className="px-2 py-4 font-black sm:px-4">Level</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
-            {rows.map((item, index) => (
+          <tbody>
+            {visibleRows.map((item, index) => (
               <tr
                 key={item.id}
                 onClick={() => onSelect?.(item)}
-                className={`cursor-pointer text-sm text-[#1E293B]/75 transition hover:bg-[#F8FAFC] ${
-                  selectedId === item.id ? 'bg-[#38BDF8]/10' : ''
-                }`}
+                className="group cursor-pointer text-sm text-[#1E293B]/75"
               >
-                <td className="px-4 py-4 font-medium text-[#1E293B]/60">{index + 1}</td>
-                <td className="px-4 py-4 font-medium text-[#0F172A]">{item.name}</td>
-                <td className="px-4 py-4">{item.score.toFixed(2)}</td>
-                <td className="px-4 py-4">
+                <td className={`rounded-l-2xl px-2 py-5 font-bold text-[#2563EB] transition group-hover:bg-[#F8FAFC] sm:px-4 ${
+                  selectedId === item.id ? 'bg-[#EFF6FF]' : ''
+                }`}>
+                  #{index + 1}
+                </td>
+                <td className={`break-words px-2 py-5 font-semibold leading-5 text-[#0F172A] transition group-hover:bg-[#F8FAFC] sm:px-4 ${
+                  selectedId === item.id ? 'bg-[#EFF6FF]' : ''
+                }`}>
+                  {item.name}
+                </td>
+                <td className={`break-words px-2 py-5 font-semibold transition group-hover:bg-[#F8FAFC] sm:px-4 ${
+                  selectedId === item.id ? 'bg-[#EFF6FF]' : ''
+                }`}>
+                  {item.score.toFixed(2)}
+                </td>
+                <td className={`rounded-r-2xl px-2 py-5 transition group-hover:bg-[#F8FAFC] sm:px-4 ${
+                  selectedId === item.id ? 'bg-[#EFF6FF]' : ''
+                }`}>
                   <Badge className={riskLevelClasses[item.riskLevel]}>{item.riskLevel}</Badge>
                 </td>
               </tr>

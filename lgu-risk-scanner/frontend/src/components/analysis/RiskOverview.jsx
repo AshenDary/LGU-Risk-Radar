@@ -3,6 +3,7 @@ import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxi
 
 function RiskOverview({ rows, procurements }) {
   const [selectedLgu, setSelectedLgu] = useState('all')
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false)
 
   const avgScore = useMemo(() => {
     if (!rows.length) return '0.0'
@@ -47,6 +48,7 @@ function RiskOverview({ rows, procurements }) {
   }, [procurements, rows, selectedLgu])
 
   const selectedName = rows.find((item) => item.id === selectedLgu)?.name || 'Selected LGU'
+  const selectedLabel = selectedLgu === 'all' ? 'All LGUs' : selectedName
 
   const getRiskColor = (score) => {
     if (score >= 75) return '#dc2626'
@@ -55,86 +57,112 @@ function RiskOverview({ rows, procurements }) {
   }
 
   return (
-    <div className="grid gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Average Risk Score</div>
-          <div className="text-3xl font-bold text-white">{avgScore}</div>
-          <div className="text-xs text-gray-500 mt-2">Across live LGU records</div>
+    <div className="grid gap-8">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Average Risk Score</div>
+          <div className="text-3xl font-extrabold tracking-tight text-[#0F172A]">{avgScore}</div>
+          <div className="mt-2 text-xs font-medium text-[#475569]">Across live LGU records</div>
         </div>
 
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Highest Risk LGU</div>
-          <div className="text-lg font-bold text-white">{riskExtremes.highest.name}</div>
-          <div className="text-2xl font-bold mt-2" style={{ color: getRiskColor(riskExtremes.highest.score) }}>
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Highest Risk LGU</div>
+          <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.highest.name}</div>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.highest.score) }}>
             {riskExtremes.highest.score.toFixed(2)}
           </div>
         </div>
 
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Lowest Risk LGU</div>
-          <div className="text-lg font-bold text-white">{riskExtremes.lowest.name}</div>
-          <div className="text-2xl font-bold mt-2" style={{ color: getRiskColor(riskExtremes.lowest.score) }}>
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Lowest Risk LGU</div>
+          <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.lowest.name}</div>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.lowest.score) }}>
             {riskExtremes.lowest.score.toFixed(2)}
           </div>
         </div>
 
-        <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-          <div className="text-sm text-gray-400 mb-2">Total Procurement Value</div>
-          <div className="text-2xl font-bold text-white">PHP {(totalProcurement / 1000000).toFixed(1)}M</div>
-          <div className="text-xs text-gray-500 mt-2">{selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU'}</div>
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Total Procurement Value</div>
+          <div className="text-2xl font-extrabold tracking-tight text-[#0F172A]">PHP {(totalProcurement / 1000000).toFixed(1)}M</div>
+          <div className="mt-2 text-xs font-medium text-[#475569]">{selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU'}</div>
         </div>
       </div>
 
-      <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
-        <div className="mb-6">
-          <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-white">Procurement Exposure</h3>
-              <p className="mt-1 text-sm text-cyan-50/55">
+      <div className={`premium-card premium-hover reveal-on-scroll overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${isSelectorOpen ? 'z-[120]' : 'z-0'}`}>
+        <div className="border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Procurement</p>
+              <h3 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Procurement Exposure</h3>
+              <p className="mt-2 max-w-xl text-sm font-medium leading-6 text-[#2563EB]">
                 {selectedLgu === 'all'
                   ? 'Compare total procurement value across LGUs.'
                   : `Review individual procurement values for ${selectedName}.`}
               </p>
             </div>
-            <select
-              value={selectedLgu}
-              onChange={(event) => setSelectedLgu(event.target.value)}
-              className="rounded border border-[#1a3a52] bg-[#0a2240] px-4 py-2 text-sm text-white"
-            >
-              <option value="all">All LGUs</option>
-              {rows.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+            <div className={`relative w-full md:w-72 ${isSelectorOpen ? 'z-[130]' : 'z-10'}`}>
+              <button
+                type="button"
+                onClick={() => setIsSelectorOpen((current) => !current)}
+                className="flex min-h-11 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/45 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-lg shadow-[#2563EB]/10 outline-none transition hover:border-[#2563EB]/55 hover:bg-[#EFF6FF] focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/20"
+                aria-expanded={isSelectorOpen}
+              >
+                <span className="min-w-0 truncate">{selectedLabel}</span>
+                <span className={`shrink-0 text-[#2563EB] transition-transform ${isSelectorOpen ? 'rotate-180' : ''}`}>
+                  v
+                </span>
+              </button>
 
+              {isSelectorOpen ? (
+                <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+                  {[{ id: 'all', name: 'All LGUs' }, ...rows].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedLgu(item.id)
+                        setIsSelectorOpen(false)
+                      }}
+                      className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
+                        selectedLgu === item.id
+                          ? 'bg-[#EFF6FF] text-[#2563EB]'
+                          : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <div className="p-7 sm:p-9">
           {chartData.length > 0 ? (
             <ResponsiveContainer width="100%" height={320}>
-              <BarChart data={chartData} margin={{ top: 12, right: 16, left: 8, bottom: 48 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1a3a52" />
+              <BarChart data={chartData} margin={{ top: 12, right: 16, left: 8, bottom: 18 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#DBEAFE" />
                 <XAxis
                   dataKey="name"
-                  stroke="#999"
-                  angle={-35}
-                  textAnchor="end"
+                  stroke="#64748B"
+                  angle={0}
+                  textAnchor="middle"
                   interval={0}
-                  height={72}
+                  height={44}
                   tick={{ fontSize: 11 }}
                 />
-                <YAxis stroke="#999" tick={{ fontSize: 11 }} label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
+                <YAxis stroke="#64748B" tick={{ fontSize: 11 }} label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0a2240', border: '1px solid #1a3a52', borderRadius: '8px' }}
-                  labelStyle={{ color: '#fff' }}
+                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #BAE6FD', borderRadius: '12px', color: '#0F172A' }}
+                  labelStyle={{ color: '#0F172A' }}
                   formatter={(value) => [`PHP ${value}M`, 'Value']}
                 />
-                <Bar dataKey="value" name="Procurement Value" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="value" name="Procurement Value" fill="#2563EB" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           ) : (
-            <div className="grid h-72 place-items-center rounded border border-cyan-200/10 bg-[#071f33] text-sm text-cyan-50/60">
+            <div className="grid h-72 place-items-center rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-6 text-center text-sm font-medium text-[#2563EB]">
               No procurement records found for {selectedName}.
             </div>
           )}
@@ -145,4 +173,3 @@ function RiskOverview({ rows, procurements }) {
 }
 
 export default RiskOverview
-
