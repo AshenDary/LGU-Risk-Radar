@@ -5,6 +5,8 @@ const AnalysisPage = lazy(() => import('./pages/AnalysisPage'))
 const AuditExplorerPage = lazy(() => import('./pages/AuditExplorerPage'))
 const DashboardPage = lazy(() => import('./pages/DashboardPage'))
 const LGURankingPage = lazy(() => import('./pages/LGURankingPage'))
+const CompareLGUsPage = lazy(() => import('./pages/CompareLGUsPage'))
+const ReportsPage = lazy(() => import('./pages/ReportsPage'))
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/lgu-ranking" element={<LGURankingPage />} />
         <Route path="/analysis" element={<AnalysisPage />} />
         <Route path="/audit-explorer" element={<AuditExplorerPage />} />
+        <Route path="/compare" element={<CompareLGUsPage />} />
+        <Route path="/reports" element={<ReportsPage />} />
       </Routes>
     </Suspense>
   )

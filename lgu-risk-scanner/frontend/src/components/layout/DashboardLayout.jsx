@@ -3,13 +3,13 @@ import Topbar from './Topbar'
 
 function DashboardLayout({ children }) {
   return (
-    <div className="flex min-h-screen bg-[#01111f] text-white">
+    <div className="flex min-h-screen overflow-x-hidden bg-[#01111f] text-white">
       <Sidebar />
 
-      <div className="flex min-h-screen flex-1 flex-col">
+      <div className="flex min-h-screen min-w-0 flex-1 flex-col">
         <Topbar />
 
-        <main className="flex-1 bg-[#031827] p-6">
+        <main className="min-w-0 flex-1 bg-[#031827] p-4 sm:p-6">
           <div className="mx-auto w-full max-w-7xl">{children}</div>
         </main>
       </div>
