@@ -1,0 +1,14 @@
+{
+  "buildCommand": "cd lgu-risk-scanner/frontend && npm ci && npm run build",
+  "outputDirectory": "lgu-risk-scanner/frontend/dist",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,12 +1,13 @@
 import { Link, NavLink } from 'react-router-dom'
-import logo from '../../assets/bantay-bayan-logo.svg'
+import logo from '../../assets/sidebar-risk-radar-logo.svg'
 
-const links = [
+export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
   { name: 'Compare LGUs', path: '/compare' },
+  { name: 'What-If Simulator', path: '/simulator' },
   { name: 'Reports', path: '/reports' },
 ]
 
@@ -60,7 +61,7 @@ export default function Sidebar({ isOpen, onToggle }) {
             <img
               src={logo}
               alt="Bantay Bayan logo"
-              className="h-10 w-10 rounded-full bg-white object-cover shadow-md shadow-[#0F172A]/15"
+              className="h-10 w-10 object-contain drop-shadow-md"
             />
             <div>
               <h1 className="text-base font-extrabold tracking-tight text-white">Bantay Bayan</h1>
@@ -70,7 +71,7 @@ export default function Sidebar({ isOpen, onToggle }) {
         </div>
 
         <nav className="space-y-1.5">
-          {links.map((link) => (
+          {appLinks.map((link) => (
             <NavLink
               key={link.name}
               to={link.path}

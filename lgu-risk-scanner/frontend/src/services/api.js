@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:8000')
 
 async function requestJson(path, options){
   const res = await fetch(`${API_BASE}${path}`, options)
@@ -35,6 +35,17 @@ export async function fetchRiskScores(){
 
 export async function fetchAudits(){
   return requestJson('/audit/list')
+}
+
+export async function simulateRisk(lguId, procurements){
+  return requestJson('/scoring/simulate', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      lgu_id: lguId,
+      procurements: procurements
+    })
+  })
 }
 
 export async function generateExplanation(lguName, riskScore, riskLevel, factors = {}){
