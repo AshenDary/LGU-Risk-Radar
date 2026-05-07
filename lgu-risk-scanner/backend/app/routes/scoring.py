@@ -14,6 +14,7 @@ from app.services.risk_score_service import (
     risk_level_from_score,
     update_risk_score,
     upsert_risk_score,
+    compute_and_save_score,
 )
 from app.services.scoring_engine import compute_score
 
@@ -44,36 +45,10 @@ def replace_risk_score(score_id: str, score: RiskScore):
 
 
 @router.post("/compute")
-def compute(lgu: LGU):
+async def compute(lgu: LGU):
     """Compute and store risk score for an LGU."""
-    procurements = list_procurements_by_lgu(lgu.id)
-    score_data = compute_score(lgu.model_dump(), procurements=procurements)
-    risk_score = RiskScore(
-        id=f"risk-{lgu.id}",
-        lgu_id=lgu.id,
-        score=score_data['score'],
-        risk_level=risk_level_from_score(score_data['score']),
-        explanation=f"Auto-generated score for {lgu.name or lgu.id}",
-        factors=score_data['factors'],
-    )
-    risk_score_result = upsert_risk_score(risk_score)
-    record_audit(
-        AuditEntry(
-            id=str(uuid4()),
-            entity_type="risk_score",
-            entity_id=risk_score.id,
-            action="upsert",
-            actor="system",
-            details={
-                "lgu_id": lgu.id,
-                "score": score_data['score'],
-                "risk_level": risk_score.risk_level,
-                "factors": score_data['factors'],
-                "procurement_count": len(procurements),
-            },
-        )
-    )
-    return {"risk_score": risk_score.model_dump(), "supabase": risk_score_result}
+    result = await compute_and_save_score(lgu.id)
+    return result
 
 
 @router.get("/by-lgu/{lgu_id}")
