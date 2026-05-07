@@ -131,3 +131,4 @@ secrets.yml
 # System files
 *.iso
 .vercel
+lgu-risk-scanner/frontend/frontend-server.log
