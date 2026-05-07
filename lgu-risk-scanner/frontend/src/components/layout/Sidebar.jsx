@@ -5,6 +5,8 @@ const links = [
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
+  { name: 'Compare LGUs', path: '/compare' },
+  { name: 'Reports', path: '/reports' },
 ]
 
 export default function Sidebar() {

@@ -113,7 +113,7 @@ function AuditExplorerPage() {
               </div>
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px]">
+            <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(320px,380px)]">
               <div className="rounded-lg border border-[#1a3a52] bg-[#0f2e47]">
                 <div className="grid gap-3 border-b border-[#1a3a52] bg-[#0a2240] p-4 lg:grid-cols-[1fr_180px_220px]">
                   <input
@@ -191,7 +191,7 @@ function AuditExplorerPage() {
                 </div>
               </div>
 
-              <aside className="grid gap-4 content-start">
+              <aside className="grid min-w-0 content-start gap-4">
                 <div className="rounded-lg border border-[#1a3a52] bg-[#0f2e47] p-5">
                   <p className="text-xs uppercase tracking-[0.18em] text-cyan-200/60">Selected finding</p>
                   <h2 className="mt-2 text-lg font-semibold text-white">{selectedLog?.city || 'No finding selected'}</h2>

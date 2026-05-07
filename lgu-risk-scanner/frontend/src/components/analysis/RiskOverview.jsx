@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 function RiskOverview({ rows, procurements }) {
   const [selectedLgu, setSelectedLgu] = useState('all')
@@ -25,15 +25,28 @@ function RiskOverview({ rows, procurements }) {
   }, [procurements, selectedLgu])
 
   const chartData = useMemo(() => {
-    const source = selectedLgu === 'all' ? rows : rows.filter((item) => item.id === selectedLgu)
-    return source
-      .map((item) => ({
-        name: item.name.replace(/^City of /, '').replace(/^Municipality of /, ''),
-        value: Number((item.totalAmount / 1000000).toFixed(2)),
+    if (selectedLgu === 'all') {
+      return rows
+        .map((item) => ({
+          name: item.name.replace(/^City of /, '').replace(/^Municipality of /, ''),
+          value: Number((item.totalAmount / 1000000).toFixed(2)),
+        }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 12)
+    }
+
+    return procurements
+      .filter((item) => item.lgu_id === selectedLgu)
+      .sort((a, b) => new Date(a.created_at || a.updated_at || 0) - new Date(b.created_at || b.updated_at || 0))
+      .map((item, index) => ({
+        name: item.reference_number || item.title?.slice(0, 18) || `Record ${index + 1}`,
+        value: Number((Number(item.amount || 0) / 1000000).toFixed(2)),
+        supplier: item.supplier || 'No supplier',
+        status: item.status || 'No status',
       }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, selectedLgu === 'all' ? 12 : 20)
-  }, [rows, selectedLgu])
+  }, [procurements, rows, selectedLgu])
+
+  const selectedName = rows.find((item) => item.id === selectedLgu)?.name || 'Selected LGU'
 
   const getRiskColor = (score) => {
     if (score >= 75) return '#dc2626'
@@ -75,12 +88,19 @@ function RiskOverview({ rows, procurements }) {
 
       <div className="bg-[#0f2e47] rounded-lg p-6 border border-[#1a3a52]">
         <div className="mb-6">
-          <div className="flex items-center justify-between gap-4 mb-4">
-            <h3 className="text-lg font-semibold text-white">Procurement Exposure</h3>
+          <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-white">Procurement Exposure</h3>
+              <p className="mt-1 text-sm text-cyan-50/55">
+                {selectedLgu === 'all'
+                  ? 'Compare total procurement value across LGUs.'
+                  : `Review individual procurement values for ${selectedName}.`}
+              </p>
+            </div>
             <select
               value={selectedLgu}
               onChange={(event) => setSelectedLgu(event.target.value)}
-              className="bg-[#0a2240] text-white px-4 py-2 rounded border border-[#1a3a52] text-sm"
+              className="rounded border border-[#1a3a52] bg-[#0a2240] px-4 py-2 text-sm text-white"
             >
               <option value="all">All LGUs</option>
               {rows.map((item) => (
@@ -91,28 +111,33 @@ function RiskOverview({ rows, procurements }) {
             </select>
           </div>
 
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a3a52" />
-              <XAxis dataKey="name" stroke="#999" />
-              <YAxis stroke="#999" label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#0a2240', border: '1px solid #1a3a52', borderRadius: '8px' }}
-                labelStyle={{ color: '#fff' }}
-                formatter={(value) => [`PHP ${value}M`, 'Value']}
-              />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#06b6d4"
-                strokeWidth={2}
-                name="Procurement Value"
-                dot={{ fill: '#06b6d4', r: 4 }}
-                activeDot={{ r: 6 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          {chartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={chartData} margin={{ top: 12, right: 16, left: 8, bottom: 48 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1a3a52" />
+                <XAxis
+                  dataKey="name"
+                  stroke="#999"
+                  angle={-35}
+                  textAnchor="end"
+                  interval={0}
+                  height={72}
+                  tick={{ fontSize: 11 }}
+                />
+                <YAxis stroke="#999" tick={{ fontSize: 11 }} label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#0a2240', border: '1px solid #1a3a52', borderRadius: '8px' }}
+                  labelStyle={{ color: '#fff' }}
+                  formatter={(value) => [`PHP ${value}M`, 'Value']}
+                />
+                <Bar dataKey="value" name="Procurement Value" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="grid h-72 place-items-center rounded border border-cyan-200/10 bg-[#071f33] text-sm text-cyan-50/60">
+              No procurement records found for {selectedName}.
+            </div>
+          )}
         </div>
       </div>
     </div>
