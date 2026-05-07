@@ -24,6 +24,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Virtual Environments
 .venv/
@@ -37,6 +40,20 @@ env/
 .env
 .env.local
 .env.*.local
+.env.prod
+.env.staging
+
+# API Keys & Credentials
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+secrets.json
+credentials.json
+service-account*.json
+google-services.json
 
 # Node
 node_modules/
@@ -49,10 +66,13 @@ npm-debug.log
 yarn-error.log
 yarn.lock
 package-lock.json
+.npm
+.eslintcache
 
 # OS files
 .DS_Store
 Thumbs.db
+$RECYCLE.BIN/
 
 # IDE
 .vscode/
@@ -62,6 +82,9 @@ Thumbs.db
 *~
 .sublime-project
 .sublime-workspace
+*.code-workspace
+.project
+.classpath
 
 # Build artifacts
 .cache/
@@ -70,6 +93,18 @@ Thumbs.db
 htmlcov/
 *.profraw
 *.profdata
+
+# Logs
+*.log
+logs/
+*.logfile
+debug.log
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
 
 # Supabase (local development)
 supabase/.branches/
@@ -88,3 +123,10 @@ pgpass.conf
 *.pgservice
 *.db
 *.sqlite
+*.sqlite3
+*.dump
+database.yml
+secrets.yml
+
+# System files
+*.iso

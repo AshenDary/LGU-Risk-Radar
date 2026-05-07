@@ -24,6 +24,16 @@ function formatDetails(details) {
     .join(', ')
 }
 
+function cleanLguName(value) {
+  if (!value) return 'Unknown LGU'
+  return `${value}`
+    .replace(/^ncr[-_\s]*/i, '')
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(' ')
+}
+
 export function useRiskData() {
   const [state, setState] = useState({
     loading: !cachedRiskData,
@@ -126,19 +136,23 @@ export function useRiskData() {
       })),
       topRiskRows: sortedByRisk.slice(0, 10),
       trustworthyRows: sortedByTrust.slice(0, 5),
-      auditRows: state.audits.map((entry) => ({
-        timestamp: entry.created_at || entry.updated_at || '',
-        logId: entry.id,
-        city: entry.entity_id,
-        action: entry.action,
-        details: formatDetails(entry.details),
-        riskLevel: entry.details?.severity || (entry.action === 'upsert' ? 'Medium' : 'Low'),
-        category: entry.details?.category || 'System',
-        amount: Number(entry.details?.amount || 0),
-        recommendation: entry.details?.recommendation || '',
-        coaPattern: entry.details?.coa_pattern || '',
-        relatedReference: entry.details?.related_reference || '',
-      })),
+      auditRows: state.audits.map((entry) => {
+        const lgu = state.lguRiskRows.find((row) => row.id === entry.entity_id)
+        return {
+          timestamp: entry.created_at || entry.updated_at || '',
+          logId: entry.id,
+          entityId: entry.entity_id,
+          city: lgu?.name || cleanLguName(entry.entity_id),
+          action: entry.action,
+          details: formatDetails(entry.details),
+          riskLevel: entry.details?.severity || (entry.action === 'upsert' ? 'Medium' : 'Low'),
+          category: entry.details?.category || 'System',
+          amount: Number(entry.details?.amount || 0),
+          recommendation: entry.details?.recommendation || '',
+          coaPattern: entry.details?.coa_pattern || '',
+          relatedReference: entry.details?.related_reference || '',
+        }
+      }),
     }
   }, [state])
 }

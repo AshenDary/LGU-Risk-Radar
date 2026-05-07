@@ -60,3 +60,41 @@ export async function generateExplanation(lguName, riskScore, riskLevel, factors
     })
   })
 }
+
+export async function askExplanationQuestion(lguName, riskScore, riskLevel, factors = {}, question){
+  return requestJson('/explain/ask', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({
+      lgu_name: lguName,
+      risk_score: riskScore,
+      risk_level: riskLevel,
+      factors: factors,
+      question: question
+    })
+  })
+}
+
+export async function generateAuditChecklist(profile){
+  return requestJson('/explain/checklist', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ profile })
+  })
+}
+
+export async function compareLGUProfiles(left, right){
+  return requestJson('/explain/compare', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ left, right })
+  })
+}
+
+export async function generateRiskReport(title, profiles, notes = ''){
+  return requestJson('/explain/report', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({ title, profiles, notes })
+  })
+}

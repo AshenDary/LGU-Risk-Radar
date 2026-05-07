@@ -5,7 +5,7 @@ function LGUSummaryCards({ summaryData }) {
     {
       label: 'Total LGUs',
       value: summaryData.totalLGUs.toLocaleString(),
-      accent: 'bg-cyan-300',
+      accent: 'bg-[#38BDF8]',
     },
     {
       label: 'High Risk',
@@ -30,8 +30,8 @@ function LGUSummaryCards({ summaryData }) {
         <Card key={item.label}>
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-cyan-50/60">{item.label}</p>
-              <p className="mt-3 text-3xl font-bold tracking-tight text-white">{item.value}</p>
+              <p className="text-sm font-medium text-[#1E293B]/65">{item.label}</p>
+              <p className="mt-3 text-3xl font-bold tracking-tight text-[#0F172A]">{item.value}</p>
             </div>
             <span className={`mt-1 h-2.5 w-2.5 rounded-full ${item.accent}`} />
           </div>
