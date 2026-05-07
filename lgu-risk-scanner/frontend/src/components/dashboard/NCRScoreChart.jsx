@@ -1,8 +1,5 @@
-import { getNCRScoresForChart } from '../../data/mockData'
-
-function NCRScoreChart() {
-  const data = getNCRScoresForChart()
-  const maxScore = Math.max(...data.map(d => d.score))
+function NCRScoreChart({ data }) {
+  const maxScore = Math.max(1, ...data.map(d => d.score))
   const chartHeight = 300
 
   const getRiskLevelColor = (riskLevel) => {
@@ -99,7 +96,7 @@ function NCRScoreChart() {
 
           <div className="pt-4 border-t border-[#1a3a52]">
             <p className="text-xs text-gray-400">
-              Total Cities: <span className="text-white font-semibold">{data.length}</span>
+              Total LGUs: <span className="text-white font-semibold">{data.length}</span>
             </p>
           </div>
         </div>

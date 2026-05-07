@@ -1,9 +1,6 @@
-import { calculateSummaryStats } from '../../data/mockData'
 import Card from '../ui/Card'
 
-function LGUSummaryCards() {
-  const summaryData = calculateSummaryStats()
-  
+function LGUSummaryCards({ summaryData }) {
   const summaryItems = [
     {
       label: 'Total LGUs',

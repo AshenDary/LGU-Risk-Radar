@@ -1,19 +1,22 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import AboutPage from './pages/AboutPage'
-import AnalysisPage from './pages/AnalysisPage'
-import AuditExplorerPage from './pages/AuditExplorerPage'
-import DashboardPage from './pages/DashboardPage'
-import LGURankingPage from './pages/LGURankingPage'
+
+const AnalysisPage = lazy(() => import('./pages/AnalysisPage'))
+const AuditExplorerPage = lazy(() => import('./pages/AuditExplorerPage'))
+const DashboardPage = lazy(() => import('./pages/DashboardPage'))
+const LGURankingPage = lazy(() => import('./pages/LGURankingPage'))
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/lgu-ranking" element={<LGURankingPage />} />
-      <Route path="/analysis" element={<AnalysisPage />} />
-      <Route path="/audit-explorer" element={<AuditExplorerPage />} />
-    </Routes>
+    <Suspense fallback={<div className="min-h-screen bg-[#01111f] p-6 text-sm text-cyan-50/70">Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/lgu-ranking" element={<LGURankingPage />} />
+        <Route path="/analysis" element={<AnalysisPage />} />
+        <Route path="/audit-explorer" element={<AuditExplorerPage />} />
+      </Routes>
+    </Suspense>
   )
 }
 

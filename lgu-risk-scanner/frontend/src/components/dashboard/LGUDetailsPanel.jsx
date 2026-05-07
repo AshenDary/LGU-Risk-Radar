@@ -1,41 +1,46 @@
-import { lguDetails } from '../../data/mockData'
 import Card from '../ui/Card'
 import ProgressBar from '../ui/ProgressBar'
 
-const indicators = [
-  {
-    label: 'Single Bid Rate',
-    value: lguDetails.factors.singleBidRate,
-    variant: 'danger',
-  },
-  {
-    label: 'Repeat Findings',
-    value: lguDetails.factors.repeatFindings,
-    variant: 'warning',
-  },
-  {
-    label: 'Supplier Concentration',
-    value: lguDetails.factors.supplierConcentration,
-    variant: 'warning',
-  },
-]
+function LGUDetailsPanel({ lgu }) {
+  const selectedLgu = lgu || {
+    name: 'No LGU selected',
+    score: 0,
+    factors: {},
+  }
 
-function LGUDetailsPanel() {
+  const indicators = [
+    {
+      label: 'Procurement Volume',
+      value: Number(selectedLgu.factors.procurement_volume_risk || 0),
+      variant: 'warning',
+    },
+    {
+      label: 'Supplier Concentration',
+      value: Number(selectedLgu.factors.supplier_concentration_risk || 0),
+      variant: 'danger',
+    },
+    {
+      label: 'Status Anomalies',
+      value: Number(selectedLgu.factors.status_anomaly_risk || 0),
+      variant: 'warning',
+    },
+  ]
+
   return (
     <Card>
       <div className="mb-6">
         <p className="text-sm font-medium text-cyan-50/60">Selected LGU</p>
-        <h2 className="mt-2 text-xl font-semibold text-white">{lguDetails.name}</h2>
+        <h2 className="mt-2 text-xl font-semibold text-white">{selectedLgu.name}</h2>
       </div>
 
       <div className="mb-8">
         <p className="text-sm font-medium text-cyan-50/60">Risk Score</p>
-        <p className="mt-2 text-5xl font-semibold text-white">{lguDetails.riskScore}</p>
+        <p className="mt-2 text-5xl font-semibold text-white">{selectedLgu.score.toFixed(2)}</p>
       </div>
 
       <div className="space-y-5">
         {indicators.map((indicator) => {
-          const percentage = Math.round(indicator.value * 100)
+          const percentage = Math.round(indicator.value)
 
           return (
             <div key={indicator.label}>

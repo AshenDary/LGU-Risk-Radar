@@ -3,9 +3,11 @@ import PageHeader from '../components/common/PageHeader'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import RiskOverview from '../components/analysis/RiskOverview'
 import RiskFactors from '../components/analysis/RiskFactors'
+import { useRiskData } from '../hooks/useRiskData'
 
 function AnalysisPage() {
   const [activeTab, setActiveTab] = useState('overview')
+  const { loading, error, lguRiskRows, procurements } = useRiskData()
 
   const tabs = [
     { id: 'overview', label: 'Risk Overview' },
@@ -37,9 +39,22 @@ function AnalysisPage() {
           ))}
         </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && <RiskOverview />}
-        {activeTab === 'factors' && <RiskFactors />}
+        {error && (
+          <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+            {error}
+          </div>
+        )}
+
+        {loading ? (
+          <div className="rounded-lg border border-cyan-200/10 bg-[#0f2e47] p-6 text-sm text-cyan-50/70">
+            Loading live backend data...
+          </div>
+        ) : (
+          <>
+            {activeTab === 'overview' && <RiskOverview rows={lguRiskRows} procurements={procurements} />}
+            {activeTab === 'factors' && <RiskFactors rows={lguRiskRows} />}
+          </>
+        )}
       </div>
     </DashboardLayout>
   )

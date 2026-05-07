@@ -30,6 +30,7 @@ def seed() -> None:
 
     lgus = dataset["lgus"]
     procurements = dataset["procurements"]
+    audit_findings = dataset.get("audit_findings", [])
 
     for lgu in lgus:
         post_json("/lgu/upsert", lgu)
@@ -40,9 +41,13 @@ def seed() -> None:
     for lgu in lgus:
         get_json(f"/scoring/by-lgu/{lgu['id']}")
 
+    for audit_finding in audit_findings:
+        post_json("/audit/record", audit_finding)
+
     print(
         f"Seeded {len(lgus)} Metro Manila LGUs and "
-        f"{len(procurements)} procurement records through {API_BASE}."
+        f"{len(procurements)} procurement records, plus "
+        f"{len(audit_findings)} synthetic audit findings through {API_BASE}."
     )
 
 

@@ -11,7 +11,7 @@ def get_audit(audit_id: str):
 
 
 def record_audit(entry: AuditEntry):
-    return get_supabase_repository().insert("audit_logs", entry.model_dump(exclude_none=True))
+    return get_supabase_repository().upsert("audit_logs", entry.model_dump(exclude_none=True))
 
 
 def update_audit(audit_id: str, entry: AuditEntry):
