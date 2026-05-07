@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/bantay-bayan-logo.svg'
+import logo from '../../assets/bantay-bayan-logo.png'
 
 const links = [
   { label: 'Home', target: 'home' },
@@ -25,12 +25,12 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-transparent px-4 py-3 sm:px-6 lg:px-8">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 rounded-full border border-[#38BDF8]/30 bg-gradient-to-r from-white/95 via-[#F8FAFC]/94 to-[#EFF6FF]/92 px-4 py-3 shadow-xl shadow-[#2563EB]/10 backdrop-blur-xl sm:px-5">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 rounded-full border border-[#38BDF8]/30 bg-gradient-to-r from-white/95 via-[#F8FAFC]/94 to-[#EFF6FF]/92 px-5 py-4 shadow-xl shadow-[#2563EB]/10 backdrop-blur-xl sm:px-7 lg:px-8">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={logo}
             alt="Bantay Bayan logo"
-            className="h-11 w-11 rounded-full object-cover shadow-md shadow-[#0F172A]/15"
+            className="h-12 w-12 object-contain drop-shadow-md"
           />
           <span>
             <span className="block text-xl font-extrabold tracking-tight text-[#0F172A]">Bantay Bayan</span>

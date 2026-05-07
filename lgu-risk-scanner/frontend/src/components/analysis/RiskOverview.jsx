@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 function RiskOverview({ rows, procurements }) {
   const [selectedLgu, setSelectedLgu] = useState('all')
+  const [isSelectorOpen, setIsSelectorOpen] = useState(false)
 
   const avgScore = useMemo(() => {
     if (!rows.length) return '0.0'
@@ -25,81 +26,146 @@ function RiskOverview({ rows, procurements }) {
   }, [procurements, selectedLgu])
 
   const chartData = useMemo(() => {
-    const source = selectedLgu === 'all' ? rows : rows.filter((item) => item.id === selectedLgu)
-    return source
-      .map((item) => ({
-        name: item.name.replace(/^City of /, '').replace(/^Municipality of /, ''),
-        value: Number((item.totalAmount / 1000000).toFixed(2)),
+    if (selectedLgu === 'all') {
+      return rows
+        .map((item) => ({
+          name: item.name.replace(/^City of /, '').replace(/^Municipality of /, ''),
+          value: Number((item.totalAmount / 1000000).toFixed(2)),
+        }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 12)
+    }
+
+    return procurements
+      .filter((item) => item.lgu_id === selectedLgu)
+      .sort((a, b) => new Date(a.created_at || a.updated_at || 0) - new Date(b.created_at || b.updated_at || 0))
+      .map((item, index) => ({
+        name: item.reference_number || item.title?.slice(0, 18) || `Record ${index + 1}`,
+        value: Number((Number(item.amount || 0) / 1000000).toFixed(2)),
+        supplier: item.supplier || 'No supplier',
+        status: item.status || 'No status',
       }))
-      .sort((a, b) => b.value - a.value)
-      .slice(0, selectedLgu === 'all' ? 12 : 20)
-  }, [rows, selectedLgu])
+  }, [procurements, rows, selectedLgu])
+
+  const selectedName = rows.find((item) => item.id === selectedLgu)?.name || 'Selected LGU'
+  const selectedLabel = selectedLgu === 'all' ? 'All LGUs' : selectedName
 
   const getRiskColor = (score) => {
-    if (score >= 75) return '#DC2626'
-    if (score >= 40) return '#EAB308'
-    return '#16A34A'
+    if (score >= 75) return '#dc2626'
+    if (score >= 40) return '#eab308'
+    return '#16a34a'
   }
 
-  const statCards = [
-    ['Average Risk Score', avgScore, 'Across live LGU records', '#2563EB'],
-    ['Highest Risk LGU', riskExtremes.highest.name, riskExtremes.highest.score.toFixed(2), getRiskColor(riskExtremes.highest.score)],
-    ['Lowest Risk LGU', riskExtremes.lowest.name, riskExtremes.lowest.score.toFixed(2), getRiskColor(riskExtremes.lowest.score)],
-    ['Total Procurement Value', `PHP ${(totalProcurement / 1000000).toFixed(1)}M`, selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU', '#2563EB'],
-  ]
-
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {statCards.map(([label, value, helper, color]) => (
-          <div key={label} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/80">
-            <div className="mb-2 text-sm text-[#1E293B]/65">{label}</div>
-            <div className="text-2xl font-bold text-[#0F172A]">{value}</div>
-            <div className="mt-2 text-sm font-semibold" style={{ color }}>{helper}</div>
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Average Risk Score</div>
+          <div className="text-3xl font-extrabold tracking-tight text-[#0F172A]">{avgScore}</div>
+          <div className="mt-2 text-xs font-medium text-[#475569]">Across live LGU records</div>
+        </div>
+
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Highest Risk LGU</div>
+          <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.highest.name}</div>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.highest.score) }}>
+            {riskExtremes.highest.score.toFixed(2)}
           </div>
-        ))}
+        </div>
+
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Lowest Risk LGU</div>
+          <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.lowest.name}</div>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.lowest.score) }}>
+            {riskExtremes.lowest.score.toFixed(2)}
+          </div>
+        </div>
+
+        <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
+          <div className="mb-2 text-sm font-semibold text-[#2563EB]">Total Procurement Value</div>
+          <div className="text-2xl font-extrabold tracking-tight text-[#0F172A]">PHP {(totalProcurement / 1000000).toFixed(1)}M</div>
+          <div className="mt-2 text-xs font-medium text-[#475569]">{selectedLgu === 'all' ? 'All LGUs' : 'Selected LGU'}</div>
+        </div>
       </div>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm shadow-slate-200/80">
-        <div className="mb-6">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <h3 className="text-lg font-semibold text-[#0F172A]">Procurement Exposure</h3>
-            <select
-              value={selectedLgu}
-              onChange={(event) => setSelectedLgu(event.target.value)}
-              className="rounded border border-slate-200 bg-white px-4 py-2 text-sm text-[#1E293B] outline-none focus:border-[#2563EB]"
-            >
-              <option value="all">All LGUs</option>
-              {rows.map((item) => (
-                <option key={item.id} value={item.id}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
-          </div>
+      <div className={`premium-card premium-hover reveal-on-scroll overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${isSelectorOpen ? 'z-[120]' : 'z-0'}`}>
+        <div className="border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Procurement</p>
+              <h3 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Procurement Exposure</h3>
+              <p className="mt-2 max-w-xl text-sm font-medium leading-6 text-[#2563EB]">
+                {selectedLgu === 'all'
+                  ? 'Compare total procurement value across LGUs.'
+                  : `Review individual procurement values for ${selectedName}.`}
+              </p>
+            </div>
+            <div className={`relative w-full md:w-72 ${isSelectorOpen ? 'z-[130]' : 'z-10'}`}>
+              <button
+                type="button"
+                onClick={() => setIsSelectorOpen((current) => !current)}
+                className="flex min-h-11 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/45 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-lg shadow-[#2563EB]/10 outline-none transition hover:border-[#2563EB]/55 hover:bg-[#EFF6FF] focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/20"
+                aria-expanded={isSelectorOpen}
+              >
+                <span className="min-w-0 truncate">{selectedLabel}</span>
+                <span className={`shrink-0 text-[#2563EB] transition-transform ${isSelectorOpen ? 'rotate-180' : ''}`}>
+                  v
+                </span>
+              </button>
 
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E2E8F0" />
-              <XAxis dataKey="name" stroke="#64748B" />
-              <YAxis stroke="#64748B" label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
-              <Tooltip
-                contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #E2E8F0', borderRadius: '8px' }}
-                labelStyle={{ color: '#0F172A' }}
-                formatter={(value) => [`PHP ${value}M`, 'Value']}
-              />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#2563EB"
-                strokeWidth={2}
-                name="Procurement Value"
-                dot={{ fill: '#38BDF8', r: 4 }}
-                activeDot={{ r: 6 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+              {isSelectorOpen ? (
+                <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+                  {[{ id: 'all', name: 'All LGUs' }, ...rows].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedLgu(item.id)
+                        setIsSelectorOpen(false)
+                      }}
+                      className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
+                        selectedLgu === item.id
+                          ? 'bg-[#EFF6FF] text-[#2563EB]'
+                          : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
+                      }`}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+
+        <div className="p-7 sm:p-9">
+          {chartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={chartData} margin={{ top: 12, right: 16, left: 8, bottom: 18 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#DBEAFE" />
+                <XAxis
+                  dataKey="name"
+                  stroke="#64748B"
+                  angle={0}
+                  textAnchor="middle"
+                  interval={0}
+                  height={44}
+                  tick={{ fontSize: 11 }}
+                />
+                <YAxis stroke="#64748B" tick={{ fontSize: 11 }} label={{ value: 'PHP Millions', angle: -90, position: 'insideLeft' }} />
+                <Tooltip
+                  contentStyle={{ backgroundColor: '#ffffff', border: '1px solid #BAE6FD', borderRadius: '12px', color: '#0F172A' }}
+                  labelStyle={{ color: '#0F172A' }}
+                  formatter={(value) => [`PHP ${value}M`, 'Value']}
+                />
+                <Bar dataKey="value" name="Procurement Value" fill="#2563EB" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="grid h-72 place-items-center rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-6 text-center text-sm font-medium text-[#2563EB]">
+              No procurement records found for {selectedName}.
+            </div>
+          )}
         </div>
       </div>
     </div>

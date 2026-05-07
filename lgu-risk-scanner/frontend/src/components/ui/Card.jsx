@@ -1,7 +1,7 @@
 function Card({ children, className = '', ...props }) {
   return (
     <section
-      className={`rounded-xl border border-slate-200 bg-white p-5 shadow-sm shadow-slate-200/80 ${className}`}
+      className={`premium-card premium-hover reveal-on-scroll min-w-0 rounded-2xl p-4 sm:p-6 lg:p-7 ${className}`}
       {...props}
     >
       {children}
