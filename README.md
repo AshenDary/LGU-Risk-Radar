@@ -143,7 +143,7 @@ copy .env.example .env.local
 Update `lgu-risk-scanner/frontend/.env.local`:
 
 ```env
-VITE_API_URL=http://127.0.0.1:8000
+VITE_API_URL=http://127.0.0.1:8001
 ```
 
 If your backend runs on a different port, update `VITE_API_URL` accordingly.
@@ -175,29 +175,38 @@ From the repository root:
 ```powershell
 cd "lgu-risk-scanner\backend"
 py -3.13 -m venv .venv313
+.\.venv313\Scripts\Activate.ps1
 .\.venv313\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-If `requirements.txt` installs a newer dependency chain that fails on your Python version, use Python 3.13 and install the compatible Supabase client used during local development:
+If the backend was already set up before the security module was added, install the security dependencies explicitly:
 
 ```powershell
-.\.venv313\Scripts\python.exe -m pip install fastapi uvicorn[standard] pydantic pydantic-settings python-dotenv requests pandas supabase==2.18.1 pdfplumber websockets==15.0.1
+.\.venv313\Scripts\python.exe -m pip install "passlib[bcrypt]>=1.7.4" "PyJWT>=2.8.0" "slowapi>=0.1.9" "cryptography>=41.0.0"
+```
+
+If `requirements.txt` installs a newer dependency chain that fails on your Python version, use Python 3.13 and install the compatible local development set:
+
+```powershell
+.\.venv313\Scripts\python.exe -m pip install fastapi uvicorn[standard] pydantic pydantic-settings python-dotenv requests pandas supabase==2.18.1 pdfplumber websockets==15.0.1 "passlib[bcrypt]>=1.7.4" "PyJWT>=2.8.0" "slowapi>=0.1.9" "cryptography>=41.0.0"
 ```
 
 ### 2. Run the Backend
 
+From `lgu-risk-scanner/backend`:
+
 ```powershell
-cd "lgu-risk-scanner\backend"
-.\.venv313\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+.\.venv313\Scripts\Activate.ps1
+python -m uvicorn app.main:app --host 127.0.0.1 --port 8001
 ```
 
-If port `8000` is already in use, run on `8001`:
+You can also run the backend without activating the virtual environment:
 
 ```powershell
 .\.venv313\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8001
 ```
 
-Then update `frontend/.env.local`:
+If you choose another backend port, update `frontend/.env.local` to match:
 
 ```env
 VITE_API_URL=http://127.0.0.1:8001
@@ -229,7 +238,7 @@ http://127.0.0.1:5173
 Check the backend health endpoint:
 
 ```powershell
-Invoke-RestMethod http://127.0.0.1:8000/
+Invoke-RestMethod http://127.0.0.1:8001/
 ```
 
 Expected response:
@@ -245,7 +254,7 @@ Expected response:
 Check a data endpoint:
 
 ```powershell
-Invoke-RestMethod http://127.0.0.1:8000/scoring/list
+Invoke-RestMethod http://127.0.0.1:8001/scoring/list
 ```
 
 If this fails, confirm that:
@@ -372,13 +381,25 @@ VITE_API_URL=http://127.0.0.1:8001
 
 ### Python Dependency Installation Fails
 
-Use Python 3.13 and recreate the virtual environment:
+Use Python 3.13 and recreate the virtual environment from `lgu-risk-scanner/backend`:
 
 ```powershell
 cd "lgu-risk-scanner\backend"
 py -3.13 -m venv .venv313
 .\.venv313\Scripts\python.exe -m pip install --upgrade pip
 .\.venv313\Scripts\python.exe -m pip install -r requirements.txt
+```
+
+If the backend reports missing modules such as `passlib` or `slowapi`, install the security dependencies:
+
+```powershell
+.\.venv313\Scripts\python.exe -m pip install "passlib[bcrypt]>=1.7.4" "PyJWT>=2.8.0" "slowapi>=0.1.9" "cryptography>=41.0.0"
+```
+
+If your prompt shows `(.venv)` but this project uses `.venv313`, activate the correct environment:
+
+```powershell
+.\.venv313\Scripts\Activate.ps1
 ```
 
 ## Additional Documentation

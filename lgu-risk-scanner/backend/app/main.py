@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from fastapi.middleware.gzip import GZIPMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 import logging
 
 from app.config import settings
@@ -49,7 +49,7 @@ app.add_middleware(
 )
 
 # 3. GZIP Middleware - Compression to reduce payload size
-app.add_middleware(GZIPMiddleware, minimum_size=1000)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # 4. Custom Security Headers Middleware
 @app.middleware("http")
