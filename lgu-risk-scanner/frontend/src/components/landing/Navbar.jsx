@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import logo from '../../assets/bantay-bayan-logo.svg'
+import logo from '../../assets/landing-risk-radar-logo.svg'
 
 const links = [
   { label: 'Home', target: 'home' },
@@ -30,7 +30,7 @@ export default function Navbar() {
           <img
             src={logo}
             alt="Bantay Bayan logo"
-            className="h-10 w-10 shrink-0 rounded-full object-cover shadow-md shadow-[#0F172A]/15 sm:h-11 sm:w-11"
+            className="h-11 w-11 shrink-0 object-contain drop-shadow-md sm:h-12 sm:w-12"
           />
           <span className="min-w-0">
             <span className="block truncate text-lg font-extrabold tracking-tight text-[#0F172A] sm:text-xl">Bantay Bayan</span>

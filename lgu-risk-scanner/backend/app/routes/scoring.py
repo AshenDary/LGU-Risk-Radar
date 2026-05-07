@@ -39,22 +39,9 @@ def read_risk_scores():
     return list_risk_scores()
 
 
-@router.get("/{score_id}", response_model=RiskScore)
-def read_risk_score(score_id: str):
-    risk_score = get_risk_score(score_id)
-    if risk_score is None:
-        raise HTTPException(status_code=404, detail="Risk score not found")
-    return risk_score
-
-
 @router.post("/upsert", response_model=RiskScore)
 def create_or_update_risk_score(score: RiskScore):
     return upsert_risk_score(score)
-
-
-@router.put("/{score_id}", response_model=RiskScore)
-def replace_risk_score(score_id: str, score: RiskScore):
-    return update_risk_score(score_id, score)
 
 
 @router.post("/compute")
@@ -142,6 +129,19 @@ def get_risk_by_lgu(lgu_id: str):
             "recommendations": _generate_recommendations(score_data['factors'], procurements)
         }
     }
+
+
+@router.get("/{score_id}", response_model=RiskScore)
+def read_risk_score(score_id: str):
+    risk_score = get_risk_score(score_id)
+    if risk_score is None:
+        raise HTTPException(status_code=404, detail="Risk score not found")
+    return risk_score
+
+
+@router.put("/{score_id}", response_model=RiskScore)
+def replace_risk_score(score_id: str, score: RiskScore):
+    return update_risk_score(score_id, score)
 
 
 def _generate_recommendations(factors: dict, procurements: list) -> list:
