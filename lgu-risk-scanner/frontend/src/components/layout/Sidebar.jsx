@@ -7,6 +7,7 @@ export const appLinks = [
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
   { name: 'Compare LGUs', path: '/compare' },
+  { name: 'What-If Simulator', path: '/simulator' },
   { name: 'Reports', path: '/reports' },
 ]
 
