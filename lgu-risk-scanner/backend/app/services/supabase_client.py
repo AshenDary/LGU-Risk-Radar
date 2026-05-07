@@ -40,3 +40,6 @@ class SupabaseRepository:
 @lru_cache(maxsize=1)
 def get_supabase_repository() -> SupabaseRepository:
     return SupabaseRepository()
+
+
+supabase = get_supabase_repository().client
