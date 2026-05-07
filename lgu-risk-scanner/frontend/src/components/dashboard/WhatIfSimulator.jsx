@@ -106,16 +106,19 @@ function WhatIfSimulator() {
     return procurements
   }, [values])
 
-  // Run simulation when values change
-  useEffect(() => {
-    if (!selectedLguId || !currentRiskData) return
+  // Handle manual simulation run
+  const handleRunSimulation = () => {
+    if (!selectedLguId || !currentRiskData) {
+      setError('Please select an LGU first')
+      return
+    }
 
     setLoading(true)
     simulateRisk(selectedLguId, hypotheticalProcurements)
       .then(setSimulationResult)
       .catch(err => setError('Simulation failed: ' + err.message))
       .finally(() => setLoading(false))
-  }, [selectedLguId, hypotheticalProcurements, currentRiskData])
+  }
 
   function handleSliderChange(key, value) {
     setValues((currentValues) => ({
@@ -135,10 +138,6 @@ function WhatIfSimulator() {
   return (
     <Card>
       <div className="mb-6">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
         <h2 className="text-base font-semibold text-white">What-If Simulator</h2>
         <p className="mt-1 text-sm text-cyan-50/60">Adjust procurement parameters to see how they affect risk scores</p>
       </div>
@@ -160,18 +159,6 @@ function WhatIfSimulator() {
             </option>
           ))}
         </select>
-<<<<<<< HEAD
-=======
-        <h2 className="text-base font-semibold text-[#0F172A]">What-If Simulator</h2>
-        <p className="mt-1 text-sm text-[#1E293B]/65">Adjust indicators to estimate a new risk score</p>
-      </div>
-
-      <div className="mb-8 rounded-xl border border-[#38BDF8]/30 bg-[#F8FAFC] p-5">
-        <p className="text-sm font-medium text-[#1E293B]/65">New Risk Score</p>
-        <p className="mt-2 text-5xl font-bold tracking-tight text-[#0F172A]">{newRiskScore}</p>
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
       </div>
 
       {error && (
@@ -227,10 +214,6 @@ function WhatIfSimulator() {
         {sliderConfig.map((item) => (
           <label key={item.key} className="block">
             <div className="mb-3 flex items-center justify-between gap-4">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
               <span className="text-sm font-medium text-cyan-50/75">{item.label}</span>
               <span className="text-sm text-cyan-50/60">
                 {item.key === 'avgAmount' 
@@ -239,14 +222,6 @@ function WhatIfSimulator() {
                   ? `${values[item.key]}%`
                   : values[item.key]
                 }
-<<<<<<< HEAD
-=======
-              <span className="text-sm font-medium text-[#1E293B]/80">{item.label}</span>
-              <span className="text-sm text-[#1E293B]/65">
-                {Math.round(values[item.key] * 100)}%
->>>>>>> 2061fb395cf2764af7e7bc9d8efdf4e7b4017f8a
-=======
->>>>>>> db5e2d12830466d8905a56e2365ea7767f9cfcdc
               </span>
             </div>
             <input
@@ -260,6 +235,17 @@ function WhatIfSimulator() {
             />
           </label>
         ))}
+      </div>
+
+      {/* Run Simulation Button */}
+      <div className="mt-8 mb-8">
+        <button
+          onClick={handleRunSimulation}
+          disabled={!selectedLguId || loading}
+          className="w-full px-4 py-2 bg-cyan-600 hover:bg-cyan-700 disabled:bg-cyan-900 disabled:opacity-50 text-white font-medium rounded-md transition-colors"
+        >
+          {loading ? 'Running Simulation...' : 'Run Simulation'}
+        </button>
       </div>
 
       {/* Summary */}
