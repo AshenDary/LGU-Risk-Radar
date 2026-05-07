@@ -30,15 +30,15 @@ function NCRScoreChart({ data }) {
 
         <div className="p-6">
           <div className="overflow-x-auto">
-            <div className="flex gap-4 pb-4" style={{ minWidth: 'max(100%, 800px)' }}>
+            <div className="flex gap-3 pb-4 sm:gap-4" style={{ minWidth: 'max(100%, min(800px, 240vw))' }}>
               {data.map((item, idx) => {
                 const barHeight = (item.score / maxScore) * chartHeight
                 return (
-                  <div key={idx} className="flex flex-col items-center gap-2 flex-1 min-w-max">
+                  <div key={idx} className="flex min-w-12 flex-1 flex-col items-center gap-2">
                     {/* Bar */}
                     <div className="w-full flex flex-col items-center justify-end" style={{ height: chartHeight }}>
                       <div
-                        className="w-12 rounded-t flex items-end justify-center text-white text-xs font-bold transition-all hover:opacity-80"
+                        className="flex w-9 items-end justify-center rounded-t text-xs font-bold text-white transition-all hover:opacity-80 sm:w-12"
                         style={{
                           height: `${barHeight}px`,
                           backgroundColor: getRiskLevelColor(item.riskLevel),
@@ -50,7 +50,7 @@ function NCRScoreChart({ data }) {
                       </div>
                     </div>
                     {/* Label */}
-                    <p className="max-w-12 whitespace-normal break-words text-center text-xs text-[#1E293B]/70">
+                    <p className="max-w-14 whitespace-normal break-words text-center text-[11px] leading-4 text-[#1E293B]/70 sm:text-xs">
                       {item.name}
                     </p>
                   </div>

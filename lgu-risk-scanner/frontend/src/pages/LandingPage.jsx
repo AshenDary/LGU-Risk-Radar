@@ -30,9 +30,6 @@ export default function LandingPage() {
     <div className="landing-blue-spots min-h-screen scroll-smooth text-[#1E293B] antialiased">
       <Navbar />
       <main className="relative overflow-hidden">
-        <div className="pointer-events-none fixed left-[-90px] top-12 h-72 w-72 rounded-full bg-[#38BDF8]/25 blur-3xl" />
-        <div className="pointer-events-none fixed right-[-120px] top-28 h-96 w-96 rounded-full bg-[#2563EB]/15 blur-3xl" />
-        <div className="pointer-events-none fixed inset-x-0 top-0 h-28 bg-gradient-to-b from-[#F8FAFC] to-transparent" />
         <HeroSection />
         <FeatureSection />
         <AboutSection />
