@@ -1,4 +1,3 @@
-import { topLGUs } from '../../data/mockData'
 import Badge from '../ui/Badge'
 import Card from '../ui/Card'
 
@@ -9,7 +8,7 @@ const riskLevelClasses = {
   Low: 'border-green-500/30 bg-green-500/10 text-green-300',
 }
 
-function TopRiskTable() {
+function TopRiskTable({ rows, selectedId, onSelect }) {
   return (
     <Card>
       <div className="mb-5">
@@ -23,18 +22,22 @@ function TopRiskTable() {
             <tr className="border-b border-cyan-200/10 text-xs uppercase text-cyan-50/45">
               <th className="px-4 py-3 font-medium">Rank</th>
               <th className="px-4 py-3 font-medium">LGU</th>
-              <th className="px-4 py-3 font-medium">Province</th>
               <th className="px-4 py-3 font-medium">Risk Score</th>
               <th className="px-4 py-3 font-medium">Risk Level</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-cyan-200/10">
-            {topLGUs.map((item) => (
-              <tr key={item.rank} className="text-sm text-cyan-50/75">
-                <td className="px-4 py-4 font-medium text-cyan-50/50">{item.rank}</td>
+            {rows.map((item, index) => (
+              <tr
+                key={item.id}
+                onClick={() => onSelect?.(item)}
+                className={`cursor-pointer text-sm text-cyan-50/75 transition hover:bg-cyan-100/5 ${
+                  selectedId === item.id ? 'bg-cyan-400/10' : ''
+                }`}
+              >
+                <td className="px-4 py-4 font-medium text-cyan-50/50">{index + 1}</td>
                 <td className="px-4 py-4 font-medium text-white">{item.name}</td>
-                <td className="px-4 py-4">{item.province}</td>
-                <td className="px-4 py-4">{item.riskScore}</td>
+                <td className="px-4 py-4">{item.score.toFixed(2)}</td>
                 <td className="px-4 py-4">
                   <Badge className={riskLevelClasses[item.riskLevel]}>{item.riskLevel}</Badge>
                 </td>

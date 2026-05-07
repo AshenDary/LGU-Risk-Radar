@@ -1,5 +1,4 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
-import { riskDistributionData } from '../../data/mockData'
 import Card from '../ui/Card'
 
 const categoryColors = {
@@ -9,7 +8,9 @@ const categoryColors = {
   Low: '#34d399',
 }
 
-function RiskDistributionChart() {
+function RiskDistributionChart({ data }) {
+  const riskDistributionData = data || []
+
   return (
     <Card>
       <div className="mb-5">

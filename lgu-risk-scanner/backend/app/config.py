@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     llm_api_key: Optional[str] = None
     database_url: Optional[str] = None
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
+    cors_origin_regex: Optional[str] = r"^http://(localhost|127\.0\.0\.1):\d+$"
 
     model_config = SettingsConfigDict(env_file=Path(__file__).resolve().parents[1] / ".env", extra="ignore")
 
