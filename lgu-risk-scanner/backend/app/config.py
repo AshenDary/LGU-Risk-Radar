@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     supabase_service_role_key: str = ""
     llm_api_url: Optional[str] = None
     llm_api_key: Optional[str] = None
+    llm_model: str = "llama3.2:3b"
     database_url: Optional[str] = None
     cors_origins: str = "http://localhost:5173,http://localhost:3000"
     cors_origin_regex: Optional[str] = r"^http://(localhost|127\.0\.0\.1):\d+$"
