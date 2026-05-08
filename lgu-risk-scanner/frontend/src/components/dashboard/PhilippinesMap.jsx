@@ -1,26 +1,29 @@
 import Card from '../ui/Card'
 import { getNCRScoresForChart } from '../../data/mockData'
+import { philippinesCountryPaths, philippinesMapViewBox } from '../../data/philippinesMapPaths'
 import { useRiskData } from '../../hooks/useRiskData'
 
 const mapPositions = {
-  Manila: { left: '39%', top: '50%' },
-  'Quezon City': { left: '46%', top: '26%' },
-  Caloocan: { left: '39%', top: '20%' },
-  'Las Pinas': { left: '37%', top: '78%' },
-  'Las PiÃ±as': { left: '37%', top: '78%' },
-  Makati: { left: '50%', top: '58%' },
-  Malabon: { left: '34%', top: '25%' },
-  Mandaluyong: { left: '51%', top: '49%' },
-  Marikina: { left: '66%', top: '38%' },
-  Muntinlupa: { left: '52%', top: '86%' },
-  Navotas: { left: '29%', top: '31%' },
-  Paranaque: { left: '40%', top: '70%' },
-  'ParaÃ±aque': { left: '40%', top: '70%' },
-  Pasay: { left: '42%', top: '61%' },
-  Pasig: { left: '61%', top: '51%' },
-  'San Juan': { left: '50%', top: '42%' },
-  Taguig: { left: '58%', top: '68%' },
-  Valenzuela: { left: '41%', top: '12%' },
+  Manila: { x: 278.5, y: 354 },
+  'Quezon City': { x: 281.7, y: 349.9 },
+  Caloocan: { x: 277.6, y: 351.3 },
+  'Las Pinas': { x: 279, y: 362.2 },
+  'Las Piñas': { x: 279, y: 362.2 },
+  'Las PiÃ±as': { x: 279, y: 362.2 },
+  Makati: { x: 280.6, y: 356.4 },
+  Malabon: { x: 277, y: 350.3 },
+  Mandaluyong: { x: 281.2, y: 355.1 },
+  Marikina: { x: 284.8, y: 351.3 },
+  Muntinlupa: { x: 282, y: 364.1 },
+  Navotas: { x: 276.6, y: 350.4 },
+  Paranaque: { x: 280.3, y: 360.4 },
+  'Parañaque': { x: 280.3, y: 360.4 },
+  'ParaÃ±aque': { x: 280.3, y: 360.4 },
+  Pasay: { x: 279.4, y: 357.3 },
+  Pasig: { x: 283.8, y: 355.2 },
+  'San Juan': { x: 281.7, y: 353.7 },
+  Taguig: { x: 282, y: 358.3 },
+  Valenzuela: { x: 278.4, y: 348.6 },
 }
 
 const riskStyles = {
@@ -72,32 +75,66 @@ function PhilippinesMap() {
       ) : null}
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
-        <div className="relative min-h-[28rem] overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-5 shadow-inner shadow-[#2563EB]/10">
-          <div className="absolute inset-5 rounded-[2rem] border border-[#38BDF8]/25 bg-white/55" />
-          <div className="absolute left-[24%] top-[8%] h-[84%] w-[52%] rounded-[48%_40%_45%_42%] border-2 border-[#2563EB]/25 bg-gradient-to-b from-[#DBEAFE] via-white to-[#F8FAFC]" />
-          <div className="absolute left-[31%] top-[16%] h-[68%] w-[36%] rounded-[45%] border border-[#38BDF8]/35" />
-          <div className="absolute left-[38%] top-[28%] h-[48%] w-[24%] rounded-[42%] border border-[#2563EB]/20 bg-[#DBEAFE]/40" />
+        <div className="relative min-h-[32rem] overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#E0F2FE] p-4 shadow-inner shadow-[#2563EB]/10">
+          <svg
+            className="absolute inset-0 h-full w-full"
+            viewBox={philippinesMapViewBox}
+            role="img"
+            aria-label="Map outline of the Philippines with NCR risk markers"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <defs>
+              <linearGradient id="philippines-map-fill" x1="0" x2="1" y1="0" y2="1">
+                <stop stopColor="#FFFFFF" />
+                <stop offset="0.55" stopColor="#DBEAFE" />
+                <stop offset="1" stopColor="#BAE6FD" />
+              </linearGradient>
+              <filter id="map-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="8" stdDeviation="8" floodColor="#1D4ED8" floodOpacity="0.14" />
+              </filter>
+            </defs>
 
-          {rows.map((row) => {
-            const position = mapPositions[row.name]
-            const style = riskStyles[row.riskLevel] || riskStyles.Low
+            <rect width="640" height="900" fill="#E0F2FE" />
+            <g filter="url(#map-shadow)">
+              {philippinesCountryPaths.map((path) => (
+                <path
+                  key={path}
+                  d={path}
+                  fill="url(#philippines-map-fill)"
+                  stroke="#2563EB"
+                  strokeOpacity="0.42"
+                  strokeWidth="1.2"
+                />
+              ))}
+            </g>
 
-            return (
-              <div
-                key={row.name}
-                className="absolute -translate-x-1/2 -translate-y-1/2"
-                style={{ left: position.left, top: position.top }}
-                title={`${row.name}: ${row.score} (${row.riskLevel})`}
-              >
-                <div className={`grid h-10 w-10 place-items-center rounded-full border-2 text-xs font-black shadow-lg ${style}`}>
-                  {Math.round(row.score)}
-                </div>
-                <div className="mt-1 hidden max-w-24 rounded-full bg-white/90 px-2 py-1 text-center text-[0.62rem] font-bold leading-3 text-[#0F172A] shadow-sm sm:block">
-                  {row.name}
-                </div>
-              </div>
-            )
-          })}
+            <circle cx="280.5" cy="355.2" r="22" fill="#2563EB" opacity="0.12" />
+            <circle cx="280.5" cy="355.2" r="10" fill="#2563EB" opacity="0.18" />
+            <text x="304" y="350" fill="#0F172A" fontSize="18" fontWeight="800">
+              Metro Manila
+            </text>
+            <text x="304" y="371" fill="#2563EB" fontSize="12" fontWeight="700">
+              NCR sample risk points
+            </text>
+
+            {rows.map((row) => {
+              const position = mapPositions[row.name]
+              const color = row.riskLevel === 'Critical'
+                ? '#EF4444'
+                : row.riskLevel === 'High'
+                  ? '#F97316'
+                  : row.riskLevel === 'Medium'
+                    ? '#FBBF24'
+                    : '#10B981'
+
+              return (
+                <g key={row.name}>
+                  <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
+                  <circle cx={position.x} cy={position.y} r="4.8" fill={color} stroke="#FFFFFF" strokeWidth="1.6" />
+                </g>
+              )
+            })}
+          </svg>
 
           <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 rounded-2xl border border-white/70 bg-white/85 p-3 text-xs font-bold text-[#0F172A] shadow-sm">
             {Object.entries(riskStyles).map(([level, classes]) => (
