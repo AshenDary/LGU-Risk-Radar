@@ -1,3 +1,5 @@
+import InfoBanner from '../common/InfoBanner'
+
 function TopTrustworthyLGUs({ data }) {
   const getRiskLevelColor = (riskLevel) => {
     const colors = {
@@ -55,14 +57,7 @@ function TopTrustworthyLGUs({ data }) {
       </div>
       
       <div className="border-t border-[#38BDF8]/18 bg-[#F8FAFC] px-8 py-5">
-        <div className="flex items-center justify-center gap-2 rounded-2xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-4 py-3 text-[#2563EB]">
-          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-[#38BDF8]/60 text-xs font-black">
-            i
-          </span>
-          <p className="text-sm font-semibold">
-            Lower risk scores indicate more trustworthy governance and procurement practices.
-          </p>
-        </div>
+        <InfoBanner text="Lower risk scores indicate more trustworthy governance and procurement practices." />
       </div>
     </div>
   )
