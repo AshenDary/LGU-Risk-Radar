@@ -81,7 +81,7 @@ function normalizeRiskLevel(level, score) {
 }
 
 function getLabelWidth(name, markerSize) {
-  return Math.max(10, name.length * 0.9 + 4) * markerSize
+  return Math.max(7.5, name.length * 0.72 + 2.8) * markerSize
 }
 
 function PhilippinesMap() {
@@ -293,15 +293,17 @@ function PhilippinesMap() {
               {hoveredCity ? (() => {
                 const position = mapPositions[hoveredCity]
                 const labelWidth = getLabelWidth(hoveredCity, labelSize) * 0.88
+                const labelHeight = 2.35 * labelSize
+                const labelY = position.y - 6.35 * labelSize
 
                 return (
                   <g className="pointer-events-none">
                     <rect
                       x={position.x - labelWidth / 2}
-                      y={position.y - 6.9 * labelSize}
+                      y={labelY}
                       width={labelWidth}
-                      height={2.9 * labelSize}
-                      rx={1.45 * labelSize}
+                      height={labelHeight}
+                      rx={labelHeight / 2}
                       fill="#EFF6FF"
                       stroke="#2563EB"
                       strokeOpacity="0.3"
@@ -309,12 +311,13 @@ function PhilippinesMap() {
                     />
                     <text
                       x={position.x}
-                      y={position.y - 5 * labelSize}
+                      y={labelY + labelHeight / 2}
                       fill="#2563EB"
-                      fontSize={1.03 * labelSize}
+                      fontSize={0.92 * labelSize}
                       fontWeight="700"
                       textAnchor="middle"
                       dominantBaseline="middle"
+                      alignmentBaseline="middle"
                     >
                       {hoveredCity}
                     </text>
