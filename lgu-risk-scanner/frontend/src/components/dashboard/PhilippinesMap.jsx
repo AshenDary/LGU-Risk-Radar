@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Card from '../ui/Card'
 import { getNCRScoresForChart } from '../../data/mockData'
 import { philippinesCountryPaths, philippinesMapViewBox } from '../../data/philippinesMapPaths'
@@ -47,6 +48,7 @@ function normalizeRiskLevel(level, score) {
 
 function PhilippinesMap() {
   const { chartRows, loading, error } = useRiskData()
+  const [zoom, setZoom] = useState(1)
   const fallbackRows = getNCRScoresForChart()
   const rows = (chartRows.length ? chartRows : fallbackRows)
     .map((row) => ({
@@ -57,6 +59,18 @@ function PhilippinesMap() {
     .filter((row) => mapPositions[row.name])
     .sort((a, b) => b.score - a.score)
   const topRows = rows.slice(0, 5)
+
+  function zoomIn() {
+    setZoom((current) => Math.min(2.5, Number((current + 0.25).toFixed(2))))
+  }
+
+  function zoomOut() {
+    setZoom((current) => Math.max(1, Number((current - 0.25).toFixed(2))))
+  }
+
+  function resetZoom() {
+    setZoom(1)
+  }
 
   return (
     <Card>
@@ -79,6 +93,38 @@ function PhilippinesMap() {
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="relative min-h-[32rem] overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#E0F2FE] p-4 shadow-inner shadow-[#2563EB]/10">
+          <div className="absolute right-4 top-4 z-10 flex items-center gap-2 rounded-2xl border border-white/70 bg-white/90 p-2 shadow-lg shadow-[#2563EB]/10">
+            <button
+              type="button"
+              onClick={zoomOut}
+              disabled={zoom <= 1}
+              aria-label="Zoom out of map"
+              title="Zoom out"
+              className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              onClick={resetZoom}
+              aria-label="Reset map zoom"
+              title="Reset zoom"
+              className="h-9 min-w-14 rounded-xl border border-[#38BDF8]/30 px-3 text-xs font-black text-[#0F172A] transition hover:bg-[#EFF6FF]"
+            >
+              {Math.round(zoom * 100)}%
+            </button>
+            <button
+              type="button"
+              onClick={zoomIn}
+              disabled={zoom >= 2.5}
+              aria-label="Zoom in to map"
+              title="Zoom in"
+              className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              +
+            </button>
+          </div>
+
           <svg
             className="absolute inset-0 h-full w-full"
             viewBox={philippinesMapViewBox}
@@ -98,45 +144,47 @@ function PhilippinesMap() {
             </defs>
 
             <rect width="640" height="900" fill="#E0F2FE" />
-            <g filter="url(#map-shadow)">
-              {philippinesCountryPaths.map((path) => (
-                <path
-                  key={path}
-                  d={path}
-                  fill="url(#philippines-map-fill)"
-                  stroke="#2563EB"
-                  strokeOpacity="0.42"
-                  strokeWidth="1.2"
-                />
-              ))}
+            <g transform={`translate(320 450) scale(${zoom}) translate(-320 -450)`}>
+              <g filter="url(#map-shadow)">
+                {philippinesCountryPaths.map((path) => (
+                  <path
+                    key={path}
+                    d={path}
+                    fill="url(#philippines-map-fill)"
+                    stroke="#2563EB"
+                    strokeOpacity="0.42"
+                    strokeWidth="1.2"
+                  />
+                ))}
+              </g>
+
+              <circle cx="280.5" cy="355.2" r="22" fill="#2563EB" opacity="0.12" />
+              <circle cx="280.5" cy="355.2" r="10" fill="#2563EB" opacity="0.18" />
+              <text x="304" y="350" fill="#0F172A" fontSize="18" fontWeight="800">
+                Metro Manila
+              </text>
+              <text x="304" y="371" fill="#2563EB" fontSize="12" fontWeight="700">
+                NCR sample risk points
+              </text>
+
+              {rows.map((row) => {
+                const position = mapPositions[row.name]
+                const color = row.riskLevel === 'Critical'
+                  ? '#EF4444'
+                  : row.riskLevel === 'High'
+                    ? '#F97316'
+                    : row.riskLevel === 'Medium'
+                      ? '#FBBF24'
+                      : '#10B981'
+
+                return (
+                  <g key={row.name}>
+                    <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
+                    <circle cx={position.x} cy={position.y} r="4.8" fill={color} stroke="#FFFFFF" strokeWidth="1.6" />
+                  </g>
+                )
+              })}
             </g>
-
-            <circle cx="280.5" cy="355.2" r="22" fill="#2563EB" opacity="0.12" />
-            <circle cx="280.5" cy="355.2" r="10" fill="#2563EB" opacity="0.18" />
-            <text x="304" y="350" fill="#0F172A" fontSize="18" fontWeight="800">
-              Metro Manila
-            </text>
-            <text x="304" y="371" fill="#2563EB" fontSize="12" fontWeight="700">
-              NCR sample risk points
-            </text>
-
-            {rows.map((row) => {
-              const position = mapPositions[row.name]
-              const color = row.riskLevel === 'Critical'
-                ? '#EF4444'
-                : row.riskLevel === 'High'
-                  ? '#F97316'
-                  : row.riskLevel === 'Medium'
-                    ? '#FBBF24'
-                    : '#10B981'
-
-              return (
-                <g key={row.name}>
-                  <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
-                  <circle cx={position.x} cy={position.y} r="4.8" fill={color} stroke="#FFFFFF" strokeWidth="1.6" />
-                </g>
-              )
-            })}
           </svg>
 
           <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 rounded-2xl border border-white/70 bg-white/85 p-3 text-xs font-bold text-[#0F172A] shadow-sm">
