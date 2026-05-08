@@ -147,50 +147,51 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   const modalContent = isAskOpen ? (
-    <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/25 p-4 backdrop-blur-xl" onClick={() => setIsAskOpen(false)}>
+    <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/30 p-3 backdrop-blur-md sm:p-4" onClick={() => setIsAskOpen(false)}>
       <div
-        className="modal-pop-in flex h-[min(88vh,760px)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white p-5 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
+        className="modal-pop-in flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#0F172A]/20"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="mb-6 flex shrink-0 items-start justify-between gap-5">
-          <div className="min-w-0">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
-            <h4 className="mt-2 break-words text-xl font-black text-[#0F172A]">Ask about {input.name}</h4>
-              </div>
-              <button
-                type="button"
-                onClick={() => setIsAskOpen(false)}
-                aria-label="Close assistant"
-                className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-[#38BDF8]/30 text-xl font-bold leading-none text-[#2563EB] hover:bg-[#EFF6FF]"
-              >
-                x
-              </button>
+        <div className="dashboard-scrollbar flex min-h-0 flex-col gap-4 overflow-y-auto p-5 sm:p-6 md:p-7">
+          <div className="flex shrink-0 items-start justify-between gap-4">
+            <div className="min-w-0">
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
+              <h4 className="mt-1.5 break-words text-xl font-black leading-tight text-[#0F172A]">Ask about {input.name}</h4>
             </div>
+            <button
+              type="button"
+              onClick={() => setIsAskOpen(false)}
+              aria-label="Close assistant"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-[#38BDF8]/30 text-lg font-bold leading-none text-[#2563EB] transition hover:bg-[#EFF6FF]"
+            >
+              x
+            </button>
+          </div>
 
-            <div className="flex shrink-0 flex-wrap justify-center gap-2">
-              <button
-                type="button"
-                onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
-                disabled={asking}
-                className="rounded-full border border-[#38BDF8]/30 bg-white px-4 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Show supporting records
-              </button>
-              {QUICK_QUESTIONS.slice(0, 3).map((prompt) => (
-              <button
-                key={prompt}
-                type="button"
-                onClick={() => submitQuestion(prompt)}
-                disabled={asking}
-                className="rounded-full border border-[#38BDF8]/30 bg-white px-4 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {prompt}
-              </button>
-              ))}
-            </div>
+          <div className="flex shrink-0 flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
+              disabled={asking}
+              className="rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              Show supporting records
+            </button>
+            {QUICK_QUESTIONS.slice(0, 3).map((prompt) => (
+            <button
+              key={prompt}
+              type="button"
+              onClick={() => submitQuestion(prompt)}
+              disabled={asking}
+              className="rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {prompt}
+            </button>
+            ))}
+          </div>
 
           <form
-            className="mt-5 grid shrink-0 gap-3"
+            className="grid shrink-0 gap-3"
             onSubmit={(event) => {
               event.preventDefault()
               submitQuestion(question)
@@ -200,43 +201,42 @@ function AiRiskExplainer({ item }) {
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
               placeholder="Ask a reviewer-style question"
-              rows={4}
-              className="resize-none rounded-xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
+              rows={3}
+              className="min-h-[108px] resize-none rounded-2xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
             />
-            <div className="grid gap-3">
-              <button
-                type="submit"
-                disabled={asking || !question.trim()}
-                className="rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-4 py-3 text-sm font-bold text-[#2563EB] transition hover:bg-[#DBEAFE] disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                {asking ? 'Answering...' : 'Ask'}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={asking || !question.trim()}
+              className="min-h-11 rounded-2xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-4 py-2.5 text-sm font-bold text-[#2563EB] transition hover:bg-[#DBEAFE] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {asking ? 'Answering...' : 'Ask'}
+            </button>
           </form>
 
-            <div className="dashboard-scrollbar mt-5 min-h-0 flex-1 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
-              {answers.length > 0 ? (
-                <div className="grid gap-3">
-                  {answers.map((entry) => (
-                    <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
-                      <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-                      <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
-                      {entry.fallbackReason && (
-                        <p className="mt-2 break-words text-xs leading-5 text-amber-700">
-                          Using fallback: {entry.fallbackReason}
-                        </p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-sm font-medium leading-6 text-[#2563EB]">
-                  Ask a question or choose a prompt above. Answers will appear here.
-                </p>
-              )}
-            </div>
+          <div className="dashboard-scrollbar min-h-[9rem] max-h-[40vh] overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3 sm:p-4">
+            {answers.length > 0 ? (
+              <div className="grid gap-3">
+                {answers.map((entry) => (
+                  <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
+                    <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
+                    <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
+                    {entry.fallbackReason && (
+                      <p className="mt-2 break-words text-xs leading-5 text-amber-700">
+                        Using fallback: {entry.fallbackReason}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm font-medium leading-6 text-[#2563EB]">
+                Ask a question or choose a prompt above. Answers will appear here.
+              </p>
+            )}
           </div>
         </div>
+      </div>
+    </div>
   ) : null
 
   return (
