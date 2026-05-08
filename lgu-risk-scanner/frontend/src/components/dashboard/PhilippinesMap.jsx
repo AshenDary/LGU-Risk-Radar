@@ -61,21 +61,10 @@ const mapViews = {
   },
 }
 const mapViewOrder = ['ncr', 'metro', 'regional', 'luzon']
-const markerSpreadCenter = { x: 280.5, y: 355.2 }
-const markerSpread = 1.8
 
 function parseViewBox(viewBox) {
   const [x, y, width, height] = viewBox.split(' ').map(Number)
   return { x, y, width, height }
-}
-
-function getDisplayPosition(name) {
-  const position = mapPositions[name]
-
-  return {
-    x: markerSpreadCenter.x + (position.x - markerSpreadCenter.x) * markerSpread,
-    y: markerSpreadCenter.y + (position.y - markerSpreadCenter.y) * markerSpread,
-  }
 }
 
 function normalizeName(name) {
@@ -257,7 +246,7 @@ function PhilippinesMap() {
               <circle cx="280.5" cy="355.2" r="14" fill="#2563EB" opacity="0.10" />
               <circle cx="280.5" cy="355.2" r="6" fill="#2563EB" opacity="0.16" />
               {rows.map((row) => {
-                const position = getDisplayPosition(row.name)
+                const position = mapPositions[row.name]
                 const color = row.riskLevel === 'Critical'
                   ? '#EF4444'
                   : row.riskLevel === 'High'
@@ -300,13 +289,15 @@ function PhilippinesMap() {
                           width={12.8 * markerSize}
                           height={3 * markerSize}
                           rx={1.35 * markerSize}
-                          fill="#0F172A"
-                          opacity="0.9"
+                          fill="#FFFFFF"
+                          stroke="#2563EB"
+                          strokeWidth={0.22 * markerSize}
+                          opacity="0.96"
                         />
                         <text
                           x={position.x}
                           y={position.y - 3.1 * markerSize}
-                          fill="#FFFFFF"
+                          fill="#2563EB"
                           fontSize={1.25 * markerSize}
                           fontWeight="800"
                           textAnchor="middle"
