@@ -285,34 +285,48 @@ function PhilippinesMap() {
                     >
                       {Math.round(row.score)}
                     </text>
-                    {hoveredCity === row.name ? (
-                      <g className="pointer-events-none">
-                        <rect
-                          x={position.x - getLabelWidth(row.name, markerSize) / 2}
-                          y={position.y - 6.7 * markerSize}
-                          width={getLabelWidth(row.name, markerSize)}
-                          height={3.9 * markerSize}
-                          rx={1.85 * markerSize}
-                          fill="#FFFFFF"
-                          stroke="#2563EB"
-                          strokeWidth={0.26 * markerSize}
-                          opacity="0.98"
-                        />
-                        <text
-                          x={position.x}
-                          y={position.y - 4 * markerSize}
-                          fill="#2563EB"
-                          fontSize={1.28 * markerSize}
-                          fontWeight="900"
-                          textAnchor="middle"
-                        >
-                          {row.name}
-                        </text>
-                      </g>
-                    ) : null}
                   </g>
                 )
               })}
+              {hoveredCity ? (() => {
+                const position = mapPositions[hoveredCity]
+                const labelWidth = getLabelWidth(hoveredCity, markerSize)
+
+                return (
+                  <g className="pointer-events-none">
+                    <filter id="city-label-shadow" x="-30%" y="-60%" width="160%" height="220%">
+                      <feDropShadow dx="0" dy={0.85 * markerSize} stdDeviation={0.9 * markerSize} floodColor="#2563EB" floodOpacity="0.18" />
+                    </filter>
+                    <path
+                      d={`M ${position.x} ${position.y - 2.9 * markerSize} L ${position.x - 1.25 * markerSize} ${position.y - 4.35 * markerSize} H ${position.x + 1.25 * markerSize} Z`}
+                      fill="#FFFFFF"
+                      stroke="#38BDF8"
+                      strokeWidth={0.18 * markerSize}
+                    />
+                    <rect
+                      x={position.x - labelWidth / 2}
+                      y={position.y - 9.3 * markerSize}
+                      width={labelWidth}
+                      height={4.9 * markerSize}
+                      rx={1.45 * markerSize}
+                      fill="#FFFFFF"
+                      stroke="#38BDF8"
+                      strokeWidth={0.22 * markerSize}
+                      filter="url(#city-label-shadow)"
+                    />
+                    <text
+                      x={position.x}
+                      y={position.y - 6.1 * markerSize}
+                      fill="#0F172A"
+                      fontSize={1.35 * markerSize}
+                      fontWeight="900"
+                      textAnchor="middle"
+                    >
+                      {hoveredCity}
+                    </text>
+                  </g>
+                )
+              })() : null}
             </g>
           </svg>
 
