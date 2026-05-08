@@ -297,28 +297,21 @@ function PhilippinesMap() {
                   <g className="pointer-events-none">
                     <rect
                       x={position.x - labelWidth / 2}
-                      y={position.y - 7.4 * labelSize}
+                      y={position.y - 6.9 * labelSize}
                       width={labelWidth}
-                      height={3.2 * labelSize}
-                      rx={0.75 * labelSize}
+                      height={2.45 * labelSize}
+                      rx={0.55 * labelSize}
                       fill="#FFFFFF"
-                      opacity="0.96"
-                    />
-                    <line
-                      x1={position.x - labelWidth / 2 + 1.1 * labelSize}
-                      y1={position.y - 4.75 * labelSize}
-                      x2={position.x + labelWidth / 2 - 1.1 * labelSize}
-                      y2={position.y - 4.75 * labelSize}
                       stroke="#2563EB"
-                      strokeWidth={0.18 * labelSize}
-                      strokeLinecap="round"
+                      strokeWidth={0.08 * labelSize}
+                      opacity="0.97"
                     />
                     <text
                       x={position.x}
-                      y={position.y - 5.55 * labelSize}
+                      y={position.y - 5.25 * labelSize}
                       fill="#2563EB"
-                      fontSize={1.05 * labelSize}
-                      fontWeight="900"
+                      fontSize={0.92 * labelSize}
+                      fontWeight="800"
                       textAnchor="middle"
                     >
                       {hoveredCity}
