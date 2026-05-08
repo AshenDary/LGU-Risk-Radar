@@ -92,6 +92,7 @@ function PhilippinesMap() {
   const [mapView, setMapView] = useState('ncr')
   const [pan, setPan] = useState({ x: 0, y: 0 })
   const [dragStart, setDragStart] = useState(null)
+  const [hoveredCity, setHoveredCity] = useState('')
   const currentMapView = mapViews[mapView]
   const currentViewBox = useMemo(() => {
     const base = parseViewBox(currentMapView.viewBox)
@@ -261,7 +262,11 @@ function PhilippinesMap() {
                       : '#10B981'
 
                 return (
-                  <g key={row.name}>
+                  <g
+                    key={row.name}
+                    onPointerEnter={() => setHoveredCity(row.name)}
+                    onPointerLeave={() => setHoveredCity('')}
+                  >
                     <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
                     <circle cx={position.x} cy={position.y} r="2.2" fill={color} opacity="0.16" />
                     <circle cx={position.x} cy={position.y} r="1.45" fill={color} stroke="#FFFFFF" strokeWidth="0.28" />
@@ -275,6 +280,29 @@ function PhilippinesMap() {
                     >
                       {Math.round(row.score)}
                     </text>
+                    {hoveredCity === row.name ? (
+                      <g className="pointer-events-none">
+                        <rect
+                          x={position.x - 7.4}
+                          y={position.y - 6.6}
+                          width="14.8"
+                          height="3.8"
+                          rx="1.7"
+                          fill="#0F172A"
+                          opacity="0.92"
+                        />
+                        <text
+                          x={position.x}
+                          y={position.y - 4}
+                          fill="#FFFFFF"
+                          fontSize="1.75"
+                          fontWeight="800"
+                          textAnchor="middle"
+                        >
+                          {row.name}
+                        </text>
+                      </g>
+                    ) : null}
                   </g>
                 )
               })}
