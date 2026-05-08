@@ -1,6 +1,6 @@
 from app.models.risk_score import RiskScore
 from app.services.supabase_client import get_supabase_repository
-from app.services.supabase_client import supabase
+from app.services.supabase_client import get_supabase_client
 from app.services.scoring_engine import compute_score
 from app.services.llm_service import LLMService
 
@@ -36,6 +36,7 @@ async def compute_and_save_score(lgu_id: str) -> dict:
     Fetch procurements for an LGU, compute its risk score,
     and upsert the result into the risk_scores table.
     """
+    supabase = get_supabase_client()
     lgu_response = (
         supabase
         .table("lgus")
@@ -79,6 +80,7 @@ async def compute_and_save_score(lgu_id: str) -> dict:
 
 async def get_score_by_lgu(lgu_id: str) -> dict | None:
     """Retrieve an existing risk score record for an LGU."""
+    supabase = get_supabase_client()
     response = (
         supabase
         .table("risk_scores")
@@ -95,6 +97,7 @@ async def simulate_risk_score(lgu_id: str, hypothetical_procurements: list = Non
     Simulate risk score calculation with hypothetical procurement data.
     Does not save the result - used for what-if analysis.
     """
+    supabase = get_supabase_client()
     lgu_response = (
         supabase
         .table("lgus")

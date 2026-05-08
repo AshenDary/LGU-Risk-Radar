@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from app.services.llm_service import LLMService
 from app.services.risk_score_service import get_score_by_lgu
-from app.services.supabase_client import supabase
+from app.services.supabase_client import get_supabase_client
 
 router = APIRouter()
 llm_service = LLMService()
@@ -190,6 +190,7 @@ async def explain_lgu(lgu_id: str):
         
         # Fetch LGU name (assuming risk_score has lgu_id, but need name)
         # For simplicity, use lgu_id as name or fetch from LGU table
+        supabase = get_supabase_client()
         lgu_response = supabase.table("lgus").select("name").eq("id", lgu_id).single().execute()
         lgu_name = lgu_response.data.get("name", lgu_id) if lgu_response.data else lgu_id
         

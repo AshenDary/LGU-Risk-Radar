@@ -51,4 +51,5 @@ def get_supabase_repository() -> SupabaseRepository:
     return SupabaseRepository()
 
 
-supabase = get_supabase_repository().client
+def get_supabase_client() -> Client:
+    return get_supabase_repository().client
