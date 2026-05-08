@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import Card from '../ui/Card'
+import InfoBanner from '../common/InfoBanner'
 import { getNCRScoresForChart } from '../../data/mockData'
 import { philippinesCountryPaths, philippinesMapViewBox } from '../../data/philippinesMapPaths'
 import { useRiskData } from '../../hooks/useRiskData'
@@ -175,9 +176,9 @@ function PhilippinesMap() {
         <p className="mt-2 text-sm font-medium leading-6 text-[#475569]">
           {chartRows.length ? 'Latest city-level risk scores.' : 'Sample city-level risk scores for preview.'}
         </p>
-        <p className="mt-3 rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] px-4 py-3 text-sm font-semibold leading-6 text-[#2563EB]">
-          Future builds can make this map interactive with clickable LGUs, filters, and drill-down risk details.
-        </p>
+        <div className="mt-3">
+          <InfoBanner text="Future builds can make this map interactive with clickable LGUs, filters, and drill-down risk details." />
+        </div>
       </div>
 
       {error ? (
