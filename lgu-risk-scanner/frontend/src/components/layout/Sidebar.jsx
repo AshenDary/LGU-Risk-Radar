@@ -3,6 +3,7 @@ import logo from '../../assets/sidebar-risk-radar-logo.svg'
 
 export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Map View', path: '/map' },
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },
@@ -21,33 +22,37 @@ function MenuIcon() {
   )
 }
 
+function CloseIcon() {
+  return (
+    <span className="relative block h-5 w-5" aria-hidden="true">
+      <span className="absolute left-1/2 top-1/2 block h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full bg-current" />
+      <span className="absolute left-1/2 top-1/2 block h-0.5 w-5 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full bg-current" />
+    </span>
+  )
+}
+
 export default function Sidebar({ isOpen, onToggle }) {
   return (
     <aside
-      role="button"
-      tabIndex={0}
-      aria-expanded={isOpen}
-      aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
-      onClick={onToggle}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault()
-          onToggle()
-        }
-      }}
-      className={`fixed z-50 shrink-0 cursor-pointer overflow-hidden rounded-[2rem] border border-[#38BDF8]/25 bg-gradient-to-br from-[#102033] via-[#1D4ED8] to-[#0EA5E9] text-white shadow-2xl shadow-[#0F172A]/15 outline-none transition-[width,height,padding,box-shadow,transform,left,top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-4 focus-visible:ring-[#38BDF8]/30 ${
+      className={`fixed z-50 shrink-0 overflow-hidden rounded-[2rem] border border-[#38BDF8]/25 bg-gradient-to-br from-[#102033] via-[#1D4ED8] to-[#0EA5E9] text-white shadow-2xl shadow-[#0F172A]/15 transition-[width,height,padding,box-shadow,transform,left,top] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
         isOpen
           ? 'left-6 top-6 h-[calc(100vh-3rem)] w-64 max-w-[calc(100vw-3rem)] px-5 py-7 sm:left-8 sm:top-8 sm:h-[calc(100vh-4rem)]'
           : 'left-6 top-2 flex h-16 w-16 items-center justify-center p-0 hover:scale-[1.03] sm:left-8 sm:top-4'
       }`}
     >
-      <div
-        className={`pointer-events-none absolute left-1/2 top-1/2 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center text-white transition-all duration-300 ${
-          isOpen ? 'scale-75 opacity-0' : 'scale-100 opacity-100'
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? 'Close navigation' : 'Open navigation'}
+        onClick={onToggle}
+        className={`grid place-items-center text-white outline-none transition-all duration-300 focus-visible:ring-4 focus-visible:ring-[#38BDF8]/30 ${
+          isOpen
+            ? 'absolute right-4 top-4 z-10 h-9 w-9 rounded-full border border-white/15 bg-white/10 hover:bg-white/20'
+            : 'absolute inset-0 h-full w-full rounded-[2rem] hover:bg-white/10'
         }`}
       >
-        <MenuIcon />
-      </div>
+        {isOpen ? <CloseIcon /> : <MenuIcon />}
+      </button>
 
       <div
         className={`flex h-full flex-col transition-all duration-300 ${
