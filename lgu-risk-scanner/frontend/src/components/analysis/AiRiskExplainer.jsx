@@ -146,63 +146,7 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   return (
-    <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
-      <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
-            {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
-          </p>
-          <h3 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{input.name}</h3>
-          {explanationState.model && (
-            <p className="mt-1 break-all text-xs text-slate-500">{explanationState.model}</p>
-          )}
-        </div>
-        <span className="shrink-0 rounded-full border border-[#38BDF8]/45 bg-[#EFF6FF] px-3 py-1 text-xs font-black text-[#2563EB]">
-          {score}/100
-        </span>
-      </div>
-
-      <div className="min-h-0 min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
-        {explanationState.loading ? (
-          <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
-        ) : explanationState.error ? (
-          <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
-        ) : explanationState.text ? (
-          <>
-            <div className="ai-assistant-copy dashboard-scrollbar pr-2">
-              <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
-            </div>
-            {explanationState.fallbackReason && (
-              <p className="mt-3 break-words text-xs leading-5 text-amber-700">
-                Using fallback: {explanationState.fallbackReason}
-              </p>
-            )}
-          </>
-        ) : (
-          <p className="text-sm font-medium leading-6 text-[#2563EB]">
-            Generate an explanation when you are ready to review this risk profile.
-          </p>
-        )}
-      </div>
-
-      <div className="mt-5 grid shrink-0 gap-2">
-        <button
-          type="button"
-          onClick={handleGenerateExplanation}
-          disabled={explanationState.loading}
-          className="min-h-10 rounded-xl border border-[#2563EB]/35 bg-[#2563EB] px-3 py-2 text-xs font-bold leading-4 text-white transition hover:bg-[#0F172A] disabled:cursor-not-allowed disabled:opacity-60"
-        >
-          {explanationState.loading ? 'Generating...' : explanationState.text ? 'Regenerate explanation' : 'Generate explanation'}
-        </button>
-        <button
-          type="button"
-          onClick={() => setIsAskOpen(true)}
-          className="min-h-10 rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-3 py-2 text-xs font-bold leading-4 text-[#2563EB] transition hover:border-[#2563EB]/50 hover:bg-[#DBEAFE]"
-        >
-          Ask assistant
-        </button>
-      </div>
-
+    <>
       {isAskOpen ? (
         <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={() => setIsAskOpen(false)}>
           <div
@@ -292,29 +236,86 @@ function AiRiskExplainer({ item }) {
         </div>
       ) : null}
 
-      {askError && (
-          <p className="mt-3 break-words rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
-          {askError}
-        </p>
-      )}
+      <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
+        <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
+              {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
+            </p>
+            <h3 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{input.name}</h3>
+            {explanationState.model && (
+              <p className="mt-1 break-all text-xs text-slate-500">{explanationState.model}</p>
+            )}
+          </div>
+          <span className="shrink-0 rounded-full border border-[#38BDF8]/45 bg-[#EFF6FF] px-3 py-1 text-xs font-black text-[#2563EB]">
+            {score}/100
+          </span>
+        </div>
 
-      {answers.length > 0 && !isAskOpen && (
-        <div className="dashboard-scrollbar mt-4 grid max-h-32 shrink overflow-y-auto pr-2">
-          {answers.map((entry) => (
-            <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
-              <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-              <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
-              {entry.fallbackReason && (
-                <p className="mt-2 break-words text-xs leading-5 text-amber-700">
-                  Using fallback: {entry.fallbackReason}
+        <div className="min-h-0 min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
+          {explanationState.loading ? (
+            <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
+          ) : explanationState.error ? (
+            <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
+          ) : explanationState.text ? (
+            <>
+              <div className="ai-assistant-copy dashboard-scrollbar pr-2">
+                <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
+              </div>
+              {explanationState.fallbackReason && (
+                <p className="mt-3 break-words text-xs leading-5 text-amber-700">
+                  Using fallback: {explanationState.fallbackReason}
                 </p>
               )}
-            </div>
-          ))}
+            </>
+          ) : (
+            <p className="text-sm font-medium leading-6 text-[#2563EB]">
+              Generate an explanation when you are ready to review this risk profile.
+            </p>
+          )}
         </div>
-      )}
 
-    </div>
+        <div className="mt-5 grid shrink-0 gap-2">
+          <button
+            type="button"
+            onClick={handleGenerateExplanation}
+            disabled={explanationState.loading}
+            className="min-h-10 rounded-xl border border-[#2563EB]/35 bg-[#2563EB] px-3 py-2 text-xs font-bold leading-4 text-white transition hover:bg-[#0F172A] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {explanationState.loading ? 'Generating...' : explanationState.text ? 'Regenerate explanation' : 'Generate explanation'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsAskOpen(true)}
+            className="min-h-10 rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-3 py-2 text-xs font-bold leading-4 text-[#2563EB] transition hover:border-[#2563EB]/50 hover:bg-[#DBEAFE]"
+          >
+            Ask assistant
+          </button>
+        </div>
+
+        {askError && (
+            <p className="mt-3 break-words rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
+            {askError}
+          </p>
+        )}
+
+        {answers.length > 0 && !isAskOpen && (
+          <div className="dashboard-scrollbar mt-4 grid max-h-32 shrink overflow-y-auto pr-2">
+            {answers.map((entry) => (
+              <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
+                <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
+                <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
+                {entry.fallbackReason && (
+                  <p className="mt-2 break-words text-xs leading-5 text-amber-700">
+                    Using fallback: {entry.fallbackReason}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   )
 }
 
