@@ -291,36 +291,34 @@ function PhilippinesMap() {
               })}
               {hoveredCity ? (() => {
                 const position = mapPositions[hoveredCity]
-                const labelWidth = getLabelWidth(hoveredCity, labelSize)
+                const labelWidth = getLabelWidth(hoveredCity, labelSize) * 0.88
 
                 return (
                   <g className="pointer-events-none">
-                    <filter id="city-label-shadow" x="-30%" y="-60%" width="160%" height="220%">
-                      <feDropShadow dx="0" dy={0.7 * labelSize} stdDeviation={0.75 * labelSize} floodColor="#2563EB" floodOpacity="0.14" />
-                    </filter>
-                    <path
-                      d={`M ${position.x} ${position.y - 2.8 * labelSize} L ${position.x - 1.05 * labelSize} ${position.y - 4.05 * labelSize} H ${position.x + 1.05 * labelSize} Z`}
-                      fill="#FFFFFF"
-                      stroke="#38BDF8"
-                      strokeWidth={0.16 * labelSize}
-                    />
                     <rect
                       x={position.x - labelWidth / 2}
-                      y={position.y - 8.2 * labelSize}
+                      y={position.y - 7.4 * labelSize}
                       width={labelWidth}
-                      height={4.1 * labelSize}
-                      rx={1.1 * labelSize}
+                      height={3.2 * labelSize}
+                      rx={0.75 * labelSize}
                       fill="#FFFFFF"
-                      stroke="#38BDF8"
+                      opacity="0.96"
+                    />
+                    <line
+                      x1={position.x - labelWidth / 2 + 1.1 * labelSize}
+                      y1={position.y - 4.75 * labelSize}
+                      x2={position.x + labelWidth / 2 - 1.1 * labelSize}
+                      y2={position.y - 4.75 * labelSize}
+                      stroke="#2563EB"
                       strokeWidth={0.18 * labelSize}
-                      filter="url(#city-label-shadow)"
+                      strokeLinecap="round"
                     />
                     <text
                       x={position.x}
                       y={position.y - 5.55 * labelSize}
-                      fill="#0F172A"
-                      fontSize={1.12 * labelSize}
-                      fontWeight="800"
+                      fill="#2563EB"
+                      fontSize={1.05 * labelSize}
+                      fontWeight="900"
                       textAnchor="middle"
                     >
                       {hoveredCity}
