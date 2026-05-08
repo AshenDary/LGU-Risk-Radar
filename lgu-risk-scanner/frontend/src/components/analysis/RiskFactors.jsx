@@ -30,7 +30,7 @@ function RiskFactors({ rows }) {
   return (
     <div className="grid gap-8">
       <div className="premium-card premium-hover reveal-on-scroll overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
-        <div className="border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
+        <div className="border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-6 py-5 sm:px-8 sm:py-6">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Risk factors</p>
           <h3 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Risk Factor Analysis</h3>
         </div>
@@ -44,23 +44,25 @@ function RiskFactors({ rows }) {
             </colgroup>
             <thead>
               <tr className="border-b border-[#38BDF8]/18 bg-[#F8FAFC]">
-                <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Category</th>
-                <th className="px-3 py-4 text-center text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Avg</th>
-                <th className="px-3 py-4 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-6">Insight</th>
+                <th className="px-3 py-3 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-5">Category</th>
+                <th className="px-3 py-3 text-center text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-5">Avg</th>
+                <th className="px-3 py-3 text-left text-xs font-black uppercase tracking-[0.08em] text-slate-600 sm:px-5">Insight</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {riskFactors.map((factor) => (
+              {riskFactors.map((factor, index) => (
                 <tr key={factor.category} className="transition hover:bg-[#F8FAFC]">
-                  <td className="break-words px-3 py-5 text-sm font-semibold leading-5 text-[#0F172A] sm:px-6">{factor.category}</td>
-                  <td className="px-3 py-5 text-center sm:px-6">
-                    <div className="flex items-center justify-center gap-2">
-                      <div className="h-3 min-w-0 flex-1 overflow-hidden rounded-full bg-[#DBEAFE]">
+                  <td className="break-words px-3 py-3.5 text-sm font-semibold leading-5 text-[#0F172A] sm:px-5">{factor.category}</td>
+                  <td className="px-3 py-3.5 text-center sm:px-5">
+                    <div className="flex items-center justify-center gap-3">
+                      <div className="h-4 min-w-0 flex-1 overflow-hidden rounded-full bg-[#DBEAFE] shadow-inner shadow-[#2563EB]/10">
                         <div
-                          className="h-full rounded-full transition"
+                          className="animated-progress h-full rounded-full shadow-sm transition-all duration-700 ease-out hover:brightness-105"
                           style={{
+                            '--progress-delay': `${index * 70}ms`,
                             width: `${Math.min(100, factor.impactPercentage)}%`,
                             backgroundColor: getRiskColor(factor.impactPercentage),
+                            boxShadow: `0 4px 12px ${getRiskColor(factor.impactPercentage)}33`,
                           }}
                         />
                       </div>
@@ -69,14 +71,12 @@ function RiskFactors({ rows }) {
                       </span>
                     </div>
                   </td>
-                  <td className="break-words px-3 py-5 text-sm leading-6 text-[#1E293B]/70 sm:px-6">{factor.insight}</td>
+                  <td className="break-words px-3 py-3.5 text-sm leading-5 text-[#1E293B]/70 sm:px-5">{factor.insight}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        <div className="h-6 bg-white" />
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
