@@ -206,7 +206,7 @@ function AiRiskExplainer({ item }) {
       {isAskOpen ? (
         <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={() => setIsAskOpen(false)}>
           <div
-            className="modal-pop-in dashboard-scrollbar w-full overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
+            className="modal-pop-in dashboard-scrollbar w-full max-w-[800px] overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-6 flex items-start justify-between gap-5">
