@@ -1,0 +1,24 @@
+[2m4:36:26 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m Pre-transform error: ENOENT: no such file or directory, open 'C:\Users\Mikaella\OneDrive\Documents\GitHub\LGU-Risk-Radar\lgu-risk-scanner\frontend\node_modules\tailwindcss\index.css'
+  Plugin: [35m@tailwindcss/vite:generate:serve[39m
+  File: [36mC:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/src/index.css[39m
+[2m4:36:26 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: ENOENT: no such file or directory, open 'C:\Users\Mikaella\OneDrive\Documents\GitHub\LGU-Risk-Radar\lgu-risk-scanner\frontend\node_modules\tailwindcss\index.css'[39m
+  Plugin: [35m@tailwindcss/vite:generate:serve[39m
+  File: [36mC:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/src/index.css[39m
+      at async open (node:internal/fs/promises:636:25)
+      at async Object.readFile (node:internal/fs/promises:1235:14)
+      at async At (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/@tailwindcss/node/dist/index.mjs:10:4198)
+      at async loadStylesheet (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/@tailwindcss/node/dist/index.mjs:10:2949)
+      at async file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/tailwindcss/dist/chunk-3IR7ZFJX.mjs:21:2585
+      at async Promise.all (index 0)
+      at async tr (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/tailwindcss/dist/chunk-3IR7ZFJX.mjs:21:2743)
+      at async Qi (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/tailwindcss/dist/chunk-3IR7ZFJX.mjs:32:2597)
+      at async va (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/tailwindcss/dist/chunk-3IR7ZFJX.mjs:38:631)
+      at async Rf (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/tailwindcss/dist/chunk-3IR7ZFJX.mjs:38:1406)
+[2m4:41:09 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [31m[Unhandled error] [1mTypeError[22m: Failed to fetch dynamically imported module: http://127.0.0.1:5173/src/pages/AnalysisPage.jsx
+[39m
+[2m4:41:09 PM[22m [33m[1m[vite][22m[39m [33m[2m(client)[22m[39m [2m[console.warn] [22mAn error occurred in the <Route> component.
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+
+[2m4:55:38 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22m[vite] Failed to reload /src/components/layout/Sidebar.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)

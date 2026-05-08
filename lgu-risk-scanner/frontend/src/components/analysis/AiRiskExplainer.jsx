@@ -204,9 +204,9 @@ function AiRiskExplainer({ item }) {
       </div>
 
       {isAskOpen ? (
-        <div className="modal-overlay-in fixed inset-0 z-50 grid place-items-center p-4" onClick={() => setIsAskOpen(false)}>
+        <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm" onClick={() => setIsAskOpen(false)}>
           <div
-            className="modal-pop-in w-full max-w-xl rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
+            className="modal-pop-in dashboard-scrollbar w-full max-h-[90vh] overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7 lg:max-w-4xl"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="mb-6 flex items-start justify-between gap-5">
@@ -272,7 +272,7 @@ function AiRiskExplainer({ item }) {
           </form>
 
             {answers.length > 0 && (
-              <div className="dashboard-scrollbar mt-5 max-h-72 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
+              <div className="dashboard-scrollbar mt-5 max-h-96 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
                 <div className="grid gap-3">
                   {answers.map((entry) => (
                     <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
