@@ -39,21 +39,25 @@ const mapViews = {
     label: 'NCR',
     viewBox: '269 341 27 30',
     center: { x: 282.5, y: 356 },
+    markerScale: 1,
   },
   metro: {
     label: 'Metro',
     viewBox: '263 335 42 48',
     center: { x: 284, y: 357 },
+    markerScale: 1.35,
   },
   regional: {
     label: 'Region',
     viewBox: '250 320 70 85',
     center: { x: 285, y: 362 },
+    markerScale: 1.9,
   },
   luzon: {
     label: 'Luzon',
     viewBox: '190 210 210 260',
     center: { x: 295, y: 340 },
+    markerScale: 3.2,
   },
 }
 const mapViewOrder = ['ncr', 'metro', 'regional', 'luzon']
@@ -98,6 +102,7 @@ function PhilippinesMap() {
     const base = parseViewBox(currentMapView.viewBox)
     return `${base.x + pan.x} ${base.y + pan.y} ${base.width} ${base.height}`
   }, [currentMapView.viewBox, pan])
+  const markerSize = currentMapView.markerScale / zoom
   const fallbackRows = getNCRScoresForChart()
   const rows = (chartRows.length ? chartRows : fallbackRows)
     .map((row) => ({
@@ -268,13 +273,20 @@ function PhilippinesMap() {
                     onPointerLeave={() => setHoveredCity('')}
                   >
                     <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
-                    <circle cx={position.x} cy={position.y} r="2.2" fill={color} opacity="0.16" />
-                    <circle cx={position.x} cy={position.y} r="1.45" fill={color} stroke="#FFFFFF" strokeWidth="0.28" />
+                    <circle cx={position.x} cy={position.y} r={2.2 * markerSize} fill={color} opacity="0.16" />
+                    <circle
+                      cx={position.x}
+                      cy={position.y}
+                      r={1.45 * markerSize}
+                      fill={color}
+                      stroke="#FFFFFF"
+                      strokeWidth={0.28 * markerSize}
+                    />
                     <text
                       x={position.x}
-                      y={position.y + 0.52}
+                      y={position.y + 0.52 * markerSize}
                       fill="#FFFFFF"
-                      fontSize="1"
+                      fontSize={1 * markerSize}
                       fontWeight="900"
                       textAnchor="middle"
                     >
@@ -283,19 +295,19 @@ function PhilippinesMap() {
                     {hoveredCity === row.name ? (
                       <g className="pointer-events-none">
                         <rect
-                          x={position.x - 7.4}
-                          y={position.y - 6.6}
-                          width="14.8"
-                          height="3.8"
-                          rx="1.7"
+                          x={position.x - 7.4 * markerSize}
+                          y={position.y - 6.6 * markerSize}
+                          width={14.8 * markerSize}
+                          height={3.8 * markerSize}
+                          rx={1.7 * markerSize}
                           fill="#0F172A"
                           opacity="0.92"
                         />
                         <text
                           x={position.x}
-                          y={position.y - 4}
+                          y={position.y - 4 * markerSize}
                           fill="#FFFFFF"
-                          fontSize="1.75"
+                          fontSize={1.75 * markerSize}
                           fontWeight="800"
                           textAnchor="middle"
                         >
