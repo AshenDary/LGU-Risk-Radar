@@ -74,7 +74,7 @@ function AuditExplorerPage() {
   }
 
   const renderFilterMenu = (id, value, options, onChange) => (
-    <div className={`relative ${openFilter === id ? 'z-[130]' : 'z-10'}`}>
+    <div className={`relative ${openFilter === id ? 'z-[1001]' : 'z-10'}`}>
       <button
         type="button"
         onClick={() => setOpenFilter((current) => (current === id ? '' : id))}
@@ -86,7 +86,7 @@ function AuditExplorerPage() {
       </button>
 
       {openFilter === id ? (
-        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
           {options.map((option) => (
             <button
               key={option}
@@ -147,8 +147,8 @@ function AuditExplorerPage() {
             </div>
 
             <div className="grid min-w-0 items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(340px,400px)]">
-              <div className={`premium-card premium-hover reveal-on-scroll overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${openFilter ? 'z-[120]' : 'z-0'}`}>
-                <div className="border-b border-[#38BDF8]/20 px-6 py-5 sm:px-8 sm:py-6">
+              <div className={`premium-card premium-hover reveal-on-scroll relative isolate overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${openFilter ? 'z-[1000]' : 'z-0'}`}>
+                <div className={`border-b border-[#38BDF8]/20 px-6 py-5 sm:px-8 sm:py-6 ${openFilter ? 'relative z-[1000]' : ''}`}>
                   <div className="mb-5 max-w-2xl">
                     <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Audit findings</p>
                     <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Audit Explorer</h2>

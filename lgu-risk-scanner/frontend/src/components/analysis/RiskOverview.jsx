@@ -88,8 +88,8 @@ function RiskOverview({ rows, procurements }) {
         </div>
       </div>
 
-      <div className={`premium-card premium-hover reveal-on-scroll overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${isSelectorOpen ? 'z-[120]' : 'z-0'}`}>
-        <div className="border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
+      <div className={`premium-card premium-hover reveal-on-scroll relative isolate overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${isSelectorOpen ? 'z-[1000]' : 'z-0'}`}>
+        <div className={`border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7 ${isSelectorOpen ? 'relative z-[1000]' : ''}`}>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Procurement</p>
@@ -100,7 +100,7 @@ function RiskOverview({ rows, procurements }) {
                   : `Review individual procurement values for ${selectedName}.`}
               </p>
             </div>
-            <div className={`relative w-full md:w-72 ${isSelectorOpen ? 'z-[130]' : 'z-10'}`}>
+            <div className={`relative w-full md:w-72 ${isSelectorOpen ? 'z-[1001]' : 'z-10'}`}>
               <button
                 type="button"
                 onClick={() => setIsSelectorOpen((current) => !current)}
@@ -114,7 +114,7 @@ function RiskOverview({ rows, procurements }) {
               </button>
 
               {isSelectorOpen ? (
-                <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+                <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
                   {[{ id: 'all', name: 'All LGUs' }, ...rows].map((item) => (
                     <button
                       key={item.id}

@@ -137,7 +137,7 @@ function WhatIfSimulator() {
   const selectedLgu = lgus.find((lgu) => lgu.id === selectedLguId)
 
   return (
-    <Card className={isSelectorOpen ? 'overflow-visible' : ''}>
+    <Card className={`relative isolate ${isSelectorOpen ? 'z-[1000] overflow-visible' : ''}`}>
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">What-If Simulator</h2>
@@ -150,7 +150,7 @@ function WhatIfSimulator() {
         <p id="simulator-lgu-label" className="mb-2 text-sm font-semibold text-[#0F172A]">
           Select LGU to simulate
         </p>
-        <div className={`relative ${isSelectorOpen ? 'z-[130]' : 'z-10'}`}>
+        <div className={`relative ${isSelectorOpen ? 'z-[1001]' : 'z-10'}`}>
           <button
             type="button"
             onClick={() => setIsSelectorOpen((current) => !current)}
@@ -165,7 +165,7 @@ function WhatIfSimulator() {
           </button>
 
           {isSelectorOpen ? (
-            <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+            <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
               {lgus.map((lgu) => (
                 <button
                   key={lgu.id}

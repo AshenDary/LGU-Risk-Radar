@@ -88,7 +88,7 @@ function CompareLGUsPage() {
   }
 
   const renderLguSelector = (id, selected, onChange) => (
-    <div className={`relative ${openSelector === id ? 'z-[130]' : 'z-10'}`}>
+    <div className={`relative ${openSelector === id ? 'z-[1001]' : 'z-10'}`}>
       <button
         type="button"
         onClick={() => setOpenSelector((current) => (current === id ? '' : id))}
@@ -100,7 +100,7 @@ function CompareLGUsPage() {
       </button>
 
       {openSelector === id ? (
-        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[9999] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
+        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
           {sortedRows.map((item) => (
             <button
               key={item.id}
@@ -141,7 +141,7 @@ function CompareLGUsPage() {
           </div>
         ) : (
           <>
-            <Card className={`overflow-visible ${openSelector ? 'z-[120]' : 'z-0'}`}>
+            <Card className={`relative isolate overflow-visible ${openSelector ? 'z-[1000]' : 'z-0'}`}>
               <div className="mb-5 max-w-2xl">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Comparison setup</p>
                 <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Select LGUs to Compare</h2>
