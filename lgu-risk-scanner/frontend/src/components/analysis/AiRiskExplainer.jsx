@@ -146,7 +146,7 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   return (
-    <div className="premium-card premium-hover reveal-on-scroll flex max-h-[560px] min-w-0 flex-col overflow-hidden rounded-3xl p-6 sm:p-7">
+    <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
       <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
@@ -169,7 +169,7 @@ function AiRiskExplainer({ item }) {
           <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
         ) : explanationState.text ? (
           <>
-            <div className="dashboard-scrollbar max-h-[190px] overflow-y-auto pr-2">
+            <div className="ai-assistant-copy dashboard-scrollbar pr-2">
               <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
             </div>
             {explanationState.fallbackReason && (
