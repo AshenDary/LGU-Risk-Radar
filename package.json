@@ -2,5 +2,8 @@
   "private": true,
   "engines": {
     "node": "22.x"
+  },
+  "scripts": {
+    "build": "cd lgu-risk-scanner/frontend && npm install && npm run build"
   }
 }
