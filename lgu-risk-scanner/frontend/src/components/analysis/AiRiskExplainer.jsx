@@ -233,16 +233,14 @@ function AiRiskExplainer({ item }) {
             )}
           </div>
         </div>
-      </div>
-    </div>
   ) : null
 
   return (
     <>
       {modalContent && createPortal(modalContent, document.body)}
 
-      <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7 grid content-start">
-        <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
+      <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll flex h-auto min-w-0 flex-col gap-4 rounded-3xl p-5 transition-all duration-300 ease-in-out sm:p-6 lg:p-7">
+        <div className="flex shrink-0 items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
               {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
@@ -257,15 +255,15 @@ function AiRiskExplainer({ item }) {
           </span>
         </div>
 
-        <div className="min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
+        <div className="min-w-0 overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
           {explanationState.loading ? (
             <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
           ) : explanationState.error ? (
             <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
           ) : explanationState.text ? (
             <>
-              <div className="ai-assistant-copy dashboard-scrollbar pr-2">
-                <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
+              <div className="ai-assistant-copy min-w-0">
+                <MarkdownText text={explanationState.text} className="whitespace-normal break-words leading-relaxed text-sm font-medium text-[#0F172A]" />
               </div>
               {explanationState.fallbackReason && (
                 <p className="mt-3 break-words text-xs leading-5 text-amber-700">
@@ -280,7 +278,7 @@ function AiRiskExplainer({ item }) {
           )}
         </div>
 
-        <div className="mt-3 grid gap-2">
+        <div className="grid gap-2">
           <button
             type="button"
             onClick={handleGenerateExplanation}
@@ -299,13 +297,13 @@ function AiRiskExplainer({ item }) {
         </div>
 
         {askError && (
-            <p className="mt-3 break-words rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
+          <p className="break-words rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-xs leading-5 text-red-700">
             {askError}
           </p>
         )}
 
         {answers.length > 0 && !isAskOpen && (
-          <div className="dashboard-scrollbar mt-4 grid max-h-32 shrink overflow-y-auto pr-2">
+          <div className="dashboard-scrollbar grid max-h-32 shrink overflow-y-auto pr-2">
             {answers.map((entry) => (
               <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
                 <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>

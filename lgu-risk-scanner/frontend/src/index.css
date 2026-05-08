@@ -252,14 +252,12 @@
   .ai-assistant-card {
     display: flex;
     flex-direction: column;
-    height: 560px;
-    max-height: 560px;
+    height: auto;
     overflow: hidden;
   }
 
   .ai-assistant-copy {
-    max-height: 190px;
-    overflow-y: auto;
+    overflow-wrap: anywhere;
   }
 
   .btn-shine {
