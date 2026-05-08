@@ -198,13 +198,6 @@ function PhilippinesMap() {
 
               <circle cx="280.5" cy="355.2" r="14" fill="#2563EB" opacity="0.10" />
               <circle cx="280.5" cy="355.2" r="6" fill="#2563EB" opacity="0.16" />
-              <text x="289" y="343" fill="#0F172A" fontSize="3.8" fontWeight="800">
-                Metro Manila
-              </text>
-              <text x="289" y="348" fill="#2563EB" fontSize="2.8" fontWeight="700">
-                NCR sample risk points
-              </text>
-
               {rows.map((row) => {
                 const position = getDisplayPosition(row.name)
                 const color = row.riskLevel === 'Critical'
