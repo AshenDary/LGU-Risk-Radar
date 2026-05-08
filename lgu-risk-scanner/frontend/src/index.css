@@ -136,26 +136,13 @@
       rgba(255, 255, 255, 0.9);
     box-shadow:
       0 22px 55px rgba(15, 23, 42, 0.08),
-      0 8px 18px rgba(37, 99, 235, 0.06);
+      0 8px 18px rgba(37, 99, 235, 0.06),
+      inset 0 3px 0 rgba(56, 189, 248, 0.22);
     backdrop-filter: blur(14px);
   }
 
   .premium-card::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    right: 12px;
-    left: 12px;
-    z-index: 2;
-    height: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.75), rgba(56, 189, 248, 0.72));
-    pointer-events: none;
-  }
-
-  .dropdown-card::before {
-    right: 12px;
-    left: 12px;
+    content: none;
   }
 
   .premium-card.premium-hover {
@@ -177,7 +164,8 @@
       rgba(255, 255, 255, 0.96);
     box-shadow:
       0 28px 68px rgba(15, 23, 42, 0.1),
-      0 14px 30px rgba(37, 99, 235, 0.12);
+      0 14px 30px rgba(37, 99, 235, 0.12),
+      inset 0 3px 0 rgba(56, 189, 248, 0.28);
   }
 
   .soft-hover {
