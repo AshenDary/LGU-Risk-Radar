@@ -260,6 +260,10 @@
     overflow-wrap: anywhere;
   }
 
+  .dropdown-card {
+    overflow: visible;
+  }
+
   .btn-shine {
     position: relative;
     overflow: hidden;

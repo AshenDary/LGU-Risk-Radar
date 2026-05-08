@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import Card from '../ui/Card'
+import DropdownSelect from '../ui/DropdownSelect'
 import { fetchLGUs, fetchRiskByLGU, simulateRisk } from '../../services/api'
 import MarkdownText from '../common/MarkdownText'
 
@@ -43,7 +44,6 @@ function WhatIfSimulator() {
   const [selectedLguId, setSelectedLguId] = useState('')
   const [currentRiskData, setCurrentRiskData] = useState(null)
   const [simulationResult, setSimulationResult] = useState(null)
-  const [isSelectorOpen, setIsSelectorOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [values, setValues] = useState({
@@ -138,7 +138,7 @@ function WhatIfSimulator() {
   const selectedLgu = lgus.find((lgu) => lgu.id === selectedLguId)
 
   return (
-    <Card className={`relative isolate ${isSelectorOpen ? 'z-[1000] overflow-visible' : ''}`}>
+    <Card className="dropdown-card relative">
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">What-If Simulator</h2>
@@ -151,42 +151,15 @@ function WhatIfSimulator() {
         <p id="simulator-lgu-label" className="mb-2 text-sm font-semibold text-[#0F172A]">
           Select LGU to simulate
         </p>
-        <div className={`relative ${isSelectorOpen ? 'z-[1001]' : 'z-10'}`}>
-          <button
-            type="button"
-            onClick={() => setIsSelectorOpen((current) => !current)}
-            className="flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/35 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-sm outline-none transition hover:border-[#2563EB]/55 hover:bg-[#EFF6FF] focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
-            aria-expanded={isSelectorOpen}
-            aria-labelledby="simulator-lgu-label"
-          >
-            <span className="min-w-0 truncate">{selectedLgu?.name || 'Choose an LGU...'}</span>
-            <span className={`shrink-0 text-[#2563EB] transition-transform ${isSelectorOpen ? 'rotate-180' : ''}`}>
-              v
-            </span>
-          </button>
-
-          {isSelectorOpen ? (
-            <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
-              {lgus.map((lgu) => (
-                <button
-                  key={lgu.id}
-                  type="button"
-                  onClick={() => {
-                    setSelectedLguId(lgu.id)
-                    setIsSelectorOpen(false)
-                  }}
-                  className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
-                    selectedLguId === lgu.id
-                      ? 'bg-[#EFF6FF] text-[#2563EB]'
-                      : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
-                  }`}
-                >
-                  {lgu.name}
-                </button>
-              ))}
-            </div>
-          ) : null}
-        </div>
+        <DropdownSelect
+          value={selectedLguId}
+          options={lgus}
+          onChange={setSelectedLguId}
+          getOptionLabel={(option) => option.name}
+          getOptionValue={(option) => option.id}
+          placeholder={selectedLgu?.name || 'Choose an LGU...'}
+          labelId="simulator-lgu-label"
+        />
       </div>
 
       {error ? (

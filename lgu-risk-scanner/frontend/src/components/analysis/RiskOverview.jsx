@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import DropdownSelect from '../ui/DropdownSelect'
 
 function RiskOverview({ rows, procurements }) {
   const [selectedLgu, setSelectedLgu] = useState('all')
-  const [isSelectorOpen, setIsSelectorOpen] = useState(false)
 
   const avgScore = useMemo(() => {
     if (!rows.length) return '0.0'
@@ -88,8 +88,8 @@ function RiskOverview({ rows, procurements }) {
         </div>
       </div>
 
-      <div className={`premium-card premium-hover reveal-on-scroll relative isolate overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${isSelectorOpen ? 'z-[1000]' : 'z-0'}`}>
-        <div className={`border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7 ${isSelectorOpen ? 'relative z-[1000]' : ''}`}>
+      <div className="dropdown-card premium-card premium-hover reveal-on-scroll relative rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
+        <div className="relative z-20 border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
               <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Procurement</p>
@@ -100,41 +100,15 @@ function RiskOverview({ rows, procurements }) {
                   : `Review individual procurement values for ${selectedName}.`}
               </p>
             </div>
-            <div className={`relative w-full md:w-72 ${isSelectorOpen ? 'z-[1001]' : 'z-10'}`}>
-              <button
-                type="button"
-                onClick={() => setIsSelectorOpen((current) => !current)}
-                className="flex min-h-11 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/45 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-lg shadow-[#2563EB]/10 outline-none transition hover:border-[#2563EB]/55 hover:bg-[#EFF6FF] focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/20"
-                aria-expanded={isSelectorOpen}
-              >
-                <span className="min-w-0 truncate">{selectedLabel}</span>
-                <span className={`shrink-0 text-[#2563EB] transition-transform ${isSelectorOpen ? 'rotate-180' : ''}`}>
-                  v
-                </span>
-              </button>
-
-              {isSelectorOpen ? (
-                <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
-                  {[{ id: 'all', name: 'All LGUs' }, ...rows].map((item) => (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => {
-                        setSelectedLgu(item.id)
-                        setIsSelectorOpen(false)
-                      }}
-                      className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
-                        selectedLgu === item.id
-                          ? 'bg-[#EFF6FF] text-[#2563EB]'
-                          : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
-                      }`}
-                    >
-                      {item.name}
-                    </button>
-                  ))}
-                </div>
-              ) : null}
-            </div>
+            <DropdownSelect
+              value={selectedLgu}
+              options={[{ id: 'all', name: 'All LGUs' }, ...rows]}
+              onChange={setSelectedLgu}
+              getOptionLabel={(option) => option.name}
+              getOptionValue={(option) => option.id}
+              placeholder={selectedLabel}
+              className="w-full md:w-72"
+            />
           </div>
         </div>
 

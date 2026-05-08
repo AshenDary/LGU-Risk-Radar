@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import AiRiskExplainer from '../components/analysis/AiRiskExplainer'
 import DashboardLayout from '../components/layout/DashboardLayout'
+import DropdownSelect from '../components/ui/DropdownSelect'
 import { useRiskData } from '../hooks/useRiskData'
 
 const severityColors = {
@@ -17,7 +18,6 @@ function AuditExplorerPage() {
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState('')
   const [showAllFindings, setShowAllFindings] = useState(false)
-  const [openFilter, setOpenFilter] = useState('')
   const { loading, error, auditRows } = useRiskData()
 
   const categories = useMemo(
@@ -73,42 +73,6 @@ function AuditExplorerPage() {
     })
   }
 
-  const renderFilterMenu = (id, value, options, onChange) => (
-    <div className={`relative ${openFilter === id ? 'z-[1001]' : 'z-10'}`}>
-      <button
-        type="button"
-        onClick={() => setOpenFilter((current) => (current === id ? '' : id))}
-        className="flex min-h-11 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/35 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-4 py-2 text-left text-sm font-bold text-[#0F172A] shadow-sm outline-none transition hover:border-[#2563EB]/55 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
-        aria-expanded={openFilter === id}
-      >
-        <span className="min-w-0 truncate">{id === 'severity' && value === 'All' ? 'All severity' : value}</span>
-        <span className={`shrink-0 text-[#2563EB] transition-transform ${openFilter === id ? 'rotate-180' : ''}`}>v</span>
-      </button>
-
-      {openFilter === id ? (
-        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
-          {options.map((option) => (
-            <button
-              key={option}
-              type="button"
-              onClick={() => {
-                onChange(option)
-                setOpenFilter('')
-              }}
-              className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
-                value === option
-                  ? 'bg-[#EFF6FF] text-[#2563EB]'
-                  : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
-              }`}
-            >
-              {id === 'severity' && option === 'All' ? 'All severity' : option}
-            </button>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  )
-
   return (
     <DashboardLayout
       title="Audit Explorer"
@@ -147,8 +111,8 @@ function AuditExplorerPage() {
             </div>
 
             <div className="grid min-w-0 items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(340px,400px)]">
-              <div className={`premium-card premium-hover reveal-on-scroll relative isolate overflow-visible rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12 ${openFilter ? 'z-[1000]' : 'z-0'}`}>
-                <div className={`border-b border-[#38BDF8]/20 px-6 py-5 sm:px-8 sm:py-6 ${openFilter ? 'relative z-[1000]' : ''}`}>
+              <div className="dropdown-card premium-card premium-hover reveal-on-scroll relative rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
+                <div className="relative z-20 border-b border-[#38BDF8]/20 px-6 py-5 sm:px-8 sm:py-6">
                   <div className="mb-5 max-w-2xl">
                     <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Audit findings</p>
                     <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Audit Explorer</h2>
@@ -161,8 +125,17 @@ function AuditExplorerPage() {
                       placeholder="Search LGU, reference, category, or finding"
                       className="min-h-11 rounded-2xl border border-[#38BDF8]/35 bg-white px-4 py-2 text-sm font-medium text-[#0F172A] shadow-sm outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
                     />
-                    {renderFilterMenu('severity', severityFilter, ['All', 'High', 'Medium', 'Low'], setSeverityFilter)}
-                    {renderFilterMenu('category', categoryFilter, categories, setCategoryFilter)}
+                    <DropdownSelect
+                      value={severityFilter}
+                      options={['All', 'High', 'Medium', 'Low']}
+                      onChange={setSeverityFilter}
+                      getOptionLabel={(option) => (option === 'All' ? 'All severity' : option)}
+                    />
+                    <DropdownSelect
+                      value={categoryFilter}
+                      options={categories}
+                      onChange={setCategoryFilter}
+                    />
                   </div>
                 </div>
 

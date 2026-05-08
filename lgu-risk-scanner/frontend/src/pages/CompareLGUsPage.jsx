@@ -3,6 +3,7 @@ import DashboardLayout from '../components/layout/DashboardLayout'
 import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import DropdownSelect from '../components/ui/DropdownSelect'
 import MarkdownText from '../components/common/MarkdownText'
 import { useRiskData } from '../hooks/useRiskData'
 import { compareLGUProfiles } from '../services/api'
@@ -59,7 +60,6 @@ function CompareLGUsPage() {
   const [leftId, setLeftId] = useState('')
   const [rightId, setRightId] = useState('')
   const [result, setResult] = useState({ loading: false, text: '', error: '', fallbackReason: '', usedAi: false })
-  const [openSelector, setOpenSelector] = useState('')
 
   const left = sortedRows.find((row) => row.id === leftId) || sortedRows[0]
   const right = sortedRows.find((row) => row.id === rightId) || sortedRows.find((row) => row.id !== left?.id)
@@ -88,42 +88,6 @@ function CompareLGUsPage() {
     }
   }
 
-  const renderLguSelector = (id, selected, onChange) => (
-    <div className={`relative ${openSelector === id ? 'z-[1001]' : 'z-10'}`}>
-      <button
-        type="button"
-        onClick={() => setOpenSelector((current) => (current === id ? '' : id))}
-        className="flex min-h-12 w-full items-center justify-between gap-3 rounded-2xl border border-[#38BDF8]/35 bg-gradient-to-r from-white via-[#F8FAFC] to-[#EFF6FF] px-5 py-3 text-left text-sm font-bold text-[#0F172A] shadow-sm outline-none transition hover:border-[#2563EB]/55 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
-        aria-expanded={openSelector === id}
-      >
-        <span className="min-w-0 truncate">{selected?.name || 'Select LGU'}</span>
-        <span className={`shrink-0 text-[#2563EB] transition-transform ${openSelector === id ? 'rotate-180' : ''}`}>v</span>
-      </button>
-
-      {openSelector === id ? (
-        <div className="dashboard-scrollbar absolute right-0 top-[calc(100%+0.5rem)] z-[10000] max-h-72 w-full overflow-y-auto rounded-2xl border border-[#38BDF8]/35 bg-white p-2 shadow-2xl shadow-[#2563EB]/15">
-          {sortedRows.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => {
-                onChange(item.id)
-                setOpenSelector('')
-              }}
-              className={`w-full rounded-xl px-3 py-2.5 text-left text-sm font-semibold leading-5 transition ${
-                selected?.id === item.id
-                  ? 'bg-[#EFF6FF] text-[#2563EB]'
-                  : 'text-[#0F172A] hover:bg-[#F8FAFC] hover:text-[#2563EB]'
-              }`}
-            >
-              {item.name}
-            </button>
-          ))}
-        </div>
-      ) : null}
-    </div>
-  )
-
   return (
     <DashboardLayout
       title="Compare LGUs"
@@ -142,15 +106,29 @@ function CompareLGUsPage() {
           </div>
         ) : (
           <>
-            <Card className={`relative isolate overflow-visible ${openSelector ? 'z-[1000]' : 'z-0'}`}>
+            <Card className="dropdown-card relative">
               <div className="mb-5 max-w-2xl">
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Comparison setup</p>
                 <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Select LGUs to Compare</h2>
                 <p className="mt-2 text-sm font-medium leading-6 text-[#2563EB]">Choose two cities to compare risk score, exposure, and scoring factors.</p>
               </div>
               <div className="grid gap-4 lg:grid-cols-[1fr_1fr_auto]">
-                {renderLguSelector('left', left, setLeftId)}
-                {renderLguSelector('right', right, setRightId)}
+                <DropdownSelect
+                  value={left?.id || ''}
+                  options={sortedRows}
+                  onChange={setLeftId}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.id}
+                  placeholder="Select LGU"
+                />
+                <DropdownSelect
+                  value={right?.id || ''}
+                  options={sortedRows}
+                  onChange={setRightId}
+                  getOptionLabel={(option) => option.name}
+                  getOptionValue={(option) => option.id}
+                  placeholder="Select LGU"
+                />
                 <Button onClick={runComparison} disabled={result.loading || !left || !right || left.id === right.id}>
                   {result.loading ? 'Comparing...' : 'Compare with AI'}
                 </Button>
