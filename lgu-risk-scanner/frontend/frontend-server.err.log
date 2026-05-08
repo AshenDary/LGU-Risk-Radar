@@ -22,3 +22,25 @@ Consider adding an error boundary to your tree to customize error handling behav
 Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
 
 [2m4:55:38 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22m[vite] Failed to reload /src/components/layout/Sidebar.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)
+[2m6:42:29 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: Transform failed with 1 error:
+
+[31m[PARSE_ERROR] Error:[0m Expected corresponding closing tag for JSX fragment.
+     [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m src/components/analysis/AiRiskExplainer.jsx:261:7 [38;5;246m][0m
+     [38;5;246m│[0m
+ [38;5;246m149 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m<>
+ [38;5;240m    │[0m     ─┬  
+ [38;5;240m    │[0m      ╰── Opened here
+ [38;5;240m    │[0m 
+ [38;5;246m261 │[0m [38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m [0m[38;5;249m<[0m[38;5;249m/[0mdiv[38;5;249m>[0m
+ [38;5;240m    │[0m       ─┬─  
+ [38;5;240m    │[0m        ╰─── Expected `</>`
+[38;5;246m─────╯[0m
+[39m
+  Plugin: [35mvite:oxc[39m
+  File: [36mC:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/src/components/analysis/AiRiskExplainer.jsx[39m
+      at transformWithOxc (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/vite/dist/node/chunks/node.js:3343:19)
+      at TransformPluginContext.transform (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/vite/dist/node/chunks/node.js:3411:26)
+      at EnvironmentPluginContainer.transform (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/vite/dist/node/chunks/node.js:30164:51)
+      at async loadAndTransform (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/vite/dist/node/chunks/node.js:24512:26)
+      at async viteTransformMiddleware (file:///C:/Users/Mikaella/OneDrive/Documents/GitHub/LGU-Risk-Radar/lgu-risk-scanner/frontend/node_modules/vite/dist/node/chunks/node.js:24306:20)
+[2m6:42:30 PM[22m [31m[1m[vite][22m[39m [31m[2m(client)[22m[39m [2m[console.error] [22m[vite] Failed to reload /src/components/analysis/AiRiskExplainer.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above)

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { askExplanationQuestion, generateExplanation } from '../../services/api'
 import MarkdownText from '../common/MarkdownText'
 
@@ -145,18 +146,16 @@ function AiRiskExplainer({ item }) {
 
   const score = input.riskScore.toFixed(2)
 
-  return (
-    <>
-      {isAskOpen ? (
-        <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={() => setIsAskOpen(false)}>
-          <div
-            className="modal-pop-in dashboard-scrollbar w-full max-w-[800px] overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="mb-6 flex items-start justify-between gap-5">
-              <div className="min-w-0">
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
-                <h4 className="mt-2 break-words text-xl font-black text-[#0F172A]">Ask about {input.name}</h4>
+  const modalContent = isAskOpen ? (
+    <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={() => setIsAskOpen(false)}>
+      <div
+        className="modal-pop-in dashboard-scrollbar w-full max-w-[800px] overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="mb-6 flex items-start justify-between gap-5">
+          <div className="min-w-0">
+            <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
+            <h4 className="mt-2 break-words text-xl font-black text-[#0F172A]">Ask about {input.name}</h4>
               </div>
               <button
                 type="button"
@@ -234,7 +233,13 @@ function AiRiskExplainer({ item }) {
             )}
           </div>
         </div>
-      ) : null}
+      </div>
+    </div>
+  ) : null
+
+  return (
+    <>
+      {modalContent && createPortal(modalContent, document.body)}
 
       <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
         <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
