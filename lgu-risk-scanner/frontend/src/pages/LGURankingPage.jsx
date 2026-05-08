@@ -29,7 +29,7 @@ function LGURankingPage() {
             Loading live backend data...
           </div>
         ) : (
-          <div className="grid min-w-0 items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(340px,400px)]">
+          <div className="grid min-w-0 gap-8">
             <TopRiskTable rows={topRiskRows} selectedId={selectedLgu?.id} onSelect={(row) => setSelectedId(row.id)} />
             <AiRiskExplainer item={selectedLgu} />
           </div>

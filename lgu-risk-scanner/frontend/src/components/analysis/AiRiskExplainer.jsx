@@ -137,7 +137,7 @@ function AiRiskExplainer({ item }) {
 
   if (!item || !input) {
     return (
-      <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7 text-[#0F172A]">
+      <div className="min-w-0 rounded-2xl bg-white p-6 sm:p-7 text-[#0F172A] border border-[#38BDF8]/30">
         Select an LGU or audit finding to generate a plain-language risk explanation.
       </div>
     )
@@ -146,8 +146,9 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   return (
-    <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
-      <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
+    <div className="min-w-0 bg-white border border-[#38BDF8]/30">
+      <div className="p-6 sm:p-7">
+        <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
             {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
@@ -314,6 +315,7 @@ function AiRiskExplainer({ item }) {
         </div>
       )}
 
+      </div>
     </div>
   )
 }

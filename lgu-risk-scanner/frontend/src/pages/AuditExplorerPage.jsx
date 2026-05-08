@@ -246,10 +246,10 @@ function AuditExplorerPage() {
                     <p className="mt-3 text-[11px] font-medium leading-5 text-[#475569]">Audit pattern: {selectedLog.coaPattern}</p>
                   )}
                 </div>
-
-                <AiRiskExplainer item={selectedLog} />
               </aside>
             </div>
+
+            <AiRiskExplainer item={selectedLog} />
           </>
         )}
       </div>
