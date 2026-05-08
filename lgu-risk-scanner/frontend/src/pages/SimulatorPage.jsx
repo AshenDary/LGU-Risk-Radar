@@ -7,8 +7,8 @@ function SimulatorPage() {
       title="What-If Simulator"
       description="Estimate risk score changes using adjustable input scenarios."
     >
-      <div className="grid gap-8">
-        <div className="max-w-3xl">
+      <div className="flex justify-center">
+        <div className="w-full max-w-5xl">
           <WhatIfSimulator />
         </div>
       </div>

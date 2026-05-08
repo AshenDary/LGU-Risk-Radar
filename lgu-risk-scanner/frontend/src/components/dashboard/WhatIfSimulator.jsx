@@ -131,6 +131,16 @@ function WhatIfSimulator() {
     return values[key]
   }
 
+  function getSliderPercent(item) {
+    return ((values[item.key] - item.min) / (item.max - item.min)) * 100
+  }
+
+  function formatSliderLimit(item, value) {
+    if (item.key === 'avgAmount') return formatCurrency(value)
+    if (item.key.includes('Rate') || item.key === 'supplierDiversity') return `${value}%`
+    return value
+  }
+
   const currentScore = currentRiskData?.risk_score?.score ?? '—'
   const currentLevel = currentRiskData?.risk_score?.risk_level
   const simulatedScore = simulationResult?.score ?? '—'
@@ -138,8 +148,8 @@ function WhatIfSimulator() {
   const selectedLgu = lgus.find((lgu) => lgu.id === selectedLguId)
 
   return (
-    <Card className="dropdown-card relative">
-      <div className="mb-7">
+    <Card className="dropdown-card relative w-full p-5 sm:p-7 lg:p-8">
+      <div className="mb-7 max-w-3xl">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Simulation</p>
         <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">What-If Simulator</h2>
         <p className="mt-2 text-sm font-medium leading-6 text-[#475569]">
@@ -205,22 +215,34 @@ function WhatIfSimulator() {
         </div>
       ) : null}
 
-      <div className="space-y-6">
+      <div className="grid gap-5 lg:grid-cols-2">
         {sliderConfig.map((item) => (
-          <label key={item.key} className="block">
+          <label
+            key={item.key}
+            className="block rounded-2xl border border-[#38BDF8]/20 bg-white p-4 shadow-sm shadow-[#2563EB]/5 transition-all duration-200 ease-out hover:border-[#38BDF8]/45 hover:shadow-lg hover:shadow-[#2563EB]/10 sm:p-5"
+          >
             <div className="mb-3 flex items-center justify-between gap-4">
-              <span className="text-sm font-semibold text-[#0F172A]">{item.label}</span>
-              <span className="text-sm font-bold text-[#2563EB]">{formatSliderValue(item.key)}</span>
+              <span className="min-w-0 text-sm font-bold leading-5 text-[#0F172A]">{item.label}</span>
+              <span className="shrink-0 rounded-full border border-[#38BDF8]/35 bg-[#EFF6FF] px-3 py-1 text-xs font-black text-[#2563EB]">
+                {formatSliderValue(item.key)}
+              </span>
             </div>
             <input
-              className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-200 accent-[#2563EB]"
+              className="simulator-range w-full"
               type="range"
               min={item.min}
               max={item.max}
               step={item.step}
               value={values[item.key]}
+              style={{
+                '--range-progress': `${getSliderPercent(item)}%`,
+              }}
               onChange={(event) => handleSliderChange(item.key, event.target.value)}
             />
+            <div className="mt-3 flex justify-between text-[0.7rem] font-bold uppercase tracking-[0.12em] text-slate-400">
+              <span>{formatSliderLimit(item, item.min)}</span>
+              <span>{formatSliderLimit(item, item.max)}</span>
+            </div>
           </label>
         ))}
       </div>
