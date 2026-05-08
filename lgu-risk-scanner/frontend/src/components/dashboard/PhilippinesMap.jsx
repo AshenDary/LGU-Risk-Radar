@@ -34,6 +34,9 @@ const riskStyles = {
   Low: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-500/30',
 }
 
+const luzonNcrViewBox = '190 210 210 260'
+const luzonNcrCenter = { x: 295, y: 340 }
+
 function normalizeName(name) {
   return name.replace(/^City of /, '').replace(/^Municipality of /, '')
 }
@@ -76,7 +79,7 @@ function PhilippinesMap() {
     <Card>
       <div className="mb-7">
         <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Map view</p>
-        <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">NCR Risk Map</h2>
+        <h2 className="mt-2 text-3xl font-black leading-tight text-[#0F172A]">Luzon NCR Risk Map</h2>
         <p className="mt-2 text-sm font-medium leading-6 text-[#475569]">
           {chartRows.length ? 'Latest city-level risk scores.' : 'Sample city-level risk scores for preview.'}
         </p>
@@ -127,9 +130,9 @@ function PhilippinesMap() {
 
           <svg
             className="absolute inset-0 h-full w-full"
-            viewBox={philippinesMapViewBox}
+            viewBox={luzonNcrViewBox}
             role="img"
-            aria-label="Map outline of the Philippines with NCR risk markers"
+            aria-label="Map focused on Luzon and NCR risk markers"
             preserveAspectRatio="xMidYMid meet"
           >
             <defs>
@@ -144,7 +147,7 @@ function PhilippinesMap() {
             </defs>
 
             <rect width="640" height="900" fill="#E0F2FE" />
-            <g transform={`translate(320 450) scale(${zoom}) translate(-320 -450)`}>
+            <g transform={`translate(${luzonNcrCenter.x} ${luzonNcrCenter.y}) scale(${zoom}) translate(-${luzonNcrCenter.x} -${luzonNcrCenter.y})`}>
               <g filter="url(#map-shadow)">
                 {philippinesCountryPaths.map((path) => (
                   <path
@@ -160,10 +163,10 @@ function PhilippinesMap() {
 
               <circle cx="280.5" cy="355.2" r="22" fill="#2563EB" opacity="0.12" />
               <circle cx="280.5" cy="355.2" r="10" fill="#2563EB" opacity="0.18" />
-              <text x="304" y="350" fill="#0F172A" fontSize="18" fontWeight="800">
+              <text x="304" y="350" fill="#0F172A" fontSize="12" fontWeight="800">
                 Metro Manila
               </text>
-              <text x="304" y="371" fill="#2563EB" fontSize="12" fontWeight="700">
+              <text x="304" y="365" fill="#2563EB" fontSize="8" fontWeight="700">
                 NCR sample risk points
               </text>
 
