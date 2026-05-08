@@ -250,14 +250,14 @@
   .ai-assistant-card {
     display: flex;
     flex-direction: column;
-    height: 560px;
-    max-height: 560px;
-    overflow: hidden;
+    height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .ai-assistant-copy {
-    max-height: 190px;
-    overflow-y: auto;
+    max-height: none;
+    overflow: visible;
     overflow-wrap: anywhere;
   }
 

@@ -259,7 +259,7 @@ function AiRiskExplainer({ item }) {
           </span>
         </div>
 
-        <div className="min-w-0 overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
+        <div className="min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
           {explanationState.loading ? (
             <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
           ) : explanationState.error ? (
@@ -267,7 +267,7 @@ function AiRiskExplainer({ item }) {
           ) : explanationState.text ? (
             <>
               <div className="ai-assistant-copy min-w-0">
-                <MarkdownText text={explanationState.text} className="whitespace-normal break-words leading-relaxed text-sm font-medium text-[#0F172A]" />
+                <MarkdownText text={explanationState.text} className="whitespace-normal break-words text-sm font-medium leading-relaxed text-[#0F172A]" />
               </div>
               {explanationState.fallbackReason && (
                 <p className="mt-3 break-words text-xs leading-5 text-amber-700">
