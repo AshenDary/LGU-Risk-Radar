@@ -147,12 +147,12 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   const modalContent = isAskOpen ? (
-    <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-lg" onClick={() => setIsAskOpen(false)}>
+    <div className="modal-overlay-in fixed inset-0 z-50 flex items-center justify-center bg-[#0F172A]/25 p-4 backdrop-blur-xl" onClick={() => setIsAskOpen(false)}>
       <div
-        className="modal-pop-in dashboard-scrollbar w-full max-w-[800px] overflow-y-auto rounded-3xl border border-[#38BDF8]/35 bg-white p-6 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
+        className="modal-pop-in flex h-[min(88vh,760px)] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white p-5 shadow-2xl shadow-[#0F172A]/20 sm:p-7"
         onClick={(event) => event.stopPropagation()}
       >
-        <div className="mb-6 flex items-start justify-between gap-5">
+        <div className="mb-6 flex shrink-0 items-start justify-between gap-5">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
             <h4 className="mt-2 break-words text-xl font-black text-[#0F172A]">Ask about {input.name}</h4>
@@ -167,7 +167,7 @@ function AiRiskExplainer({ item }) {
               </button>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex shrink-0 flex-wrap justify-center gap-2">
               <button
                 type="button"
                 onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
@@ -190,7 +190,7 @@ function AiRiskExplainer({ item }) {
             </div>
 
           <form
-            className="mt-5 grid gap-3"
+            className="mt-5 grid shrink-0 gap-3"
             onSubmit={(event) => {
               event.preventDefault()
               submitQuestion(question)
@@ -200,7 +200,7 @@ function AiRiskExplainer({ item }) {
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
               placeholder="Ask a reviewer-style question"
-              rows={8}
+              rows={4}
               className="resize-none rounded-xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
             />
             <div className="grid gap-3">
@@ -214,8 +214,8 @@ function AiRiskExplainer({ item }) {
             </div>
           </form>
 
-            {answers.length > 0 && (
-              <div className="dashboard-scrollbar mt-5 max-h-96 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
+            <div className="dashboard-scrollbar mt-5 min-h-0 flex-1 overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3">
+              {answers.length > 0 ? (
                 <div className="grid gap-3">
                   {answers.map((entry) => (
                     <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
@@ -229,8 +229,12 @@ function AiRiskExplainer({ item }) {
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <p className="text-sm font-medium leading-6 text-[#2563EB]">
+                  Ask a question or choose a prompt above. Answers will appear here.
+                </p>
+              )}
+            </div>
           </div>
         </div>
   ) : null
