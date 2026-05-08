@@ -34,8 +34,19 @@ const riskStyles = {
   Low: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-500/30',
 }
 
-const luzonNcrViewBox = '255 330 75 55'
-const luzonNcrCenter = { x: 292.5, y: 357.5 }
+const luzonNcrViewBox = '265 338 35 36'
+const luzonNcrCenter = { x: 282.5, y: 356 }
+const markerSpreadCenter = { x: 280.5, y: 355.2 }
+const markerSpread = 1.55
+
+function getDisplayPosition(name) {
+  const position = mapPositions[name]
+
+  return {
+    x: markerSpreadCenter.x + (position.x - markerSpreadCenter.x) * markerSpread,
+    y: markerSpreadCenter.y + (position.y - markerSpreadCenter.y) * markerSpread,
+  }
+}
 
 function normalizeName(name) {
   return name.replace(/^City of /, '').replace(/^Municipality of /, '')
@@ -171,7 +182,7 @@ function PhilippinesMap() {
               </text>
 
               {rows.map((row) => {
-                const position = mapPositions[row.name]
+                const position = getDisplayPosition(row.name)
                 const color = row.riskLevel === 'Critical'
                   ? '#EF4444'
                   : row.riskLevel === 'High'
@@ -183,13 +194,13 @@ function PhilippinesMap() {
                 return (
                   <g key={row.name}>
                     <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
-                    <circle cx={position.x} cy={position.y} r="3.6" fill={color} opacity="0.16" />
-                    <circle cx={position.x} cy={position.y} r="2.1" fill={color} stroke="#FFFFFF" strokeWidth="0.45" />
+                    <circle cx={position.x} cy={position.y} r="2.2" fill={color} opacity="0.16" />
+                    <circle cx={position.x} cy={position.y} r="1.45" fill={color} stroke="#FFFFFF" strokeWidth="0.28" />
                     <text
                       x={position.x}
-                      y={position.y + 0.75}
+                      y={position.y + 0.52}
                       fill="#FFFFFF"
-                      fontSize="1.55"
+                      fontSize="1"
                       fontWeight="900"
                       textAnchor="middle"
                     >
