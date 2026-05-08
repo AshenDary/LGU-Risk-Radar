@@ -241,7 +241,7 @@ function AiRiskExplainer({ item }) {
     <>
       {modalContent && createPortal(modalContent, document.body)}
 
-      <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7">
+      <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7 grid content-start">
         <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
