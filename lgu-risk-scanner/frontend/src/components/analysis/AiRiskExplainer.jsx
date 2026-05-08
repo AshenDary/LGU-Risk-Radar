@@ -257,7 +257,7 @@ function AiRiskExplainer({ item }) {
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
               placeholder="Ask a reviewer-style question"
-              rows={2}
+              rows={8}
               className="resize-none rounded-xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
             />
             <div className="grid gap-3">
