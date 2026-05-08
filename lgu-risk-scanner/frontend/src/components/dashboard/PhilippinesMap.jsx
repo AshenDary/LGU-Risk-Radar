@@ -80,7 +80,7 @@ function normalizeRiskLevel(level, score) {
 }
 
 function getLabelWidth(name, markerSize) {
-  return Math.max(11.5, name.length * 1.25) * markerSize
+  return Math.max(10, name.length * 1.05) * markerSize
 }
 
 function PhilippinesMap() {
@@ -96,6 +96,7 @@ function PhilippinesMap() {
     return `${base.x + pan.x} ${base.y + pan.y} ${base.width} ${base.height}`
   }, [currentMapView.viewBox, pan])
   const markerSize = currentMapView.markerScale / zoom
+  const labelSize = Math.min(markerSize, 1.18)
   const fallbackRows = getNCRScoresForChart()
   const rows = (chartRows.length ? chartRows : fallbackRows)
     .map((row) => ({
@@ -290,36 +291,36 @@ function PhilippinesMap() {
               })}
               {hoveredCity ? (() => {
                 const position = mapPositions[hoveredCity]
-                const labelWidth = getLabelWidth(hoveredCity, markerSize)
+                const labelWidth = getLabelWidth(hoveredCity, labelSize)
 
                 return (
                   <g className="pointer-events-none">
                     <filter id="city-label-shadow" x="-30%" y="-60%" width="160%" height="220%">
-                      <feDropShadow dx="0" dy={0.85 * markerSize} stdDeviation={0.9 * markerSize} floodColor="#2563EB" floodOpacity="0.18" />
+                      <feDropShadow dx="0" dy={0.7 * labelSize} stdDeviation={0.75 * labelSize} floodColor="#2563EB" floodOpacity="0.14" />
                     </filter>
                     <path
-                      d={`M ${position.x} ${position.y - 2.9 * markerSize} L ${position.x - 1.25 * markerSize} ${position.y - 4.35 * markerSize} H ${position.x + 1.25 * markerSize} Z`}
+                      d={`M ${position.x} ${position.y - 2.8 * labelSize} L ${position.x - 1.05 * labelSize} ${position.y - 4.05 * labelSize} H ${position.x + 1.05 * labelSize} Z`}
                       fill="#FFFFFF"
                       stroke="#38BDF8"
-                      strokeWidth={0.18 * markerSize}
+                      strokeWidth={0.16 * labelSize}
                     />
                     <rect
                       x={position.x - labelWidth / 2}
-                      y={position.y - 9.3 * markerSize}
+                      y={position.y - 8.2 * labelSize}
                       width={labelWidth}
-                      height={4.9 * markerSize}
-                      rx={1.45 * markerSize}
+                      height={4.1 * labelSize}
+                      rx={1.1 * labelSize}
                       fill="#FFFFFF"
                       stroke="#38BDF8"
-                      strokeWidth={0.22 * markerSize}
+                      strokeWidth={0.18 * labelSize}
                       filter="url(#city-label-shadow)"
                     />
                     <text
                       x={position.x}
-                      y={position.y - 6.1 * markerSize}
+                      y={position.y - 5.55 * labelSize}
                       fill="#0F172A"
-                      fontSize={1.35 * markerSize}
-                      fontWeight="900"
+                      fontSize={1.12 * labelSize}
+                      fontWeight="800"
                       textAnchor="middle"
                     >
                       {hoveredCity}
