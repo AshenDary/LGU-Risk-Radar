@@ -142,8 +142,13 @@
   .premium-card::before {
     content: "";
     position: absolute;
-    inset: 0 0 auto 0;
-    height: 3px;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 50;
+    height: 4px;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
     background: linear-gradient(90deg, rgba(15, 23, 42, 0.75), rgba(37, 99, 235, 0.75), rgba(56, 189, 248, 0.72));
     pointer-events: none;
   }
