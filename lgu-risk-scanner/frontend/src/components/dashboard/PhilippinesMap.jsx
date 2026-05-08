@@ -40,12 +40,23 @@ const mapViews = {
     viewBox: '269 341 27 30',
     center: { x: 282.5, y: 356 },
   },
+  metro: {
+    label: 'Metro',
+    viewBox: '263 335 42 48',
+    center: { x: 284, y: 357 },
+  },
+  regional: {
+    label: 'Region',
+    viewBox: '250 320 70 85',
+    center: { x: 285, y: 362 },
+  },
   luzon: {
     label: 'Luzon',
     viewBox: '190 210 210 260',
     center: { x: 295, y: 340 },
   },
 }
+const mapViewOrder = ['ncr', 'metro', 'regional', 'luzon']
 const markerSpreadCenter = { x: 280.5, y: 355.2 }
 const markerSpread = 1.8
 
@@ -87,8 +98,14 @@ function PhilippinesMap() {
   const topRows = rows.slice(0, 5)
 
   function zoomIn() {
-    if (mapView === 'luzon') {
-      setMapView('ncr')
+    if (zoom > 1) {
+      setZoom((current) => Math.min(2, Number((current + 0.25).toFixed(2))))
+      return
+    }
+
+    const currentIndex = mapViewOrder.indexOf(mapView)
+    if (currentIndex > 0) {
+      setMapView(mapViewOrder[currentIndex - 1])
       setZoom(1)
       return
     }
@@ -102,7 +119,8 @@ function PhilippinesMap() {
       return
     }
 
-    setMapView('luzon')
+    const currentIndex = mapViewOrder.indexOf(mapView)
+    setMapView(mapViewOrder[Math.min(mapViewOrder.length - 1, currentIndex + 1)])
   }
 
   function resetZoom() {
@@ -135,9 +153,9 @@ function PhilippinesMap() {
             <button
               type="button"
               onClick={zoomOut}
-              disabled={mapView === 'luzon' && zoom <= 1}
-              aria-label="Zoom out to Luzon view"
-              title="Zoom out to Luzon"
+              disabled={mapView === mapViewOrder[mapViewOrder.length - 1] && zoom <= 1}
+              aria-label="Zoom out one map level"
+              title="Zoom out one level"
               className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               -
@@ -149,14 +167,14 @@ function PhilippinesMap() {
               title="Reset zoom"
               className="h-9 min-w-14 rounded-xl border border-[#38BDF8]/30 px-3 text-xs font-black text-[#0F172A] transition hover:bg-[#EFF6FF]"
             >
-              {mapView === 'ncr' ? `${Math.round(zoom * 100)}%` : 'Luzon'}
+              {zoom > 1 ? `${Math.round(zoom * 100)}%` : currentMapView.label}
             </button>
             <button
               type="button"
               onClick={zoomIn}
               disabled={mapView === 'ncr' && zoom >= 2}
-              aria-label="Zoom in to NCR map"
-              title="Zoom in to NCR"
+              aria-label="Zoom in one map level"
+              title="Zoom in one level"
               className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               +
