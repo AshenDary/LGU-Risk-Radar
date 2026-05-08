@@ -34,10 +34,20 @@ const riskStyles = {
   Low: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-500/30',
 }
 
-const luzonNcrViewBox = '265 338 35 36'
-const luzonNcrCenter = { x: 282.5, y: 356 }
+const mapViews = {
+  ncr: {
+    label: 'NCR',
+    viewBox: '269 341 27 30',
+    center: { x: 282.5, y: 356 },
+  },
+  luzon: {
+    label: 'Luzon',
+    viewBox: '190 210 210 260',
+    center: { x: 295, y: 340 },
+  },
+}
 const markerSpreadCenter = { x: 280.5, y: 355.2 }
-const markerSpread = 1.55
+const markerSpread = 1.8
 
 function getDisplayPosition(name) {
   const position = mapPositions[name]
@@ -63,6 +73,8 @@ function normalizeRiskLevel(level, score) {
 function PhilippinesMap() {
   const { chartRows, loading, error } = useRiskData()
   const [zoom, setZoom] = useState(1)
+  const [mapView, setMapView] = useState('ncr')
+  const currentMapView = mapViews[mapView]
   const fallbackRows = getNCRScoresForChart()
   const rows = (chartRows.length ? chartRows : fallbackRows)
     .map((row) => ({
@@ -75,14 +87,26 @@ function PhilippinesMap() {
   const topRows = rows.slice(0, 5)
 
   function zoomIn() {
-    setZoom((current) => Math.min(2.5, Number((current + 0.25).toFixed(2))))
+    if (mapView === 'luzon') {
+      setMapView('ncr')
+      setZoom(1)
+      return
+    }
+
+    setZoom((current) => Math.min(2, Number((current + 0.25).toFixed(2))))
   }
 
   function zoomOut() {
-    setZoom((current) => Math.max(1, Number((current - 0.25).toFixed(2))))
+    if (zoom > 1) {
+      setZoom((current) => Math.max(1, Number((current - 0.25).toFixed(2))))
+      return
+    }
+
+    setMapView('luzon')
   }
 
   function resetZoom() {
+    setMapView('ncr')
     setZoom(1)
   }
 
@@ -111,9 +135,9 @@ function PhilippinesMap() {
             <button
               type="button"
               onClick={zoomOut}
-              disabled={zoom <= 1}
-              aria-label="Zoom out of map"
-              title="Zoom out"
+              disabled={mapView === 'luzon' && zoom <= 1}
+              aria-label="Zoom out to Luzon view"
+              title="Zoom out to Luzon"
               className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               -
@@ -125,14 +149,14 @@ function PhilippinesMap() {
               title="Reset zoom"
               className="h-9 min-w-14 rounded-xl border border-[#38BDF8]/30 px-3 text-xs font-black text-[#0F172A] transition hover:bg-[#EFF6FF]"
             >
-              {Math.round(zoom * 100)}%
+              {mapView === 'ncr' ? `${Math.round(zoom * 100)}%` : 'Luzon'}
             </button>
             <button
               type="button"
               onClick={zoomIn}
-              disabled={zoom >= 2.5}
-              aria-label="Zoom in to map"
-              title="Zoom in"
+              disabled={mapView === 'ncr' && zoom >= 2}
+              aria-label="Zoom in to NCR map"
+              title="Zoom in to NCR"
               className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               +
@@ -141,7 +165,7 @@ function PhilippinesMap() {
 
           <svg
             className="absolute inset-0 h-full w-full"
-            viewBox={luzonNcrViewBox}
+            viewBox={currentMapView.viewBox}
             role="img"
             aria-label="Map focused on Luzon and NCR risk markers"
             preserveAspectRatio="xMidYMid meet"
@@ -158,7 +182,7 @@ function PhilippinesMap() {
             </defs>
 
             <rect width="640" height="900" fill="#E0F2FE" />
-            <g transform={`translate(${luzonNcrCenter.x} ${luzonNcrCenter.y}) scale(${zoom}) translate(-${luzonNcrCenter.x} -${luzonNcrCenter.y})`}>
+            <g transform={`translate(${currentMapView.center.x} ${currentMapView.center.y}) scale(${zoom}) translate(-${currentMapView.center.x} -${currentMapView.center.y})`}>
               <g filter="url(#map-shadow)">
                 {philippinesCountryPaths.map((path) => (
                   <path
