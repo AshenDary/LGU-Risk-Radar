@@ -110,7 +110,24 @@ function AuditExplorerPage() {
               </div>
             </div>
 
-            <div className="grid min-w-0 items-start gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(340px,400px)]">
+            <div className="grid min-w-0 grid-cols-1 gap-6">
+              <aside className="w-full min-w-0">
+                <div className="premium-card premium-hover reveal-on-scroll w-full rounded-3xl p-5 sm:p-6">
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Selected finding</p>
+                  <h2 className="mt-1.5 text-xl font-black leading-tight text-[#0F172A]">{selectedLog?.city || 'No finding selected'}</h2>
+                  <p className="mt-2 text-xs font-medium leading-5 text-slate-700">{selectedLog?.details}</p>
+                  {selectedLog?.recommendation && (
+                    <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-3">
+                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-red-700">Recommended action</p>
+                      <p className="mt-1.5 text-xs font-semibold leading-5 text-red-700">{selectedLog.recommendation}</p>
+                    </div>
+                  )}
+                  {selectedLog?.coaPattern && (
+                    <p className="mt-3 text-[11px] font-medium leading-5 text-[#475569]">Audit pattern: {selectedLog.coaPattern}</p>
+                  )}
+                </div>
+              </aside>
+
               <div className="dropdown-card premium-card premium-hover reveal-on-scroll relative rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
                 <div className="relative z-20 border-b border-[#38BDF8]/20 px-6 py-5 sm:px-8 sm:py-6">
                   <div className="mb-5 max-w-2xl">
@@ -203,23 +220,6 @@ function AuditExplorerPage() {
                   ) : null}
                 </div>
               </div>
-
-              <aside className="grid min-w-0 content-start gap-4">
-                <div className="premium-card premium-hover reveal-on-scroll rounded-3xl p-5 sm:p-6">
-                  <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Selected finding</p>
-                  <h2 className="mt-1.5 text-xl font-black leading-tight text-[#0F172A]">{selectedLog?.city || 'No finding selected'}</h2>
-                  <p className="mt-2 text-xs font-medium leading-5 text-slate-700">{selectedLog?.details}</p>
-                  {selectedLog?.recommendation && (
-                    <div className="mt-4 rounded-2xl border border-red-200 bg-red-50 p-3">
-                      <p className="text-[11px] font-black uppercase tracking-[0.12em] text-red-700">Recommended action</p>
-                      <p className="mt-1.5 text-xs font-semibold leading-5 text-red-700">{selectedLog.recommendation}</p>
-                    </div>
-                  )}
-                  {selectedLog?.coaPattern && (
-                    <p className="mt-3 text-[11px] font-medium leading-5 text-[#475569]">Audit pattern: {selectedLog.coaPattern}</p>
-                  )}
-                </div>
-              </aside>
             </div>
 
             <AiRiskExplainer item={selectedLog} />
