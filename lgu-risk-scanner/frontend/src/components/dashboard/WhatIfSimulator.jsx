@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import Card from '../ui/Card'
 import { fetchLGUs, fetchRiskByLGU, simulateRisk } from '../../services/api'
+import MarkdownText from '../common/MarkdownText'
 
 const sliderConfig = [
   {
@@ -227,7 +228,7 @@ function WhatIfSimulator() {
       {simulationResult?.explanation ? (
         <div className="mb-8 rounded-2xl border border-[#38BDF8]/20 bg-white p-5 shadow-sm shadow-slate-200/70">
           <p className="text-sm font-semibold text-[#0F172A]">AI Analysis</p>
-          <p className="mt-3 text-sm leading-6 text-[#475569]">{simulationResult.explanation}</p>
+          <MarkdownText text={simulationResult.explanation} className="mt-3 text-sm leading-6 text-[#475569]" />
         </div>
       ) : null}
 

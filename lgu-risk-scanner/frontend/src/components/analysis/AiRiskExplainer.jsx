@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { askExplanationQuestion, generateExplanation } from '../../services/api'
+import MarkdownText from '../common/MarkdownText'
 
 const SCORE_BY_LEVEL = {
   Critical: 90,
@@ -168,7 +169,7 @@ function AiRiskExplainer({ item }) {
           <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
         ) : explanationState.text ? (
           <>
-            <p className="break-words text-sm font-medium leading-6 text-[#0F172A]">{explanationState.text}</p>
+            <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
             {explanationState.fallbackReason && (
               <p className="mt-3 break-words text-xs leading-5 text-amber-700">
                 Using fallback: {explanationState.fallbackReason}

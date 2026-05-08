@@ -3,6 +3,7 @@ import DashboardLayout from '../components/layout/DashboardLayout'
 import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import MarkdownText from '../components/common/MarkdownText'
 import { useRiskData } from '../hooks/useRiskData'
 import { compareLGUProfiles } from '../services/api'
 
@@ -175,7 +176,7 @@ function CompareLGUsPage() {
                 ) : result.error ? (
                   <p className="mt-5 break-words rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{result.error}</p>
                 ) : (
-                  <p className="mt-5 whitespace-pre-wrap break-words rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium leading-6 text-[#0F172A]">{result.text}</p>
+                  <MarkdownText text={result.text} className="mt-5 break-words rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium leading-6 text-[#0F172A]" />
                 )}
                 {result.fallbackReason && (
                   <p className="mt-3 text-xs text-amber-700">Using fallback: {result.fallbackReason}</p>

@@ -3,6 +3,7 @@ import DashboardLayout from '../components/layout/DashboardLayout'
 import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
+import MarkdownText from '../components/common/MarkdownText'
 import { useRiskData } from '../hooks/useRiskData'
 import { generateRiskReport } from '../services/api'
 
@@ -183,9 +184,10 @@ export default function ReportsPage() {
               )}
 
               {reportState.text && (
-                <div className="mt-6 min-h-[360px] whitespace-pre-wrap break-words rounded-2xl border border-[#38BDF8]/25 bg-white p-5 text-sm font-medium leading-7 text-[#0F172A] shadow-inner shadow-[#2563EB]/5">
-                  {reportState.text}
-                </div>
+                <MarkdownText
+                  text={reportState.text}
+                  className="mt-6 min-h-[360px] break-words rounded-2xl border border-[#38BDF8]/25 bg-white p-5 text-sm font-medium leading-7 text-[#0F172A] shadow-inner shadow-[#2563EB]/5"
+                />
               )}
 
               {reportState.fallbackReason && (
