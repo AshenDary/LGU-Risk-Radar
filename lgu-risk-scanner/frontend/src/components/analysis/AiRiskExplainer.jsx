@@ -280,7 +280,7 @@ function AiRiskExplainer({ item }) {
           )}
         </div>
 
-        <div className="mt-5 grid shrink-0 gap-2">
+        <div className="mt-3 grid gap-2">
           <button
             type="button"
             onClick={handleGenerateExplanation}
