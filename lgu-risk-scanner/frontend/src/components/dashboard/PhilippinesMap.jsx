@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Card from '../ui/Card'
 import { getNCRScoresForChart } from '../../data/mockData'
 import { philippinesCountryPaths, philippinesMapViewBox } from '../../data/philippinesMapPaths'
@@ -60,6 +60,11 @@ const mapViewOrder = ['ncr', 'metro', 'regional', 'luzon']
 const markerSpreadCenter = { x: 280.5, y: 355.2 }
 const markerSpread = 1.8
 
+function parseViewBox(viewBox) {
+  const [x, y, width, height] = viewBox.split(' ').map(Number)
+  return { x, y, width, height }
+}
+
 function getDisplayPosition(name) {
   const position = mapPositions[name]
 
@@ -85,7 +90,13 @@ function PhilippinesMap() {
   const { chartRows, loading, error } = useRiskData()
   const [zoom, setZoom] = useState(1)
   const [mapView, setMapView] = useState('ncr')
+  const [pan, setPan] = useState({ x: 0, y: 0 })
+  const [dragStart, setDragStart] = useState(null)
   const currentMapView = mapViews[mapView]
+  const currentViewBox = useMemo(() => {
+    const base = parseViewBox(currentMapView.viewBox)
+    return `${base.x + pan.x} ${base.y + pan.y} ${base.width} ${base.height}`
+  }, [currentMapView.viewBox, pan])
   const fallbackRows = getNCRScoresForChart()
   const rows = (chartRows.length ? chartRows : fallbackRows)
     .map((row) => ({
@@ -107,6 +118,7 @@ function PhilippinesMap() {
     if (currentIndex > 0) {
       setMapView(mapViewOrder[currentIndex - 1])
       setZoom(1)
+      setPan({ x: 0, y: 0 })
       return
     }
 
@@ -121,6 +133,38 @@ function PhilippinesMap() {
 
     const currentIndex = mapViewOrder.indexOf(mapView)
     setMapView(mapViewOrder[Math.min(mapViewOrder.length - 1, currentIndex + 1)])
+    setPan({ x: 0, y: 0 })
+  }
+
+  function handlePointerDown(event) {
+    if (event.button !== 0) return
+    event.currentTarget.setPointerCapture(event.pointerId)
+    setDragStart({
+      pointerId: event.pointerId,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      pan,
+    })
+  }
+
+  function handlePointerMove(event) {
+    if (!dragStart || dragStart.pointerId !== event.pointerId) return
+
+    const base = parseViewBox(currentMapView.viewBox)
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const dx = ((event.clientX - dragStart.clientX) / bounds.width) * base.width
+    const dy = ((event.clientY - dragStart.clientY) / bounds.height) * base.height
+
+    setPan({
+      x: dragStart.pan.x - dx,
+      y: dragStart.pan.y - dy,
+    })
+  }
+
+  function handlePointerUp(event) {
+    if (!dragStart || dragStart.pointerId !== event.pointerId) return
+    event.currentTarget.releasePointerCapture(event.pointerId)
+    setDragStart(null)
   }
 
   return (
@@ -168,11 +212,15 @@ function PhilippinesMap() {
           </div>
 
           <svg
-            className="absolute inset-0 h-full w-full"
-            viewBox={currentMapView.viewBox}
+            className={`absolute inset-0 h-full w-full touch-none select-none ${dragStart ? 'cursor-grabbing' : 'cursor-grab'}`}
+            viewBox={currentViewBox}
             role="img"
             aria-label="Map focused on Luzon and NCR risk markers"
             preserveAspectRatio="xMidYMid meet"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
           >
             <defs>
               <linearGradient id="philippines-map-fill" x1="0" x2="1" y1="0" y2="1">
