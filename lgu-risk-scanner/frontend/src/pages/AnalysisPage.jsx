@@ -43,7 +43,7 @@ function AnalysisPage() {
         )}
 
         {loading ? (
-          <div className="premium-card reveal-on-scroll rounded-lg p-8 text-sm text-[#1E293B]/70">
+          <div className="premium-card reveal-on-scroll rounded-3xl p-8 text-sm text-[#1E293B]/70">
             Loading live backend data...
           </div>
         ) : (
