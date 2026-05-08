@@ -3,6 +3,7 @@ import logo from '../../assets/sidebar-risk-radar-logo.svg'
 
 export const appLinks = [
   { name: 'Dashboard', path: '/dashboard' },
+  { name: 'Map View', path: '/map' },
   { name: 'Analysis', path: '/analysis' },
   { name: 'LGU Ranking', path: '/lgu-ranking' },
   { name: 'Audit Explorer', path: '/audit-explorer' },

@@ -1,7 +1,6 @@
 import LGUSummaryCards from '../components/dashboard/LGUSummaryCards'
 import TopTrustworthyLGUs from '../components/dashboard/TopTrustworthyLGUs'
 import NCRScoreChart from '../components/dashboard/NCRScoreChart'
-import PhilippinesMap from '../components/dashboard/PhilippinesMap'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import { useRiskData } from '../hooks/useRiskData'
 
@@ -29,8 +28,6 @@ function DashboardPage() {
             <LGUSummaryCards summaryData={summary} />
 
             <NCRScoreChart data={chartRows} />
-
-            <PhilippinesMap />
 
             <TopTrustworthyLGUs data={trustworthyRows} />
           </>
