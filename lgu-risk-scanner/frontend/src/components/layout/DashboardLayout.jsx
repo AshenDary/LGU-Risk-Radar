@@ -3,10 +3,7 @@ import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 
 function DashboardLayout({ children, title, description }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
-    if (typeof window === 'undefined') return true
-    return window.matchMedia('(min-width: 1024px)').matches
-  })
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const mainRef = useRef(null)
 
   useEffect(() => {
