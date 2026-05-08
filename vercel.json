@@ -1,5 +1,5 @@
 {
-  "installCommand": "python -m pip install -r requirements.txt && cd lgu-risk-scanner/frontend && npm ci",
+  "installCommand": "uv pip install --system -r requirements.txt && cd lgu-risk-scanner/frontend && npm ci",
   "buildCommand": "cd lgu-risk-scanner/frontend && npm run build",
   "outputDirectory": "lgu-risk-scanner/frontend/dist",
   "rewrites": [
