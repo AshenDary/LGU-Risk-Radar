@@ -242,7 +242,7 @@ function AiRiskExplainer({ item }) {
       {modalContent && createPortal(modalContent, document.body)}
 
       <div className="ai-assistant-card premium-card premium-hover reveal-on-scroll min-w-0 rounded-3xl p-6 sm:p-7 grid content-start">
-        <div className="mb-6 flex shrink-0 items-start justify-between gap-3">
+        <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
               {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
@@ -257,7 +257,7 @@ function AiRiskExplainer({ item }) {
           </span>
         </div>
 
-        <div className="min-h-0 min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
+        <div className="min-w-0 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4">
           {explanationState.loading ? (
             <p className="text-sm leading-6 text-[#2563EB]">Generating explanation...</p>
           ) : explanationState.error ? (
