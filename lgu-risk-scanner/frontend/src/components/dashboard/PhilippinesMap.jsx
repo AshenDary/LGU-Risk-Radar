@@ -123,11 +123,6 @@ function PhilippinesMap() {
     setMapView(mapViewOrder[Math.min(mapViewOrder.length - 1, currentIndex + 1)])
   }
 
-  function resetZoom() {
-    setMapView('ncr')
-    setZoom(1)
-  }
-
   return (
     <Card>
       <div className="mb-7">
@@ -149,25 +144,16 @@ function PhilippinesMap() {
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_20rem]">
         <div className="relative min-h-[32rem] overflow-hidden rounded-2xl border border-[#38BDF8]/30 bg-[#E0F2FE] p-4 shadow-inner shadow-[#2563EB]/10">
-          <div className="absolute right-4 top-4 z-10 flex items-center gap-2 rounded-2xl border border-white/70 bg-white/90 p-2 shadow-lg shadow-[#2563EB]/10">
+          <div className="absolute right-4 top-4 z-10 flex items-center gap-2">
             <button
               type="button"
               onClick={zoomOut}
               disabled={mapView === mapViewOrder[mapViewOrder.length - 1] && zoom <= 1}
               aria-label="Zoom out one map level"
               title="Zoom out one level"
-              className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/80 bg-white/95 text-2xl font-black leading-none text-[#2563EB] shadow-lg shadow-[#2563EB]/10 transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               -
-            </button>
-            <button
-              type="button"
-              onClick={resetZoom}
-              aria-label="Reset map zoom"
-              title="Reset zoom"
-              className="h-9 min-w-14 rounded-xl border border-[#38BDF8]/30 px-3 text-xs font-black text-[#0F172A] transition hover:bg-[#EFF6FF]"
-            >
-              {zoom > 1 ? `${Math.round(zoom * 100)}%` : currentMapView.label}
             </button>
             <button
               type="button"
@@ -175,7 +161,7 @@ function PhilippinesMap() {
               disabled={mapView === 'ncr' && zoom >= 2}
               aria-label="Zoom in one map level"
               title="Zoom in one level"
-              className="grid h-9 w-9 place-items-center rounded-xl border border-[#38BDF8]/30 text-lg font-black leading-none text-[#2563EB] transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
+              className="grid h-11 w-11 place-items-center rounded-full border border-white/80 bg-white/95 text-2xl font-black leading-none text-[#2563EB] shadow-lg shadow-[#2563EB]/10 transition hover:bg-[#EFF6FF] disabled:cursor-not-allowed disabled:opacity-40"
             >
               +
             </button>
