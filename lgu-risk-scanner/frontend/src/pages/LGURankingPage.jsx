@@ -32,7 +32,7 @@ function LGURankingPage() {
           <div className="grid min-w-0 gap-8">
             <TopRiskTable rows={topRiskRows} selectedId={selectedLgu?.id} onSelect={(row) => setSelectedId(row.id)} />
             <div className="flex justify-center">
-              <div className="w-full max-w-6xl">
+              <div className="w-full max-w-[800px]">
                 <AiRiskExplainer item={selectedLgu} />
               </div>
             </div>

@@ -250,7 +250,7 @@ function AuditExplorerPage() {
             </div>
 
             <div className="flex justify-center">
-              <div className="w-full max-w-6xl">
+              <div className="w-full max-w-[800px]">
                 <AiRiskExplainer item={selectedLog} />
               </div>
             </div>
