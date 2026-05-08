@@ -2,9 +2,18 @@ import { useEffect, useRef, useState } from 'react'
 import Sidebar from './Sidebar'
 import Topbar from './Topbar'
 
+let lastSidebarOpenState = false
+
 function DashboardLayout({ children, title, description }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(lastSidebarOpenState)
   const mainRef = useRef(null)
+
+  function handleSidebarToggle() {
+    setIsSidebarOpen((current) => {
+      lastSidebarOpenState = !current
+      return lastSidebarOpenState
+    })
+  }
 
   useEffect(() => {
     const root = mainRef.current
@@ -34,7 +43,7 @@ function DashboardLayout({ children, title, description }) {
 
   return (
     <div className="landing-blue-spots min-h-screen overflow-x-hidden text-[#1E293B]">
-      <Sidebar isOpen={isSidebarOpen} onToggle={() => setIsSidebarOpen((current) => !current)} />
+      <Sidebar isOpen={isSidebarOpen} onToggle={handleSidebarToggle} />
 
       <div className="pointer-events-none fixed left-[220px] top-12 h-72 w-72 rounded-full bg-[#38BDF8]/25 blur-3xl" />
       <div className="pointer-events-none fixed right-[-120px] top-28 h-96 w-96 rounded-full bg-[#2563EB]/15 blur-3xl" />
