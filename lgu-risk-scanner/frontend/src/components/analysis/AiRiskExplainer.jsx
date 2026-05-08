@@ -146,7 +146,7 @@ function AiRiskExplainer({ item }) {
   const score = input.riskScore.toFixed(2)
 
   return (
-    <div className="premium-card premium-hover reveal-on-scroll min-w-0 overflow-hidden rounded-3xl p-6 sm:p-7">
+    <div className="premium-card premium-hover reveal-on-scroll min-w-0 overflow-hidden rounded-3xl p-6 sm:max-h-[610px] sm:p-7">
       <div className="mb-6 flex items-start justify-between gap-3">
         <div className="min-w-0">
           <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
@@ -169,7 +169,9 @@ function AiRiskExplainer({ item }) {
           <p className="break-words text-sm leading-6 text-red-600">{explanationState.error}</p>
         ) : explanationState.text ? (
           <>
-            <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
+            <div className="dashboard-scrollbar max-h-[230px] overflow-y-auto pr-2">
+              <MarkdownText text={explanationState.text} className="break-words text-sm font-medium leading-6 text-[#0F172A]" />
+            </div>
             {explanationState.fallbackReason && (
               <p className="mt-3 break-words text-xs leading-5 text-amber-700">
                 Using fallback: {explanationState.fallbackReason}
@@ -297,7 +299,7 @@ function AiRiskExplainer({ item }) {
       )}
 
       {answers.length > 0 && !isAskOpen && (
-        <div className="mt-4 grid gap-3">
+        <div className="dashboard-scrollbar mt-4 grid max-h-48 gap-3 overflow-y-auto pr-2">
           {answers.map((entry) => (
             <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
               <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
