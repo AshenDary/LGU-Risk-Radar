@@ -81,7 +81,7 @@ function normalizeRiskLevel(level, score) {
 }
 
 function getLabelWidth(name, markerSize) {
-  return Math.max(10, name.length * 1.05) * markerSize
+  return Math.max(13, name.length * 1.08 + 4.4) * markerSize
 }
 
 function PhilippinesMap() {
@@ -298,22 +298,41 @@ function PhilippinesMap() {
                   <g className="pointer-events-none">
                     <rect
                       x={position.x - labelWidth / 2}
-                      y={position.y - 6.9 * labelSize}
+                      y={position.y - 7.4 * labelSize}
                       width={labelWidth}
-                      height={2.45 * labelSize}
-                      rx={0.55 * labelSize}
-                      fill="#FFFFFF"
+                      height={3.5 * labelSize}
+                      rx={1.25 * labelSize}
+                      fill="#EFF6FF"
                       stroke="#2563EB"
-                      strokeWidth={0.08 * labelSize}
-                      opacity="0.97"
+                      strokeOpacity="0.3"
+                      strokeWidth={0.16 * labelSize}
+                    />
+                    <circle
+                      cx={position.x - labelWidth / 2 + 2.2 * labelSize}
+                      cy={position.y - 5.65 * labelSize}
+                      r={1.05 * labelSize}
+                      fill="#FFFFFF"
+                      stroke="#38BDF8"
+                      strokeOpacity="0.6"
+                      strokeWidth={0.14 * labelSize}
                     />
                     <text
-                      x={position.x}
+                      x={position.x - labelWidth / 2 + 2.2 * labelSize}
                       y={position.y - 5.25 * labelSize}
                       fill="#2563EB"
-                      fontSize={0.92 * labelSize}
-                      fontWeight="800"
+                      fontSize={0.95 * labelSize}
+                      fontWeight="900"
                       textAnchor="middle"
+                    >
+                      i
+                    </text>
+                    <text
+                      x={position.x - labelWidth / 2 + 4.1 * labelSize}
+                      y={position.y - 5.18 * labelSize}
+                      fill="#2563EB"
+                      fontSize={1.03 * labelSize}
+                      fontWeight="700"
+                      textAnchor="start"
                     >
                       {hoveredCity}
                     </text>
