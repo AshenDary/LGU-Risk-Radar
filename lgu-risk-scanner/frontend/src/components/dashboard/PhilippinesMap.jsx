@@ -34,8 +34,8 @@ const riskStyles = {
   Low: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-500/30',
 }
 
-const luzonNcrViewBox = '190 210 210 260'
-const luzonNcrCenter = { x: 295, y: 340 }
+const luzonNcrViewBox = '255 330 75 55'
+const luzonNcrCenter = { x: 292.5, y: 357.5 }
 
 function normalizeName(name) {
   return name.replace(/^City of /, '').replace(/^Municipality of /, '')
@@ -161,12 +161,12 @@ function PhilippinesMap() {
                 ))}
               </g>
 
-              <circle cx="280.5" cy="355.2" r="22" fill="#2563EB" opacity="0.12" />
-              <circle cx="280.5" cy="355.2" r="10" fill="#2563EB" opacity="0.18" />
-              <text x="304" y="350" fill="#0F172A" fontSize="12" fontWeight="800">
+              <circle cx="280.5" cy="355.2" r="14" fill="#2563EB" opacity="0.10" />
+              <circle cx="280.5" cy="355.2" r="6" fill="#2563EB" opacity="0.16" />
+              <text x="289" y="343" fill="#0F172A" fontSize="3.8" fontWeight="800">
                 Metro Manila
               </text>
-              <text x="304" y="365" fill="#2563EB" fontSize="8" fontWeight="700">
+              <text x="289" y="348" fill="#2563EB" fontSize="2.8" fontWeight="700">
                 NCR sample risk points
               </text>
 
@@ -183,7 +183,18 @@ function PhilippinesMap() {
                 return (
                   <g key={row.name}>
                     <title>{`${row.name}: ${row.score} (${row.riskLevel})`}</title>
-                    <circle cx={position.x} cy={position.y} r="4.8" fill={color} stroke="#FFFFFF" strokeWidth="1.6" />
+                    <circle cx={position.x} cy={position.y} r="3.6" fill={color} opacity="0.16" />
+                    <circle cx={position.x} cy={position.y} r="2.1" fill={color} stroke="#FFFFFF" strokeWidth="0.45" />
+                    <text
+                      x={position.x}
+                      y={position.y + 0.75}
+                      fill="#FFFFFF"
+                      fontSize="1.55"
+                      fontWeight="900"
+                      textAnchor="middle"
+                    >
+                      {Math.round(row.score)}
+                    </text>
                   </g>
                 )
               })}
