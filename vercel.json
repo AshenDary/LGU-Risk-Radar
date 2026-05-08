@@ -1,5 +1,6 @@
 {
-  "buildCommand": "cd lgu-risk-scanner/frontend && npm ci && npm run build",
+  "installCommand": "cd lgu-risk-scanner/frontend && npm ci",
+  "buildCommand": "cd lgu-risk-scanner/frontend && npm run build",
   "outputDirectory": "lgu-risk-scanner/frontend/dist",
   "rewrites": [
     {

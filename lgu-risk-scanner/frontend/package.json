@@ -2,6 +2,9 @@
   "name": "lgu-risk-scanner-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
     "@vitejs/plugin-react": "^6.0.1",
