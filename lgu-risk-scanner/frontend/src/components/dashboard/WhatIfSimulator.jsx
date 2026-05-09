@@ -191,8 +191,8 @@ function WhatIfSimulator() {
         </div>
       ) : null}
 
-      <div className="mb-8 grid gap-4 md:grid-cols-2">
-        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-5">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <div className="w-full rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-5">
           <p className="text-sm font-semibold text-[#475569]">Current Risk Score</p>
           <p className="mt-2 text-4xl font-black tracking-tight text-[#0F172A]">{currentScore}</p>
           <p className="mt-2 text-sm font-medium text-[#2563EB]">
@@ -200,27 +200,25 @@ function WhatIfSimulator() {
           </p>
         </div>
 
-        <div className="rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-5">
+        <div className="w-full rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] p-5">
           <p className="text-sm font-semibold text-[#475569]">Simulated Risk Score</p>
           <p className="mt-2 text-4xl font-black tracking-tight text-[#0F172A]">{simulatedScore}</p>
           <p className="mt-2 text-sm font-medium text-[#2563EB]">
             {simulatedLevel ? `${simulatedLevel} Risk` : 'Adjust the sliders to generate a projection'}
           </p>
         </div>
-      </div>
 
-      {simulationResult?.explanation ? (
-        <div className="mb-8 rounded-2xl border border-[#38BDF8]/20 bg-white p-5 shadow-sm shadow-slate-200/70">
-          <p className="text-sm font-semibold text-[#0F172A]">AI Analysis</p>
-          <MarkdownText text={simulationResult.explanation} className="mt-3 text-sm leading-6 text-[#475569]" />
-        </div>
-      ) : null}
+        {simulationResult?.explanation ? (
+          <div className="w-full rounded-2xl border border-[#38BDF8]/20 bg-white p-5 shadow-sm shadow-slate-200/70 lg:col-span-2">
+            <p className="text-sm font-semibold text-[#0F172A]">AI Analysis</p>
+            <MarkdownText text={simulationResult.explanation} className="mt-3 text-sm leading-6 text-[#475569]" />
+          </div>
+        ) : null}
 
-      <div className="grid gap-5 lg:grid-cols-2">
         {sliderConfig.map((item) => (
           <label
             key={item.key}
-            className="block rounded-2xl border border-[#38BDF8]/20 bg-white p-4 shadow-sm shadow-[#2563EB]/5 transition-all duration-200 ease-out hover:border-[#38BDF8]/45 hover:shadow-lg hover:shadow-[#2563EB]/10 sm:p-5"
+            className="block w-full rounded-2xl border border-[#38BDF8]/20 bg-white p-4 shadow-sm shadow-[#2563EB]/5 transition-all duration-200 ease-out hover:border-[#38BDF8]/45 hover:shadow-lg hover:shadow-[#2563EB]/10 sm:p-5"
           >
             <div className="mb-3 flex items-center justify-between gap-4">
               <span className="min-w-0 text-sm font-bold leading-5 text-[#0F172A]">{item.label}</span>
