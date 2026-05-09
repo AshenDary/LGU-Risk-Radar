@@ -185,7 +185,7 @@ function WhatIfSimulator() {
       ) : null}
 
       {loading ? (
-        <div className="mb-6 rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] px-4 py-3 text-sm text-[#475569]">
+        <div className="mb-6 flex w-full animate-pulse items-center justify-center rounded-2xl border border-blue-200 bg-blue-50 px-4 py-4 text-sm font-medium text-blue-600">
           Running simulation...
         </div>
       ) : null}
