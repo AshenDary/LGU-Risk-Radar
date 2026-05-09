@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import Badge from '../components/ui/Badge'
 import Button from '../components/ui/Button'
 import Card from '../components/ui/Card'
 import DropdownSelect from '../components/ui/DropdownSelect'
-import MarkdownText from '../components/common/MarkdownText'
 import { useRiskData } from '../hooks/useRiskData'
 import { compareLGUProfiles } from '../services/api'
 import { getRiskBadgeClass } from '../utils/riskLevels'
@@ -149,7 +150,38 @@ function CompareLGUsPage() {
                 ) : result.error ? (
                   <p className="mt-5 break-words rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{result.error}</p>
                 ) : (
-                  <MarkdownText text={result.text} className="mt-5 break-words rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium leading-6 text-[#0F172A]" />
+                  <div className="mt-5 break-words rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-sm font-medium leading-7 text-[#0F172A]">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        table: ({ children }) => (
+                          <div className="my-4 overflow-x-auto">
+                            <table className="w-full border-collapse overflow-hidden rounded-xl border border-blue-100">
+                              {children}
+                            </table>
+                          </div>
+                        ),
+                        th: ({ children }) => (
+                          <th className="border border-blue-100 bg-blue-50 px-4 py-3 text-left font-semibold text-slate-900">
+                            {children}
+                          </th>
+                        ),
+                        td: ({ children }) => (
+                          <td className="border border-blue-100 px-4 py-3 text-slate-700">
+                            {children}
+                          </td>
+                        ),
+                        p: ({ children }) => (
+                          <p className="mb-4 leading-7">{children}</p>
+                        ),
+                        strong: ({ children }) => (
+                          <strong className="font-semibold text-slate-900">{children}</strong>
+                        ),
+                      }}
+                    >
+                      {result.text}
+                    </ReactMarkdown>
+                  </div>
                 )}
                 {result.fallbackReason && (
                   <p className="mt-3 text-xs text-amber-700">Using fallback: {result.fallbackReason}</p>
