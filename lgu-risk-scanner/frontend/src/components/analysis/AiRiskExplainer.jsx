@@ -252,7 +252,7 @@ function AiRiskExplainer({ item }) {
                 ))}
               </div>
             ) : (
-              <p className="text-sm font-medium leading-6 text-[#2563EB]">
+              <p className="flex min-h-[40px] items-center justify-center text-center text-sm font-medium leading-6 text-[#2563EB]">
                 Ask a question or choose a prompt above. Answers will appear here.
               </p>
             )}
