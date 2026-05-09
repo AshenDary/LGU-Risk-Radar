@@ -156,8 +156,9 @@ function AiRiskExplainer({ item }) {
         <div className="dashboard-scrollbar flex min-h-0 flex-col gap-4 overflow-y-auto p-5 sm:p-6 md:p-7">
           <div className="flex shrink-0 items-start justify-between gap-4">
             <div className="min-w-0">
-              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">AI risk assistant</p>
-              <h4 className="mt-1.5 break-words text-xl font-black leading-tight text-[#0F172A]">Ask about {input.name}</h4>
+              <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">Bantay Bayan AI Risk Assistant</p>
+              <h4 className="mt-1.5 break-words text-xl font-black leading-tight text-[#0F172A]">BantAI</h4>
+              <p className="mt-1 break-words text-sm font-semibold leading-5 text-[#2563EB]">Ask about {input.name}</p>
             </div>
             <button
               type="button"
@@ -168,6 +169,17 @@ function AiRiskExplainer({ item }) {
               x
             </button>
           </div>
+
+          {answers.length === 0 ? (
+            <div className="rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] p-4 text-center shadow-sm shadow-[#2563EB]/5">
+              <p className="text-sm font-semibold leading-6 text-[#0F172A]">
+                Hello! I&apos;m BantAI, your AI-powered assistant for Bantay Bayan. I can help explain LGU risk scores, procurement exposure, audit findings, rankings, simulations, and other governance insights available in this platform.
+              </p>
+              <p className="mt-2 text-xs font-medium leading-5 text-[#2563EB]">
+                Ask about procurement risks, audit findings, supplier concentration, rankings, or simulated LGU scenarios.
+              </p>
+            </div>
+          ) : null}
 
           <div className="flex flex-wrap justify-center gap-3">
             <button
@@ -201,7 +213,7 @@ function AiRiskExplainer({ item }) {
             <textarea
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
-              placeholder="Ask a reviewer-style question"
+              placeholder="Ask BantAI about LGU risks, procurement exposure, or audit findings..."
               rows={3}
               className="min-h-[108px] resize-none rounded-2xl border border-[#38BDF8]/30 bg-white px-4 py-3 text-sm leading-6 text-[#0F172A] outline-none placeholder:text-slate-400 focus:border-[#2563EB] focus:ring-4 focus:ring-[#38BDF8]/15"
             />
@@ -253,7 +265,7 @@ function AiRiskExplainer({ item }) {
               </div>
             ) : (
               <p className="flex min-h-[40px] items-center justify-center text-center text-sm font-medium leading-6 text-[#2563EB]">
-                Ask a question or choose a prompt above. Answers will appear here.
+                BantAI responses and governance insights will appear here.
               </p>
             )}
           </div>
@@ -270,7 +282,7 @@ function AiRiskExplainer({ item }) {
         <div className="flex shrink-0 items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-[#2563EB]">
-              {explanationState.usedAi ? 'AI risk assistant' : 'Risk assistant'}
+              {explanationState.usedAi ? 'BantAI' : 'Bantay Bayan AI Risk Assistant'}
             </p>
             <h3 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{input.name}</h3>
             {explanationState.model && (
@@ -319,7 +331,7 @@ function AiRiskExplainer({ item }) {
             onClick={() => setIsAskOpen(true)}
             className="min-h-10 rounded-xl border border-[#38BDF8]/35 bg-[#EFF6FF] px-3 py-2 text-xs font-bold leading-4 text-[#2563EB] transition hover:border-[#2563EB]/50 hover:bg-[#DBEAFE]"
           >
-            Ask assistant
+            Ask BantAI
           </button>
         </div>
 

@@ -26,6 +26,43 @@ NCR_CITY_NAMES = [
     "Valenzuela",
 ]
 
+BANTAI_SYSTEM_PROMPT = (
+    "You are BantAI, the Bantay Bayan AI Risk Assistant. You only answer questions related to LGU risk analysis, "
+    "procurement exposure, audit findings, governance insights, rankings, simulations, and information shown within "
+    "the Bantay Bayan platform. Politely refuse unrelated questions."
+)
+BANTAI_SCOPE_REFUSAL = "I'm BantAI, and I can only answer questions related to Bantay Bayan and its governance analytics."
+BANTAI_SCOPE_KEYWORDS = {
+    "audit",
+    "auditor",
+    "bantay",
+    "bayan",
+    "budget",
+    "city",
+    "coa",
+    "compare",
+    "completion",
+    "corruption",
+    "exposure",
+    "escalate",
+    "evidence",
+    "factor",
+    "finding",
+    "governance",
+    "government",
+    "insight",
+    "lgu",
+    "municipality",
+    "procurement",
+    "ranking",
+    "record",
+    "review",
+    "risk",
+    "score",
+    "simulation",
+    "supplier",
+}
+
 
 class LLMService:
     """
@@ -85,7 +122,9 @@ Provide a clear, actionable explanation suitable for government officials."""
         question: str,
     ) -> str:
         factors_json = json.dumps(factors or {}, ensure_ascii=False, indent=2)
-        return f"""You are helping a government reviewer understand an LGU risk assessment.
+        return f"""{BANTAI_SYSTEM_PROMPT}
+
+You are helping a government reviewer understand an LGU risk assessment.
 Answer the user's question using only the risk profile below. If the data is not enough, say what additional records should be checked.
 Keep the answer practical, concise, and evidence-aware. Do not claim proven corruption.
 If the user only greets you, greet them back and invite a risk-review question.
@@ -102,6 +141,17 @@ Contributing Factors:
 Reviewer Question: {question}
 
 Answer:"""
+
+    def is_bantay_related_question(self, question: str) -> bool:
+        normalized_question = question.lower().strip()
+        if not normalized_question:
+            return True
+
+        simple_greetings = {"hello", "hi", "hey", "good morning", "good afternoon", "good evening"}
+        if normalized_question.strip(" .!?") in simple_greetings:
+            return True
+
+        return any(keyword in normalized_question for keyword in BANTAI_SCOPE_KEYWORDS)
 
     def build_fallback_answer(
         self,
@@ -193,7 +243,7 @@ Answer:"""
                 "messages": [
                     {
                         "role": "system",
-                        "content": "You explain LGU risk assessments in concise, evidence-aware language.",
+                        "content": BANTAI_SYSTEM_PROMPT,
                     },
                     {"role": "user", "content": prompt},
                 ],
@@ -339,6 +389,13 @@ Answer:"""
         question: str,
     ) -> dict[str, Any]:
         factors = factors or {}
+        if not self.is_bantay_related_question(question):
+            return {
+                "answer": BANTAI_SCOPE_REFUSAL,
+                "used_ai": False,
+                "fallback_reason": "",
+            }
+
         fallback = self.build_fallback_answer(lgu_name, risk_score, risk_level, factors, question)
         result = self._generate_from_prompt(
             self.build_question_prompt(lgu_name, risk_score, risk_level, factors, question),
