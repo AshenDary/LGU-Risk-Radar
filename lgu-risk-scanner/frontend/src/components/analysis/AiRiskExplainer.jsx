@@ -3,13 +3,7 @@ import { createPortal } from 'react-dom'
 import ReactMarkdown from 'react-markdown'
 import { askExplanationQuestion, generateExplanation } from '../../services/api'
 import MarkdownText from '../common/MarkdownText'
-
-const SCORE_BY_LEVEL = {
-  Critical: 90,
-  High: 80,
-  Medium: 55,
-  Low: 25,
-}
+import { getRiskLevelLabel, normalizeRiskLevel } from '../../utils/riskLevels'
 
 const QUICK_QUESTIONS = [
   'Why is this risky?',
@@ -20,8 +14,8 @@ const QUICK_QUESTIONS = [
 
 function buildExplanationInput(item) {
   const name = item.name || item.city || item.entity_id || 'Selected LGU'
-  const riskLevel = item.riskLevel || 'Medium'
-  const riskScore = typeof item.score === 'number' ? item.score : SCORE_BY_LEVEL[riskLevel] || 55
+  const riskScore = typeof item.score === 'number' ? item.score : 55
+  const riskLevel = normalizeRiskLevel(item.riskLevel || getRiskLevelLabel(riskScore), riskScore)
   const factors = item.factors && Object.keys(item.factors).length > 0
     ? item.factors
     : {

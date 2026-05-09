@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { getRiskBadgeClass } from '../../utils/riskLevels'
 
 function DashboardPreview() {
   const bars = [58, 74, 46, 88, 63, 92, 41, 77]
@@ -19,12 +20,12 @@ function DashboardPreview() {
 
         <div className="grid gap-3 sm:grid-cols-3">
           {[
-            ['312', 'High Risk', 'bg-red-50 text-red-700'],
+            ['312', 'High Risk', getRiskBadgeClass('High')],
             ['54.7', 'Avg Score', 'bg-amber-50 text-amber-700'],
-            ['78', 'Critical', 'bg-blue-50 text-[#2563EB]'],
+            ['78', 'Critical', getRiskBadgeClass('Critical')],
           ].map(([value, label, tone]) => (
             <div key={label} className="rounded-2xl border border-[#38BDF8]/35 bg-white p-4 shadow-sm shadow-slate-200/80">
-              <p className={`inline-flex rounded-full px-2.5 py-1 text-xs font-bold ${tone}`}>{label}</p>
+              <p className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-bold ${tone}`}>{label}</p>
               <p className="mt-3 text-2xl font-black text-[#0F172A]">{value}</p>
             </div>
           ))}

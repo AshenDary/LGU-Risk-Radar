@@ -4,6 +4,7 @@ import InfoBanner from '../common/InfoBanner'
 import { getNCRScoresForChart } from '../../data/mockData'
 import { philippinesCountryPaths, philippinesMapViewBox } from '../../data/philippinesMapPaths'
 import { useRiskData } from '../../hooks/useRiskData'
+import { RISK_LEVEL_ORDER, getRiskBadgeClass, getRiskLevelColor, normalizeRiskLevel } from '../../utils/riskLevels'
 
 const mapPositions = {
   Manila: { x: 278.5, y: 354 },
@@ -26,13 +27,6 @@ const mapPositions = {
   'San Juan': { x: 281.7, y: 353.7 },
   Taguig: { x: 282, y: 358.3 },
   Valenzuela: { x: 278.4, y: 348.6 },
-}
-
-const riskStyles = {
-  Critical: 'border-red-500 bg-red-500 text-white shadow-red-500/30',
-  High: 'border-orange-500 bg-orange-500 text-white shadow-orange-500/30',
-  Medium: 'border-amber-400 bg-amber-300 text-[#78350F] shadow-amber-400/25',
-  Low: 'border-emerald-500 bg-emerald-500 text-white shadow-emerald-500/30',
 }
 
 const mapViews = {
@@ -70,14 +64,6 @@ function parseViewBox(viewBox) {
 
 function normalizeName(name) {
   return name.replace(/^City of /, '').replace(/^Municipality of /, '')
-}
-
-function normalizeRiskLevel(level, score) {
-  if (level) return level
-  if (score >= 85) return 'Critical'
-  if (score >= 75) return 'High'
-  if (score >= 40) return 'Medium'
-  return 'Low'
 }
 
 function getLabelWidth(name, markerSize) {
@@ -253,13 +239,7 @@ function PhilippinesMap() {
               <circle cx="280.5" cy="355.2" r="6" fill="#2563EB" opacity="0.16" />
               {rows.map((row) => {
                 const position = mapPositions[row.name]
-                const color = row.riskLevel === 'Critical'
-                  ? '#EF4444'
-                  : row.riskLevel === 'High'
-                    ? '#F97316'
-                    : row.riskLevel === 'Medium'
-                      ? '#FBBF24'
-                      : '#10B981'
+                const color = getRiskLevelColor(row.riskLevel, row.score)
 
                 return (
                   <g
@@ -328,10 +308,10 @@ function PhilippinesMap() {
           </svg>
 
           <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 rounded-2xl border border-white/70 bg-white/85 p-3 text-xs font-bold text-[#0F172A] shadow-sm">
-            {Object.entries(riskStyles).map(([level, classes]) => (
-              <span key={level} className="inline-flex items-center gap-2">
-                <span className={`h-3 w-3 rounded-full border ${classes}`} />
-                {level}
+            {RISK_LEVEL_ORDER.map((level) => (
+              <span key={level.label} className="inline-flex items-center gap-2">
+                <span className={`h-3 w-3 rounded-full border ${getRiskBadgeClass(level.label)}`} />
+                {level.label}
               </span>
             ))}
           </div>

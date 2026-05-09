@@ -1,3 +1,4 @@
+import { getRiskLevelLabel } from '../utils/riskLevels'
 
 const MONTHS = [
   "January", "February", "March", "April", "May",
@@ -9,9 +10,7 @@ export { MONTHS };
  
 /** Derive risk level from a numeric score (0–100). */
 export function getRiskLevel(score) {
-  if (score >= 70) return "High";
-  if (score >= 40) return "Medium";
-  return "Low";
+  return getRiskLevelLabel(score);
 }
  
 // ── NCR City Master List ──────────────────────────────────────
@@ -288,9 +287,9 @@ export function calculateSummaryStats() {
   });
 
   const totalLGUs = NCR_CITIES.length;
-  const highRisk = latestScores.filter(score => score >= 70).length;
+  const highRisk = latestScores.filter(score => ["High", "Critical"].includes(getRiskLevel(score))).length;
   const avgRisk = (latestScores.reduce((a, b) => a + b, 0) / latestScores.length).toFixed(1);
-  const critical = latestScores.filter(score => score >= 85).length;
+  const critical = latestScores.filter(score => getRiskLevel(score) === "Critical").length;
 
   return {
     totalLGUs,

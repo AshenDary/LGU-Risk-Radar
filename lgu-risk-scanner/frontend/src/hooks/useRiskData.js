@@ -1,20 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { fetchAudits, fetchLGUs, fetchProcurements, fetchRiskScores } from '../services/api'
+import { getRiskLevelLabel, normalizeRiskLevel } from '../utils/riskLevels'
 
 let cachedRiskData = null
 let pendingRiskData = null
-
-function normalizeRiskLevel(level) {
-  if (!level) return 'Low'
-  return `${level}`.charAt(0).toUpperCase() + `${level}`.slice(1).toLowerCase()
-}
-
-function riskLevelFromScore(score) {
-  if (score >= 85) return 'Critical'
-  if (score >= 75) return 'High'
-  if (score >= 40) return 'Medium'
-  return 'Low'
-}
 
 function formatDetails(details) {
   if (!details || Object.keys(details).length === 0) return 'No additional details'
@@ -65,7 +54,7 @@ export function useRiskData() {
               const riskScore = riskScoreByLgu.get(lgu.id)
               const lguProcurements = procurements.filter((item) => item.lgu_id === lgu.id)
               const score = Number(riskScore?.score ?? 0)
-              const riskLevel = normalizeRiskLevel(riskScore?.risk_level || riskLevelFromScore(score))
+              const riskLevel = normalizeRiskLevel(riskScore?.risk_level, score)
               const totalAmount = lguProcurements.reduce((sum, item) => sum + Number(item.amount || 0), 0)
 
               return {
@@ -125,9 +114,9 @@ export function useRiskData() {
       ...state,
       summary: {
         totalLGUs,
-        highRisk: state.lguRiskRows.filter((item) => item.score >= 75).length,
+        highRisk: state.lguRiskRows.filter((item) => ['High', 'Critical'].includes(getRiskLevelLabel(item.score))).length,
         avgRisk,
-        critical: state.lguRiskRows.filter((item) => item.score >= 85).length,
+        critical: state.lguRiskRows.filter((item) => getRiskLevelLabel(item.score) === 'Critical').length,
       },
       chartRows: sortedByRisk.map((item) => ({
         name: item.name.replace(/^City of /, '').replace(/^Municipality of /, ''),
@@ -145,7 +134,7 @@ export function useRiskData() {
           city: lgu?.name || cleanLguName(entry.entity_id),
           action: entry.action,
           details: formatDetails(entry.details),
-          riskLevel: entry.details?.severity || (entry.action === 'upsert' ? 'Medium' : 'Low'),
+          riskLevel: normalizeRiskLevel(entry.details?.severity, entry.action === 'upsert' ? 45 : 15),
           category: entry.details?.category || 'System',
           amount: Number(entry.details?.amount || 0),
           recommendation: entry.details?.recommendation || '',

@@ -1,16 +1,7 @@
 import InfoBanner from '../common/InfoBanner'
+import { getRiskLevelColor } from '../../utils/riskLevels'
 
 function TopTrustworthyLGUs({ data }) {
-  const getRiskLevelColor = (riskLevel) => {
-    const colors = {
-      Critical: '#dc2626',
-      High: '#ea580c',
-      Medium: '#eab308',
-      Low: '#16a34a',
-    }
-    return colors[riskLevel] || '#666'
-  }
-
   return (
     <div className="premium-card premium-hover reveal-on-scroll overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
       <div className="flex items-center justify-between border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-6">

@@ -3,6 +3,7 @@ import Card from '../ui/Card'
 import DropdownSelect from '../ui/DropdownSelect'
 import { fetchLGUs, fetchRiskByLGU, simulateRisk } from '../../services/api'
 import MarkdownText from '../common/MarkdownText'
+import { normalizeRiskLevel } from '../../utils/riskLevels'
 
 const sliderConfig = [
   {
@@ -142,9 +143,13 @@ function WhatIfSimulator() {
   }
 
   const currentScore = currentRiskData?.risk_score?.score ?? '—'
-  const currentLevel = currentRiskData?.risk_score?.risk_level
+  const currentLevel = currentRiskData?.risk_score
+    ? normalizeRiskLevel(currentRiskData.risk_score.risk_level, Number(currentRiskData.risk_score.score || 0))
+    : ''
   const simulatedScore = simulationResult?.score ?? '—'
-  const simulatedLevel = simulationResult?.risk_level
+  const simulatedLevel = simulationResult
+    ? normalizeRiskLevel(simulationResult.risk_level, Number(simulationResult.score || 0))
+    : ''
   const selectedLgu = lgus.find((lgu) => lgu.id === selectedLguId)
 
   return (

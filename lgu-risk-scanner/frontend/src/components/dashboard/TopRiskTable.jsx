@@ -1,12 +1,6 @@
 import Badge from '../ui/Badge'
 import Card from '../ui/Card'
-
-const riskLevelClasses = {
-  Critical: 'border-red-200 bg-red-50 text-red-700',
-  High: 'border-orange-200 bg-orange-50 text-orange-700',
-  Medium: 'border-yellow-200 bg-yellow-50 text-yellow-700',
-  Low: 'border-green-200 bg-green-50 text-green-700',
-}
+import { getRiskBadgeClass } from '../../utils/riskLevels'
 
 function TopRiskTable({ rows, selectedId, onSelect }) {
   const visibleRows = rows.slice(0, 5)
@@ -62,7 +56,7 @@ function TopRiskTable({ rows, selectedId, onSelect }) {
                 <td className={`rounded-r-2xl px-2 py-5 transition group-hover:bg-[#F8FAFC] sm:px-4 ${
                   selectedId === item.id ? 'bg-[#EFF6FF]' : ''
                 }`}>
-                  <Badge className={riskLevelClasses[item.riskLevel]}>{item.riskLevel}</Badge>
+                  <Badge className={getRiskBadgeClass(item.riskLevel, item.score)}>{item.riskLevel}</Badge>
                 </td>
               </tr>
             ))}

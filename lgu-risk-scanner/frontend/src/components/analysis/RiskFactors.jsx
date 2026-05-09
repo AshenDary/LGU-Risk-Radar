@@ -1,3 +1,5 @@
+import { getRiskLevelColor } from '../../utils/riskLevels'
+
 const factorLabels = {
   procurement_volume_risk: 'Procurement Volume',
   supplier_concentration_risk: 'Supplier Concentration',
@@ -20,12 +22,6 @@ function RiskFactors({ rows }) {
       }
     })
     .sort((a, b) => b.impactPercentage - a.impactPercentage)
-
-  const getRiskColor = (percentage) => {
-    if (percentage >= 30) return '#DC2626'
-    if (percentage >= 15) return '#EAB308'
-    return '#16A34A'
-  }
 
   return (
     <div className="grid gap-8">
@@ -61,8 +57,8 @@ function RiskFactors({ rows }) {
                           style={{
                             '--progress-delay': `${index * 70}ms`,
                             width: `${Math.min(100, factor.impactPercentage)}%`,
-                            backgroundColor: getRiskColor(factor.impactPercentage),
-                            boxShadow: `0 4px 12px ${getRiskColor(factor.impactPercentage)}33`,
+                            backgroundColor: getRiskLevelColor(factor.impactPercentage),
+                            boxShadow: `0 4px 12px ${getRiskLevelColor(factor.impactPercentage)}33`,
                           }}
                         />
                       </div>

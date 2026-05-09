@@ -7,13 +7,7 @@ import DropdownSelect from '../components/ui/DropdownSelect'
 import MarkdownText from '../components/common/MarkdownText'
 import { useRiskData } from '../hooks/useRiskData'
 import { compareLGUProfiles } from '../services/api'
-
-const riskVariant = {
-  Critical: 'danger',
-  High: 'danger',
-  Medium: 'warning',
-  Low: 'success',
-}
+import { getRiskBadgeClass } from '../utils/riskLevels'
 
 function ProfileCard({ lgu }) {
   if (!lgu) return null
@@ -28,7 +22,7 @@ function ProfileCard({ lgu }) {
           <h2 className="mt-2 break-words text-2xl font-black text-[#0F172A]">{lgu.name}</h2>
           <p className="mt-1 text-sm font-medium text-[#2563EB]">{lgu.location || 'NCR city'}</p>
         </div>
-        <Badge variant={riskVariant[lgu.riskLevel] || 'default'}>{lgu.riskLevel}</Badge>
+        <Badge className={getRiskBadgeClass(lgu.riskLevel, lgu.score)}>{lgu.riskLevel}</Badge>
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4">

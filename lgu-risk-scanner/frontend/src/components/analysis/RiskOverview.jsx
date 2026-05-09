@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import DropdownSelect from '../ui/DropdownSelect'
+import { getRiskLevelColor } from '../../utils/riskLevels'
 
 function RiskOverview({ rows, procurements }) {
   const [selectedLgu, setSelectedLgu] = useState('all')
@@ -50,12 +51,6 @@ function RiskOverview({ rows, procurements }) {
   const selectedName = rows.find((item) => item.id === selectedLgu)?.name || 'Selected LGU'
   const selectedLabel = selectedLgu === 'all' ? 'All LGUs' : selectedName
 
-  const getRiskColor = (score) => {
-    if (score >= 75) return '#dc2626'
-    if (score >= 40) return '#eab308'
-    return '#16a34a'
-  }
-
   return (
     <div className="grid gap-8">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -68,7 +63,7 @@ function RiskOverview({ rows, procurements }) {
         <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
           <div className="mb-2 text-sm font-semibold text-[#2563EB]">Highest Risk LGU</div>
           <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.highest.name}</div>
-          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.highest.score) }}>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskLevelColor(riskExtremes.highest.score) }}>
             {riskExtremes.highest.score.toFixed(2)}
           </div>
         </div>
@@ -76,7 +71,7 @@ function RiskOverview({ rows, procurements }) {
         <div className="premium-card premium-hover reveal-on-scroll rounded-2xl p-6 sm:p-7">
           <div className="mb-2 text-sm font-semibold text-[#2563EB]">Lowest Risk LGU</div>
           <div className="text-lg font-bold text-[#0F172A]">{riskExtremes.lowest.name}</div>
-          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskColor(riskExtremes.lowest.score) }}>
+          <div className="mt-2 text-2xl font-extrabold" style={{ color: getRiskLevelColor(riskExtremes.lowest.score) }}>
             {riskExtremes.lowest.score.toFixed(2)}
           </div>
         </div>

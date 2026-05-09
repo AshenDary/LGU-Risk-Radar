@@ -3,13 +3,7 @@ import AiRiskExplainer from '../components/analysis/AiRiskExplainer'
 import DashboardLayout from '../components/layout/DashboardLayout'
 import DropdownSelect from '../components/ui/DropdownSelect'
 import { useRiskData } from '../hooks/useRiskData'
-
-const severityColors = {
-  Critical: '#dc2626',
-  High: '#ea580c',
-  Medium: '#eab308',
-  Low: '#16a34a',
-}
+import { getRiskLevelColor } from '../utils/riskLevels'
 
 function AuditExplorerPage() {
   const [sortConfig, setSortConfig] = useState({ key: 'timestamp', direction: 'desc' })
@@ -145,7 +139,7 @@ function AuditExplorerPage() {
                     />
                     <DropdownSelect
                       value={severityFilter}
-                      options={['All', 'High', 'Medium', 'Low']}
+                      options={['All', 'Critical', 'High', 'Medium', 'Low']}
                       onChange={setSeverityFilter}
                       getOptionLabel={(option) => (option === 'All' ? 'All severity' : option)}
                     />
@@ -195,7 +189,7 @@ function AuditExplorerPage() {
                           <td className={`rounded-l-2xl px-3 py-5 transition group-hover:bg-[#F8FAFC] sm:px-4 ${selectedLog?.logId === log.logId ? 'bg-[#EFF6FF]' : ''}`}>
                             <span
                               className="rounded-full px-3 py-1 text-xs font-bold text-white shadow-sm"
-                              style={{ backgroundColor: severityColors[log.riskLevel] || '#666' }}
+                              style={{ backgroundColor: getRiskLevelColor(log.riskLevel) }}
                             >
                               {log.riskLevel}
                             </span>

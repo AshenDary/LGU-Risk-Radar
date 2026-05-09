@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { RISK_LEVEL_ORDER, getRiskLevelColor } from '../../utils/riskLevels'
 
 function NCRScoreChart({ data }) {
   const [showAllCities, setShowAllCities] = useState(false)
@@ -7,14 +8,8 @@ function NCRScoreChart({ data }) {
   const maxScore = Math.max(1, ...sortedData.map((item) => item.score))
 
   const getRiskLevelGradient = (riskLevel) => {
-    const gradients = {
-      Critical: 'linear-gradient(180deg, #ef4444 0%, #dc2626 58%, #b91c1c 100%)',
-      High: 'linear-gradient(180deg, #f97316 0%, #ea580c 58%, #c2410c 100%)',
-      Medium: 'linear-gradient(180deg, #facc15 0%, #eab308 58%, #ca8a04 100%)',
-      Low: 'linear-gradient(180deg, #22c55e 0%, #16a34a 58%, #15803d 100%)',
-    }
-
-    return gradients[riskLevel] || 'linear-gradient(180deg, #94a3b8 0%, #64748b 58%, #475569 100%)'
+    const color = getRiskLevelColor(riskLevel)
+    return `linear-gradient(180deg, ${color} 0%, ${color} 100%)`
   }
 
   const riskCounts = {
@@ -93,19 +88,14 @@ function NCRScoreChart({ data }) {
         </div>
 
         <div className="grid gap-5 p-8 sm:grid-cols-2 xl:grid-cols-4">
-          {[
-            { label: 'Low Risk', count: riskCounts.Low, color: '#16a34a' },
-            { label: 'Medium Risk', count: riskCounts.Medium, color: '#eab308' },
-            { label: 'High Risk', count: riskCounts.High, color: '#ea580c' },
-            { label: 'Critical Risk', count: riskCounts.Critical, color: '#dc2626' },
-          ].map((item) => (
-            <div key={item.label} className="rounded-2xl border border-[#38BDF8]/20 bg-white px-5 py-4 shadow-lg shadow-slate-200/70">
+          {RISK_LEVEL_ORDER.map((level) => (
+            <div key={level.label} className="rounded-2xl border border-[#38BDF8]/20 bg-white px-5 py-4 shadow-lg shadow-slate-200/70">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="h-3 w-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }} />
-                  <span className="text-sm font-semibold text-slate-700">{item.label}</span>
+                  <div className="h-3 w-3 rounded-full shadow-sm" style={{ backgroundColor: level.color }} />
+                  <span className="text-sm font-semibold text-slate-700">{level.label} Risk</span>
                 </div>
-                <span className="text-lg font-bold text-[#0F172A]">{item.count}</span>
+                <span className="text-lg font-bold text-[#0F172A]">{riskCounts[level.label]}</span>
               </div>
             </div>
           ))}

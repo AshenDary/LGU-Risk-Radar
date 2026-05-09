@@ -1,12 +1,6 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import Card from '../ui/Card'
-
-const categoryColors = {
-  Critical: '#DC2626',
-  High: '#F97316',
-  Medium: '#EAB308',
-  Low: '#16A34A',
-}
+import { getRiskLevelColor } from '../../utils/riskLevels'
 
 function RiskDistributionChart({ data }) {
   const riskDistributionData = data || []
@@ -31,7 +25,7 @@ function RiskDistributionChart({ data }) {
               paddingAngle={3}
             >
               {riskDistributionData.map((entry) => (
-                <Cell key={entry.name} fill={categoryColors[entry.name]} />
+                <Cell key={entry.name} fill={getRiskLevelColor(entry.name)} />
               ))}
             </Pie>
             <Tooltip
@@ -51,7 +45,7 @@ function RiskDistributionChart({ data }) {
           <div key={item.name} className="flex items-center gap-2 rounded-2xl border border-[#38BDF8]/20 bg-[#F8FAFC] px-3 py-2 text-sm font-semibold text-[#0F172A]">
             <span
               className="h-2.5 w-2.5 rounded-full"
-              style={{ backgroundColor: categoryColors[item.name] }}
+              style={{ backgroundColor: getRiskLevelColor(item.name) }}
             />
             <span>{item.name}</span>
           </div>
