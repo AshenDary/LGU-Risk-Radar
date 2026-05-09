@@ -86,8 +86,9 @@ function AuditExplorerPage() {
         )}
 
         {loading ? (
-          <div className="premium-card reveal-on-scroll rounded-3xl p-8 text-sm text-[#1E293B]/70">
-            Loading live backend data...
+          <div className="flex w-full items-center justify-center gap-3 rounded-2xl border border-blue-200 bg-blue-50 py-4 text-sm font-medium text-blue-600 transition-all duration-500">
+            <div className="h-5 w-5 rounded-full border-2 border-blue-500/40 border-t-blue-600 animate-spin" />
+            <span className="animate-pulse">Analyzing live LGU data...</span>
           </div>
         ) : (
           <>
