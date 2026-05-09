@@ -88,7 +88,7 @@ function RiskOverview({ rows, procurements }) {
         </div>
       </div>
 
-      <div className="dropdown-card premium-card premium-hover reveal-on-scroll relative rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
+      <div className="dropdown-card premium-card premium-hover reveal-on-scroll relative overflow-hidden rounded-3xl border border-[#38BDF8]/35 bg-white shadow-2xl shadow-[#2563EB]/12">
         <div className="relative z-20 border-b border-[#38BDF8]/20 bg-gradient-to-r from-[#F8FAFC] via-white to-[#EFF6FF] px-8 py-7">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="max-w-2xl">
