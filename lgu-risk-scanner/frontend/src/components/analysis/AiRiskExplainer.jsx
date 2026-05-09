@@ -230,9 +230,9 @@ function AiRiskExplainer({ item }) {
             {answers.length > 0 ? (
               <div className="grid gap-3">
                 {answers.map((entry) => (
-                  <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
+                  <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-5 shadow-sm">
                     <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-                    <div className="mt-2 whitespace-pre-wrap break-words text-sm text-[#0F172A]">
+                    <div className="mt-3 space-y-4 whitespace-pre-wrap break-words text-sm leading-7 text-slate-700">
                       <ReactMarkdown
                         components={{
                           strong: ({ children }) => (
@@ -241,12 +241,17 @@ function AiRiskExplainer({ item }) {
                             </strong>
                           ),
                           p: ({ children }) => (
-                            <p className="mb-3 leading-7">
+                            <p className="mb-4 leading-7">
                               {children}
                             </p>
                           ),
+                          ul: ({ children }) => (
+                            <ul className="mt-3 mb-4 ml-5 list-disc space-y-2">
+                              {children}
+                            </ul>
+                          ),
                           li: ({ children }) => (
-                            <li className="ml-5 list-disc mb-1">
+                            <li className="leading-7">
                               {children}
                             </li>
                           ),
