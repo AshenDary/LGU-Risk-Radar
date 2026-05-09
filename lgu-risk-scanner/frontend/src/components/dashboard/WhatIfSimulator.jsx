@@ -248,7 +248,7 @@ function WhatIfSimulator() {
       </div>
 
       {simulationResult ? (
-        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] px-4 py-3 text-xs font-semibold leading-5 text-[#2563EB]">
+        <div className="mt-6 flex items-center justify-center gap-3 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] px-4 py-3 text-center text-xs font-semibold leading-5 text-[#2563EB]">
           <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#38BDF8]/35 bg-white text-[0.7rem] font-black leading-none text-[#2563EB]">
             i
           </span>
