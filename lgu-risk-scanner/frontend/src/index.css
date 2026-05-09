@@ -265,6 +265,11 @@
     overflow: visible;
   }
 
+  .dropdown-card.procurement-exposure-card {
+    overflow: hidden;
+    background-clip: padding-box;
+  }
+
   .risk-overview-chart svg,
   .risk-overview-chart svg * {
     outline: none;
