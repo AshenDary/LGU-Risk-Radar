@@ -248,9 +248,14 @@ function WhatIfSimulator() {
       </div>
 
       {simulationResult ? (
-        <div className="mt-6 border-t border-slate-200 pt-6 text-xs leading-5 text-[#64748B]">
-          Simulation based on {values.procurementCount} procurements averaging {formatCurrency(values.avgAmount)},
-          with {values.supplierDiversity}% supplier diversity and a {values.completionRate}% completion rate.
+        <div className="mt-6 flex items-start gap-3 rounded-2xl border border-[#38BDF8]/30 bg-[#EFF6FF] px-4 py-3 text-xs font-semibold leading-5 text-[#2563EB]">
+          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white text-[0.7rem] font-black text-[#2563EB]">
+            i
+          </span>
+          <p className="min-w-0 break-words">
+            Simulation based on {values.procurementCount} procurements averaging {formatCurrency(values.avgAmount)},
+            with {values.supplierDiversity}% supplier diversity and a {values.completionRate}% completion rate.
+          </p>
         </div>
       ) : null}
     </Card>
