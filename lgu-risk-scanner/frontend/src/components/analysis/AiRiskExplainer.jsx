@@ -311,7 +311,7 @@ function AiRiskExplainer({ item }) {
               )}
             </>
           ) : (
-            <p className="text-sm font-medium leading-6 text-[#2563EB]">
+            <p className="text-center text-sm font-medium leading-6 text-[#2563EB]">
               Generate an explanation when you are ready to review this risk profile.
             </p>
           )}
