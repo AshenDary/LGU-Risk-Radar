@@ -168,12 +168,12 @@ function AiRiskExplainer({ item }) {
             </button>
           </div>
 
-          <div className="flex shrink-0 flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-3">
             <button
               type="button"
               onClick={() => submitQuestion('Summarize the supporting evidence reviewers should inspect.')}
               disabled={asking}
-              className="rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-fit rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
             >
               Show supporting records
             </button>
@@ -183,7 +183,7 @@ function AiRiskExplainer({ item }) {
               type="button"
               onClick={() => submitQuestion(prompt)}
               disabled={asking}
-              className="rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
+              className="w-fit rounded-full border border-[#38BDF8]/30 bg-white px-3.5 py-2 text-xs font-bold leading-5 text-[#0F172A] shadow-sm transition hover:bg-[#F8FAFC] hover:text-[#2563EB] disabled:cursor-not-allowed disabled:opacity-60"
             >
               {prompt}
             </button>
@@ -213,15 +213,15 @@ function AiRiskExplainer({ item }) {
             </button>
           </form>
 
-          <div className="dashboard-scrollbar min-h-[9rem] max-h-[40vh] overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-3 sm:p-4">
+          <div className="dashboard-scrollbar min-h-[72px] h-auto overflow-y-auto rounded-2xl border border-[#38BDF8]/25 bg-[#F8FAFC] p-4">
             {answers.length > 0 ? (
               <div className="grid gap-3">
                 {answers.map((entry) => (
                   <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
                     <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-                    <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
+                    <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
                     {entry.fallbackReason && (
-                      <p className="mt-2 break-words text-xs leading-5 text-amber-700">
+                      <p className="mt-2 whitespace-pre-wrap break-words text-xs leading-5 text-amber-700">
                         Using fallback: {entry.fallbackReason}
                       </p>
                     )}
