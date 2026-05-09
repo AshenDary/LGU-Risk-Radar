@@ -114,7 +114,7 @@ function RiskOverview({ rows, procurements }) {
 
         <div className="p-7 sm:p-9">
           {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={320}>
+            <ResponsiveContainer className="risk-overview-chart" width="100%" height={320}>
               <BarChart data={chartData} margin={{ top: 12, right: 16, left: 8, bottom: 18 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#DBEAFE" />
                 <XAxis

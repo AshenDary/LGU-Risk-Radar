@@ -265,6 +265,11 @@
     overflow: visible;
   }
 
+  .risk-overview-chart svg,
+  .risk-overview-chart svg * {
+    outline: none;
+  }
+
   .simulator-range {
     --range-progress: 0%;
     height: 34px;
