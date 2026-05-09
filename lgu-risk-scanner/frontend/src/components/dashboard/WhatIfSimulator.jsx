@@ -179,7 +179,7 @@ function WhatIfSimulator() {
       ) : null}
 
       {!selectedLguId && !error ? (
-        <div className="mb-6 rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] px-4 py-3 text-sm text-[#1D4ED8]">
+        <div className="mb-6 flex items-center justify-center rounded-2xl border border-[#38BDF8]/25 bg-[#EFF6FF] px-4 py-3 text-center text-sm text-[#1D4ED8]">
           Choose an LGU to load its current score and run a simulation.
         </div>
       ) : null}
