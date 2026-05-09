@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
+import ReactMarkdown from 'react-markdown'
 import { askExplanationQuestion, generateExplanation } from '../../services/api'
 import MarkdownText from '../common/MarkdownText'
 
@@ -219,7 +220,29 @@ function AiRiskExplainer({ item }) {
                 {answers.map((entry) => (
                   <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
                     <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
-                    <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
+                    <div className="mt-2 whitespace-pre-wrap break-words text-sm text-[#0F172A]">
+                      <ReactMarkdown
+                        components={{
+                          strong: ({ children }) => (
+                            <strong className="font-semibold text-slate-900">
+                              {children}
+                            </strong>
+                          ),
+                          p: ({ children }) => (
+                            <p className="mb-3 leading-7">
+                              {children}
+                            </p>
+                          ),
+                          li: ({ children }) => (
+                            <li className="ml-5 list-disc mb-1">
+                              {children}
+                            </li>
+                          ),
+                        }}
+                      >
+                        {entry.answer}
+                      </ReactMarkdown>
+                    </div>
                     {entry.fallbackReason && (
                       <p className="mt-2 whitespace-pre-wrap break-words text-xs leading-5 text-amber-700">
                         Using fallback: {entry.fallbackReason}
