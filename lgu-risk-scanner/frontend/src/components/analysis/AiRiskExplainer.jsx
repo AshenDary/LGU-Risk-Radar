@@ -341,9 +341,9 @@ function AiRiskExplainer({ item }) {
         )}
 
         {answers.length > 0 && !isAskOpen && (
-          <div className="dashboard-scrollbar grid max-h-32 shrink overflow-y-auto pr-2">
+          <div className="dashboard-scrollbar mt-4 grid max-h-32 shrink space-y-4 overflow-y-auto pr-2">
             {answers.map((entry) => (
-              <div key={entry.id} className="min-w-0 rounded-2xl border border-[#38BDF8]/25 bg-white p-4 shadow-sm">
+              <div key={entry.id} className="min-w-0 rounded-2xl border border-blue-100 bg-white p-4 leading-7 shadow-sm">
                 <p className="break-words text-xs font-bold text-[#2563EB]">{entry.question}</p>
                 <p className="mt-2 break-words text-sm leading-6 text-[#0F172A]">{entry.answer}</p>
                 {entry.fallbackReason && (
